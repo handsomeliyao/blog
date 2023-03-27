@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="LI YAO&#39;S BLOG">
 <meta property="og:description" content="修改主题配置文件_config.yml12345678910111213# Define custom file paths.# Create your custom files in site directory &#96;source&#x2F;_data&#96; and uncomment needed files below.custom_file_path:  #head: source&#x2F;_data&#x2F;head.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://handsomeliyao.github.io/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/image-20230324175213736.png">
+<meta property="og:image" content="https://handsomeliyao.github.io/blog/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/image-20230324175213736.png">
 <meta property="article:published_time" content="2023-03-24T09:45:20.000Z">
 <meta property="article:modified_time" content="2023-03-24T09:58:22.720Z">
 <meta property="article:author" content="LI YAO">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://handsomeliyao.github.io/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/image-20230324175213736.png">
+<meta name="twitter:image" content="https://handsomeliyao.github.io/blog/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/image-20230324175213736.png">
 
 <link rel="canonical" href="https://handsomeliyao.github.io/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/">
 
@@ -290,7 +290,7 @@
 
 <p>​	注意到这里的图片文件的实际位置是：<code>.../themes/next/source/images/</code></p>
 <h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>​	如果部署报一下错误，这需要调整Hexo配置</p>
-<img src="/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/image-20230324175213736.png" style="display: inline; border-style: none;">
+<img src="/blog/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/image-20230324175213736.png" style="display: inline; border-style: none;">
 
 <p>​	找到<code>...\themes\next\source\css</code>路径下的<code>main.styl</code>文件，修改如下配置</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Custom Layer</span></span><br><span class="line"><span class="comment">// --------------------------------------------------</span></span><br><span class="line"><span class="comment">// for $inject_style in hexo-config(&#x27;injects.style&#x27;)</span></span><br><span class="line"><span class="comment">//  @import $inject_style;</span></span><br><span class="line"><span class="keyword">@import</span> <span class="string">&quot;../_data/styles.styl&quot;</span>;</span><br></pre></td></tr></table></figure>
@@ -749,7 +749,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">13 分钟</span>
   <span class="post-meta-divider">|</span>
-  <span class=“post-count”>共4.9k字</span>
+  <span class=“post-count”>共4k字</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
