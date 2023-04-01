@@ -835,8 +835,11 @@ pre .javascript .function {
 .pagination .prev,
 .pagination .next,
 .pagination .page-number {
+  color: #696969;
   border-bottom: 0;
-  border-top: 1px solid #eee;
+  border-radius: 14px;
+  width: 30px;
+  font-weight: bold;
   transition-property: border-color;
   transition-delay: 0s;
   transition-duration: 0.2s;
@@ -845,7 +848,10 @@ pre .javascript .function {
 .pagination .prev:hover,
 .pagination .next:hover,
 .pagination .page-number:hover {
-  border-top-color: #222;
+  background: var(--body-bg-color);
+  transition-delay: 0s;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
 }
 .pagination .space {
   margin: 0;
@@ -858,9 +864,11 @@ pre .javascript .function {
   margin-right: 0;
 }
 .pagination .page-number.current {
-  background: #ccc;
-  border-top-color: #ccc;
-  color: #fff;
+  background: var(--body-bg-color);
+  border-radius: 14px;
+  width: 30px;
+  font-weight: bold;
+  color: #696969;
 }
 @media (max-width: 767px) {
   .pagination {
@@ -1199,7 +1207,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #7591ff;
+  background: #ffffe4;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
