@@ -20,17 +20,20 @@
     var CONFIG = {"hostname":"handsomeliyao.github.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="伸手摘星, 即使一无所获, 也不至于满手污泥">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LI YAO&#39;S BLOG">
-<meta property="og:url" content="https://handsomeliyao.github.io/tags/Arthas/index.html">
+  <meta name="description" content="Arthas IdeaJava 应用诊断利器，Arthas 是一款线上监控诊断产品，通过全局视角实时查看应用 load、内存、gc、线程的状态信息，并能在不修改应用代码的情况下，对业务问题进行诊断，包括查看方法调用的出入参、异常，监测方法执行耗时，类加载信息等，大大提升线上问题排查效率。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDEA常用插件">
+<meta property="og:url" content="https://handsomeliyao.github.io/2023/04/07/IDEA%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6/index.html">
 <meta property="og:site_name" content="LI YAO&#39;S BLOG">
-<meta property="og:description" content="伸手摘星, 即使一无所获, 也不至于满手污泥">
+<meta property="og:description" content="Arthas IdeaJava 应用诊断利器，Arthas 是一款线上监控诊断产品，通过全局视角实时查看应用 load、内存、gc、线程的状态信息，并能在不修改应用代码的情况下，对业务问题进行诊断，包括查看方法调用的出入参、异常，监测方法执行耗时，类加载信息等，大大提升线上问题排查效率。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-07T06:28:49.000Z">
+<meta property="article:modified_time" content="2023-04-07T06:30:35.318Z">
 <meta property="article:author" content="LI YAO">
+<meta property="article:tag" content="IDEA">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://handsomeliyao.github.io/tags/Arthas/">
+<link rel="canonical" href="https://handsomeliyao.github.io/2023/04/07/IDEA%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6/">
 
 
 <script id="page-configurations">
@@ -38,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: Arthas | LI YAO'S BLOG</title>
+  <title>IDEA常用插件 | LI YAO'S BLOG</title>
   
 
 
@@ -194,57 +197,166 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://handsomeliyao.github.io/2023/04/07/IDEA%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/person2.png">
+      <meta itemprop="name" content="LI YAO">
+      <meta itemprop="description" content="伸手摘星, 即使一无所获, 也不至于满手污泥">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LI YAO'S BLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          IDEA常用插件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-04-07 14:28:49 / 修改时间：14:30:35" itemprop="dateCreated datePublished" datetime="2023-04-07T14:28:49+08:00">2023-04-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/IDEA/" itemprop="url" rel="index"><span itemprop="name">IDEA</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/IDEA/%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">常用插件</span></a>
+                </span>
+            </span>
+
+          
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">Arthas
-          <small>标签</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/blog/2023/04/07/IDEA%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/blog/2023/04/07/IDEA%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>670</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-04-01T16:34:00+08:00"
-              content="2023-04-01">
-          04-01
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/blog/2023/04/01/SpringBoot%E6%95%B4%E5%90%88Arthas%E8%AF%8A%E6%96%AD%E5%88%A9%E5%99%A8/" itemprop="url">
-            <span itemprop="name">SpringBoot整合Arthas诊断利器</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        <h4 id="Arthas-Idea"><a href="#Arthas-Idea" class="headerlink" title="Arthas Idea"></a><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/13581-arthas-idea">Arthas Idea</a></h4><p>Java 应用诊断利器，Arthas 是一款线上监控诊断产品，通过全局视角实时查看应用 load、内存、gc、线程的状态信息，并能在不修改应用代码的情况下，对业务问题进行诊断，包括查看方法调用的出入参、异常，监测方法执行耗时，类加载信息等，大大提升线上问题排查效率。</p>
+<hr>
+<h4 id="Chinese-Simplified-Language-Pack-x2F-中文语言包"><a href="#Chinese-Simplified-Language-Pack-x2F-中文语言包" class="headerlink" title="Chinese (Simplified) Language Pack &#x2F; 中文语言包"></a><strong><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/13710-chinese-simplified-language-pack----">Chinese (Simplified) Language Pack &#x2F; 中文语言包</a></strong></h4><p>中文语言包将为您的 IntelliJ IDEA, AppCode, CLion, DataGrip, GoLand, PyCharm, PhpStorm, RubyMine, WebStorm, 和Rider 带来完全中文化的界面</p>
+<hr>
+<h4 id="SonarLint"><a href="#SonarLint" class="headerlink" title="SonarLint"></a><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7973-sonarlint">SonarLint</a></h4><p>SonarLint是一个免费的IDE扩展，可以实时查找和修复编码问题，在编码时标记问题，就像拼写检查器一样。它不仅提供了一个linter，还提供了丰富的上下文指导，帮助开发人员理解为什么存在问题，评估风险，并教育他们如何解决问题。这有助于提高他们的技能，提高他们的生产力，并拥有他们的代码，将linting提升到一个不同的水平。</p>
+<hr>
+<h4 id="Easy-Javadoc"><a href="#Easy-Javadoc" class="headerlink" title="Easy Javadoc"></a><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/12977-easy-javadoc">Easy Javadoc</a></h4><p>这个插件可以帮助您快速完成中文javadoc&#x2F;kdoc文档。支持三种类型的javadoc&#x2F;kdoc：字段、方法和类。</p>
+<hr>
+<h4 id="Grep-Console"><a href="#Grep-Console" class="headerlink" title="Grep Console"></a><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7125-grep-console">Grep Console</a></h4><p>更改匹配文本的颜色；将输出填充到新的控制台选项卡中；使用自定义groovy脚本或插件更改输出或执行任何操作；过滤掉不需要的线路；stdout&#x2F;stderr流混合的解决方案；折叠输出；清除匹配的控制台；</p>
+<hr>
+<h4 id="Indent-Rainbow"><a href="#Indent-Rainbow" class="headerlink" title="Indent Rainbow"></a><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/13308-indent-rainbow">Indent Rainbow</a></h4><p>一个简单的扩展，使缩进更具可读性；这个扩展为文本前面的缩进着色，每一步交替使用六种不同的颜色。</p>
+<hr>
+<h4 id="Json-Parser"><a href="#Json-Parser" class="headerlink" title="Json Parser"></a><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/10650-json-parser">Json Parser</a></h4><p>Simple JSON Parser是一个用于验证和格式化JSON字符串的IntelliJ IDE插件</p>
+<hr>
+<h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/12820-redis">Redis</a></h4><p>该插件可以方便我们快速查看Redis缓存中的数据，支持多种键值类型查看，也可以快速新增删除缓存数据</p>
+<hr>
+<h4 id="Restful-Fast-Request"><a href="#Restful-Fast-Request" class="headerlink" title="Restful Fast Request"></a><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/16988-restful-fast-request">Restful Fast Request</a></h4><p>Restful Fast Request 是一个类似于 Postman 的 IDEA 插件，可帮助开发人员有效地调试 API。它是一个功能强大的 restful 工具包（http 客户端）插件，可帮助您通过现有方法快速生成 URL 和参数。插件 &#x3D; API 调试工具 + API 管理器工具 + API 搜索工具<br>插件有一个漂亮的界面来撰写请求、检查服务器响应、存储您的 API 请求和导出 API 请求</p>
+<hr>
+<h4 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/6317-lombok/versions">Lombok</a></h4><p>可以使用注解帮我们自动生成get&#x2F;set等一系列方法；可以使用@Builder注解快速构建对象等等…简化日常开发</p>
 
     </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>赞赏一杯咖啡</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';" style="cursor:pointer;">
+    <i class="fa fa-qrcode fa-2x" style="line-height:35px;font:normal normal normal 25px/1 FontAwesome;"></i>
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/blog/images/wechatpay.jpg" alt="LI YAO 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/blog/images/alipay.jpg" alt="LI YAO 支付宝">
+        <p>支付宝</p>
+      </div>
+
   </div>
-  
-  
-  
+</div>
 
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/IDEA/" rel="tag"># IDEA</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2023/04/01/SpringBoot%E6%95%B4%E5%90%88Arthas%E8%AF%8A%E6%96%AD%E5%88%A9%E5%99%A8/" rel="prev" title="SpringBoot整合Arthas诊断利器">
+      <i class="fa fa-chevron-left"></i> SpringBoot整合Arthas诊断利器
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -291,6 +403,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Arthas-Idea"><span class="nav-number">1.</span> <span class="nav-text">Arthas Idea</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Chinese-Simplified-Language-Pack-x2F-%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85"><span class="nav-number">2.</span> <span class="nav-text">Chinese (Simplified) Language Pack &#x2F; 中文语言包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SonarLint"><span class="nav-number">3.</span> <span class="nav-text">SonarLint</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Easy-Javadoc"><span class="nav-number">4.</span> <span class="nav-text">Easy Javadoc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Grep-Console"><span class="nav-number">5.</span> <span class="nav-text">Grep Console</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Indent-Rainbow"><span class="nav-number">6.</span> <span class="nav-text">Indent Rainbow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Json-Parser"><span class="nav-number">7.</span> <span class="nav-text">Json Parser</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis"><span class="nav-number">8.</span> <span class="nav-text">Redis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Restful-Fast-Request"><span class="nav-number">9.</span> <span class="nav-text">Restful Fast Request</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lombok"><span class="nav-number">10.</span> <span class="nav-text">Lombok</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
