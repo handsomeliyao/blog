@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hexo开启本地搜索功能</title>
-    <url>/blog/2023/03/23/Hexo%E5%BC%80%E5%90%AF%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD/</url>
-    <content><![CDATA[<p>​	修改主题配置文件&#96;_config.yml，开启本地搜索功能</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Local Search</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/theme-next/hexo-generator-searchdb</span></span><br><span class="line"><span class="attr">local_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># If auto, trigger search by changing input.</span></span><br><span class="line">  <span class="comment"># If manual, trigger search by pressing enter key or search button.</span></span><br><span class="line">  <span class="attr">trigger:</span> <span class="string">auto</span></span><br><span class="line">  <span class="comment"># Show top n results per article, show all results by setting to -1</span></span><br><span class="line">  <span class="attr">top_n_per_article:</span> <span class="number">1</span></span><br><span class="line">  <span class="comment"># Unescape html strings to the readable one.</span></span><br><span class="line">  <span class="attr">unescape:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># Preload the search data when the page loads.</span></span><br><span class="line">  <span class="attr">preload:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<p>​	<code>enable</code> 为是否启用本地搜索<br>​	<code>trigger</code> 选auto则搜索时输入自动出现结果，选manual则搜索时输入完成需手动点击回车或搜索按钮出结果<br>​	<code>top_n_per_article</code> 显示每篇文章的top n个结果，通过设置为-1显示所有结果<br>​	<code>unescape</code> 将html字符串转换为可读的字符串<br>​	<code>preload</code> 在页面加载时预加载搜索数据。</p>
-<p>​	启用此功能需要安装<code>hexo-generator-searchdb</code>，在根目录下使用以下命令安装：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
-
-<p>​	最后再主题配置文件<code>_config.yml</code>添加如下配置：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.xml</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">format:</span> <span class="string">html</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">10000</span></span><br></pre></td></tr></table></figure>
-
-<p>​	配置好后，使用<code>hexo g</code>与<code>hexo s</code>命令部署启动查看效果即可</p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo侧边栏添加个性化数字时钟</title>
     <url>/blog/2023/03/23/Hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E6%B7%BB%E5%8A%A0%E4%B8%AA%E6%80%A7%E5%8C%96%E6%95%B0%E5%AD%97%E6%97%B6%E9%92%9F/</url>
     <content><![CDATA[<p>​	修改主题下的<code>site-overview.swig</code>文件，路径：<code>...\themes\next\layout\_partials\sidebar\site-overview.swig</code></p>
@@ -72,6 +50,28 @@
       <tags>
         <tag>Hexo</tag>
         <tag>Font Awesome</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo开启本地搜索功能</title>
+    <url>/blog/2023/03/23/Hexo%E5%BC%80%E5%90%AF%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD/</url>
+    <content><![CDATA[<p>​	修改主题配置文件&#96;_config.yml，开启本地搜索功能</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Local Search</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/theme-next/hexo-generator-searchdb</span></span><br><span class="line"><span class="attr">local_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># If auto, trigger search by changing input.</span></span><br><span class="line">  <span class="comment"># If manual, trigger search by pressing enter key or search button.</span></span><br><span class="line">  <span class="attr">trigger:</span> <span class="string">auto</span></span><br><span class="line">  <span class="comment"># Show top n results per article, show all results by setting to -1</span></span><br><span class="line">  <span class="attr">top_n_per_article:</span> <span class="number">1</span></span><br><span class="line">  <span class="comment"># Unescape html strings to the readable one.</span></span><br><span class="line">  <span class="attr">unescape:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># Preload the search data when the page loads.</span></span><br><span class="line">  <span class="attr">preload:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>​	<code>enable</code> 为是否启用本地搜索<br>​	<code>trigger</code> 选auto则搜索时输入自动出现结果，选manual则搜索时输入完成需手动点击回车或搜索按钮出结果<br>​	<code>top_n_per_article</code> 显示每篇文章的top n个结果，通过设置为-1显示所有结果<br>​	<code>unescape</code> 将html字符串转换为可读的字符串<br>​	<code>preload</code> 在页面加载时预加载搜索数据。</p>
+<p>​	启用此功能需要安装<code>hexo-generator-searchdb</code>，在根目录下使用以下命令安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+
+<p>​	最后再主题配置文件<code>_config.yml</code>添加如下配置：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.xml</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">format:</span> <span class="string">html</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">10000</span></span><br></pre></td></tr></table></figure>
+
+<p>​	配置好后，使用<code>hexo g</code>与<code>hexo s</code>命令部署启动查看效果即可</p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -350,6 +350,38 @@
       </tags>
   </entry>
   <entry>
+    <title>Valine评论丢失问题</title>
+    <url>/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>​	起因是今天发现之前在文章下的评论消失不见了，于是开始思考问题出在哪里</p>
+<p>​	首先打开F12控制台，看下Valine评论调用接口是否正常，如下</p>
+<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328111131681.png" style="display: inline; border-style: none;">
+
+<p>​	可以看到状态是200没问题，但是切换到Response发现并没有数据返回</p>
+<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328111352583.png" style="display: inline; border-style: none;">
+
+<p>​	这就奇怪了，明明之前是有评论数据的，为什么没有返回，于是想着去 <a href="https://console.leancloud.cn/">LeanCloud</a> 控制台看一下</p>
+<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328111743416.png" style="display: inline; border-style: none;">
+
+<p>​	从控制台也可以看出是有评论数据的，带着疑问继续往下探索，我们点开某一条评论的详细信息查看</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;nick&quot;</span><span class="punctuation">:</span> <span class="string">&quot;一尘不染的真心&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;updatedAt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023-03-28T02:33:59.001Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ACL&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;*&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;read&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;objectId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;642252179cc5f14274a130b9&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;mail&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ua&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;insertedAt&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;__type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Date&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;iso&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023-03-28T02:33:58.865Z&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;createdAt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023-03-28T02:33:59.001Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;link&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;comment&quot;</span><span class="punctuation">:</span> <span class="string">&quot;测试评论... :dog:&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/2023/03/21/Hexo添加评论功能/&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;QQAvatar&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>​	从中注意到有一个属性很关键，没错那就是 <code>url</code>，突然想到前几天网站<code>root</code>路径进行了迁移，但是 <a href="https://console.leancloud.cn/">LeanCloud</a> 中的评论路径还是老的</p>
+<p>​	由此可以看出再请求 <a href="https://console.leancloud.cn/">LeanCloud</a> 时是跟文章的 <code>url</code> 有关的（其实从请求参数上也可以看出，只不过被转码了）</p>
+   <img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/1A32B358.gif" style="display: inline; border-style: none;">
+
+<p>​	问题找到了，我们修改一下评论的<code>url</code>再看下，发现问题解决了！</p>
+<p>​	url: <code>/blog/2023/03/21/Hexo添加评论功能/</code></p>
+<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328133653297.png" style="display: inline; border-style: none;">
+]]></content>
+      <categories>
+        <category>Valine</category>
+        <category>问题处理</category>
+      </categories>
+      <tags>
+        <tag>Valine</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用Spring特性实现接口多实现类的动态调用</title>
     <url>/blog/2023/04/10/Spring%E6%8E%A5%E5%8F%A3%E5%AD%98%E5%9C%A8%E5%A4%9A%E4%B8%AA%E5%AE%9E%E7%8E%B0%E7%B1%BB%E6%97%B6%E7%9A%84%E5%8A%A8%E6%80%81%E8%B0%83%E7%94%A8/</url>
     <content><![CDATA[<h4 id="问题的提出"><a href="#问题的提出" class="headerlink" title="问题的提出"></a>问题的提出</h4><p>在实际工作中，我们经常会遇到一个接口及多个实现类的情况，并且在不同的条件下会使用不同的实现类。从使用方式上看，有些类似SPI的用法，但是由于SPI的</p>
@@ -387,38 +419,6 @@
       <tags>
         <tag>SpringBoot</tag>
         <tag>接口动态调用</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Valine评论丢失问题</title>
-    <url>/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>​	起因是今天发现之前在文章下的评论消失不见了，于是开始思考问题出在哪里</p>
-<p>​	首先打开F12控制台，看下Valine评论调用接口是否正常，如下</p>
-<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328111131681.png" style="display: inline; border-style: none;">
-
-<p>​	可以看到状态是200没问题，但是切换到Response发现并没有数据返回</p>
-<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328111352583.png" style="display: inline; border-style: none;">
-
-<p>​	这就奇怪了，明明之前是有评论数据的，为什么没有返回，于是想着去 <a href="https://console.leancloud.cn/">LeanCloud</a> 控制台看一下</p>
-<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328111743416.png" style="display: inline; border-style: none;">
-
-<p>​	从控制台也可以看出是有评论数据的，带着疑问继续往下探索，我们点开某一条评论的详细信息查看</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;nick&quot;</span><span class="punctuation">:</span> <span class="string">&quot;一尘不染的真心&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;updatedAt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023-03-28T02:33:59.001Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ACL&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;*&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;read&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;objectId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;642252179cc5f14274a130b9&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;mail&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ua&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;insertedAt&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;__type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Date&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;iso&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023-03-28T02:33:58.865Z&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;createdAt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023-03-28T02:33:59.001Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;link&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;comment&quot;</span><span class="punctuation">:</span> <span class="string">&quot;测试评论... :dog:&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/2023/03/21/Hexo添加评论功能/&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;QQAvatar&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>​	从中注意到有一个属性很关键，没错那就是 <code>url</code>，突然想到前几天网站<code>root</code>路径进行了迁移，但是 <a href="https://console.leancloud.cn/">LeanCloud</a> 中的评论路径还是老的</p>
-<p>​	由此可以看出再请求 <a href="https://console.leancloud.cn/">LeanCloud</a> 时是跟文章的 <code>url</code> 有关的（其实从请求参数上也可以看出，只不过被转码了）</p>
-   <img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/1A32B358.gif" style="display: inline; border-style: none;">
-
-<p>​	问题找到了，我们修改一下评论的<code>url</code>再看下，发现问题解决了！</p>
-<p>​	url: <code>/blog/2023/03/21/Hexo添加评论功能/</code></p>
-<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328133653297.png" style="display: inline; border-style: none;">
-]]></content>
-      <categories>
-        <category>Valine</category>
-        <category>问题处理</category>
-      </categories>
-      <tags>
-        <tag>Valine</tag>
       </tags>
   </entry>
 </search>
