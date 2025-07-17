@@ -269,6 +269,40 @@
       </tags>
   </entry>
   <entry>
+    <title>IDEA常用插件</title>
+    <url>/blog/2023/04/07/IDEA%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6/</url>
+    <content><![CDATA[<h4 id="Arthas-Idea"><a href="#Arthas-Idea" class="headerlink" title="Arthas Idea"></a><a href="https://plugins.jetbrains.com/plugin/13581-arthas-idea">Arthas Idea</a></h4><p>Java 应用诊断利器，Arthas 是一款线上监控诊断产品，通过全局视角实时查看应用 load、内存、gc、线程的状态信息，并能在不修改应用代码的情况下，对业务问题进行诊断，包括查看方法调用的出入参、异常，监测方法执行耗时，类加载信息等，大大提升线上问题排查效率。</p>
+<hr>
+<h4 id="Chinese-Simplified-Language-Pack-x2F-中文语言包"><a href="#Chinese-Simplified-Language-Pack-x2F-中文语言包" class="headerlink" title="Chinese (Simplified) Language Pack &#x2F; 中文语言包"></a><strong><a href="https://plugins.jetbrains.com/plugin/13710-chinese-simplified-language-pack----">Chinese (Simplified) Language Pack &#x2F; 中文语言包</a></strong></h4><p>中文语言包将为您的 IntelliJ IDEA, AppCode, CLion, DataGrip, GoLand, PyCharm, PhpStorm, RubyMine, WebStorm, 和Rider 带来完全中文化的界面</p>
+<hr>
+<h4 id="SonarLint"><a href="#SonarLint" class="headerlink" title="SonarLint"></a><a href="https://plugins.jetbrains.com/plugin/7973-sonarlint">SonarLint</a></h4><p>SonarLint是一个免费的IDE扩展，可以实时查找和修复编码问题，在编码时标记问题，就像拼写检查器一样。它不仅提供了一个linter，还提供了丰富的上下文指导，帮助开发人员理解为什么存在问题，评估风险，并教育他们如何解决问题。这有助于提高他们的技能，提高他们的生产力，并拥有他们的代码，将linting提升到一个不同的水平。</p>
+<hr>
+<h4 id="Easy-Javadoc"><a href="#Easy-Javadoc" class="headerlink" title="Easy Javadoc"></a><a href="https://plugins.jetbrains.com/plugin/12977-easy-javadoc">Easy Javadoc</a></h4><p>这个插件可以帮助您快速完成中文javadoc&#x2F;kdoc文档。支持三种类型的javadoc&#x2F;kdoc：字段、方法和类。</p>
+<hr>
+<h4 id="Grep-Console"><a href="#Grep-Console" class="headerlink" title="Grep Console"></a><a href="https://plugins.jetbrains.com/plugin/7125-grep-console">Grep Console</a></h4><p>更改匹配文本的颜色；将输出填充到新的控制台选项卡中；使用自定义groovy脚本或插件更改输出或执行任何操作；过滤掉不需要的线路；stdout&#x2F;stderr流混合的解决方案；折叠输出；清除匹配的控制台；</p>
+<hr>
+<h4 id="Indent-Rainbow"><a href="#Indent-Rainbow" class="headerlink" title="Indent Rainbow"></a><a href="https://plugins.jetbrains.com/plugin/13308-indent-rainbow">Indent Rainbow</a></h4><p>一个简单的扩展，使缩进更具可读性；这个扩展为文本前面的缩进着色，每一步交替使用六种不同的颜色。</p>
+<hr>
+<h4 id="Json-Parser"><a href="#Json-Parser" class="headerlink" title="Json Parser"></a><a href="https://plugins.jetbrains.com/plugin/10650-json-parser">Json Parser</a></h4><p>Simple JSON Parser是一个用于验证和格式化JSON字符串的IntelliJ IDE插件</p>
+<hr>
+<h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a><a href="https://plugins.jetbrains.com/plugin/12820-redis">Redis</a></h4><p>该插件可以方便我们快速查看Redis缓存中的数据，支持多种键值类型查看，也可以快速新增删除缓存数据</p>
+<hr>
+<h4 id="Restful-Fast-Request"><a href="#Restful-Fast-Request" class="headerlink" title="Restful Fast Request"></a><a href="https://plugins.jetbrains.com/plugin/16988-restful-fast-request">Restful Fast Request</a></h4><p>Restful Fast Request 是一个类似于 Postman 的 IDEA 插件，可帮助开发人员有效地调试 API。它是一个功能强大的 restful 工具包（http 客户端）插件，可帮助您通过现有方法快速生成 URL 和参数。插件 &#x3D; API 调试工具 + API 管理器工具 + API 搜索工具<br>插件有一个漂亮的界面来撰写请求、检查服务器响应、存储您的 API 请求和导出 API 请求</p>
+<hr>
+<h4 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a><a href="https://plugins.jetbrains.com/plugin/6317-lombok/versions">Lombok</a></h4><p>可以使用注解帮我们自动生成get&#x2F;set等一系列方法；可以使用@Builder注解快速构建对象等等…简化日常开发</p>
+<hr>
+<h4 id="JProfiler"><a href="#JProfiler" class="headerlink" title="JProfiler"></a><a href="https://plugins.jetbrains.com/plugin/253-jprofiler">JProfiler</a></h4><p>由ej-technologies为JProfiler提供的官方JProfiler插件。使用此插件，可以从 IDEA 中使用 JProfiler 分析选定的运行配置。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>IDEA</category>
+        <category>常用插件</category>
+      </categories>
+      <tags>
+        <tag>IDEA</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot整合Arthas诊断利器</title>
     <url>/blog/2023/04/01/SpringBoot%E6%95%B4%E5%90%88Arthas%E8%AF%8A%E6%96%AD%E5%88%A9%E5%99%A8/</url>
     <content><![CDATA[<h4 id="什么是Arthas"><a href="#什么是Arthas" class="headerlink" title="什么是Arthas"></a>什么是Arthas</h4><p>Arthas 是一款线上监控诊断产品，通过全局视角实时查看应用 load、内存、gc、线程的状态信息，并能在不修改应用代码的情况下，对业务问题进行诊断，包括查看方法调用的出入参、异常，监测方法执行耗时，类加载信息等，大大提升线上问题排查效率。</p>
@@ -310,43 +344,9 @@
         <category>Arthas</category>
       </categories>
       <tags>
+        <tag>IDEA</tag>
         <tag>SpringBoot</tag>
         <tag>Arthas</tag>
-        <tag>IDEA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>IDEA常用插件</title>
-    <url>/blog/2023/04/07/IDEA%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6/</url>
-    <content><![CDATA[<h4 id="Arthas-Idea"><a href="#Arthas-Idea" class="headerlink" title="Arthas Idea"></a><a href="https://plugins.jetbrains.com/plugin/13581-arthas-idea">Arthas Idea</a></h4><p>Java 应用诊断利器，Arthas 是一款线上监控诊断产品，通过全局视角实时查看应用 load、内存、gc、线程的状态信息，并能在不修改应用代码的情况下，对业务问题进行诊断，包括查看方法调用的出入参、异常，监测方法执行耗时，类加载信息等，大大提升线上问题排查效率。</p>
-<hr>
-<h4 id="Chinese-Simplified-Language-Pack-x2F-中文语言包"><a href="#Chinese-Simplified-Language-Pack-x2F-中文语言包" class="headerlink" title="Chinese (Simplified) Language Pack &#x2F; 中文语言包"></a><strong><a href="https://plugins.jetbrains.com/plugin/13710-chinese-simplified-language-pack----">Chinese (Simplified) Language Pack &#x2F; 中文语言包</a></strong></h4><p>中文语言包将为您的 IntelliJ IDEA, AppCode, CLion, DataGrip, GoLand, PyCharm, PhpStorm, RubyMine, WebStorm, 和Rider 带来完全中文化的界面</p>
-<hr>
-<h4 id="SonarLint"><a href="#SonarLint" class="headerlink" title="SonarLint"></a><a href="https://plugins.jetbrains.com/plugin/7973-sonarlint">SonarLint</a></h4><p>SonarLint是一个免费的IDE扩展，可以实时查找和修复编码问题，在编码时标记问题，就像拼写检查器一样。它不仅提供了一个linter，还提供了丰富的上下文指导，帮助开发人员理解为什么存在问题，评估风险，并教育他们如何解决问题。这有助于提高他们的技能，提高他们的生产力，并拥有他们的代码，将linting提升到一个不同的水平。</p>
-<hr>
-<h4 id="Easy-Javadoc"><a href="#Easy-Javadoc" class="headerlink" title="Easy Javadoc"></a><a href="https://plugins.jetbrains.com/plugin/12977-easy-javadoc">Easy Javadoc</a></h4><p>这个插件可以帮助您快速完成中文javadoc&#x2F;kdoc文档。支持三种类型的javadoc&#x2F;kdoc：字段、方法和类。</p>
-<hr>
-<h4 id="Grep-Console"><a href="#Grep-Console" class="headerlink" title="Grep Console"></a><a href="https://plugins.jetbrains.com/plugin/7125-grep-console">Grep Console</a></h4><p>更改匹配文本的颜色；将输出填充到新的控制台选项卡中；使用自定义groovy脚本或插件更改输出或执行任何操作；过滤掉不需要的线路；stdout&#x2F;stderr流混合的解决方案；折叠输出；清除匹配的控制台；</p>
-<hr>
-<h4 id="Indent-Rainbow"><a href="#Indent-Rainbow" class="headerlink" title="Indent Rainbow"></a><a href="https://plugins.jetbrains.com/plugin/13308-indent-rainbow">Indent Rainbow</a></h4><p>一个简单的扩展，使缩进更具可读性；这个扩展为文本前面的缩进着色，每一步交替使用六种不同的颜色。</p>
-<hr>
-<h4 id="Json-Parser"><a href="#Json-Parser" class="headerlink" title="Json Parser"></a><a href="https://plugins.jetbrains.com/plugin/10650-json-parser">Json Parser</a></h4><p>Simple JSON Parser是一个用于验证和格式化JSON字符串的IntelliJ IDE插件</p>
-<hr>
-<h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a><a href="https://plugins.jetbrains.com/plugin/12820-redis">Redis</a></h4><p>该插件可以方便我们快速查看Redis缓存中的数据，支持多种键值类型查看，也可以快速新增删除缓存数据</p>
-<hr>
-<h4 id="Restful-Fast-Request"><a href="#Restful-Fast-Request" class="headerlink" title="Restful Fast Request"></a><a href="https://plugins.jetbrains.com/plugin/16988-restful-fast-request">Restful Fast Request</a></h4><p>Restful Fast Request 是一个类似于 Postman 的 IDEA 插件，可帮助开发人员有效地调试 API。它是一个功能强大的 restful 工具包（http 客户端）插件，可帮助您通过现有方法快速生成 URL 和参数。插件 &#x3D; API 调试工具 + API 管理器工具 + API 搜索工具<br>插件有一个漂亮的界面来撰写请求、检查服务器响应、存储您的 API 请求和导出 API 请求</p>
-<hr>
-<h4 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a><a href="https://plugins.jetbrains.com/plugin/6317-lombok/versions">Lombok</a></h4><p>可以使用注解帮我们自动生成get&#x2F;set等一系列方法；可以使用@Builder注解快速构建对象等等…简化日常开发</p>
-<hr>
-<h4 id="JProfiler"><a href="#JProfiler" class="headerlink" title="JProfiler"></a><a href="https://plugins.jetbrains.com/plugin/253-jprofiler">JProfiler</a></h4><p>由ej-technologies为JProfiler提供的官方JProfiler插件。使用此插件，可以从 IDEA 中使用 JProfiler 分析选定的运行配置。</p>
-<hr>
-]]></content>
-      <categories>
-        <category>IDEA</category>
-        <category>常用插件</category>
-      </categories>
-      <tags>
-        <tag>IDEA</tag>
       </tags>
   </entry>
   <entry>
