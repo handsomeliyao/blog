@@ -1,0 +1,28 @@
+# Normalize line endings in the deployed (gh-pages) repo
+# Force LF for text files to avoid "LF will be replaced by CRLF" warnings on Windows.
+*	text=auto eol=lf
+
+# Common web text assets
+*.html	text eol=lf
+*.css	text eol=lf
+*.js	text eol=lf
+*.json	text eol=lf
+*.xml	text eol=lf
+*.svg	text eol=lf
+*.txt	text eol=lf
+*.md	text eol=lf
+
+# Binary assets
+*.png	binary
+*.jpg	binary
+*.jpeg	binary
+*.gif	binary
+*.ico	binary
+*.webp	binary
+*.woff	binary
+*.woff2	binary
+*.ttf	binary
+*.eot	binary
+*.otf	binary
+*.mp4	binary
+*.pdf	binary
