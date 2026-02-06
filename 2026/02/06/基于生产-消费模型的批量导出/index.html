@@ -20,22 +20,20 @@
     var CONFIG = {"hostname":"handsomeliyao.github.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="修改主题配置文件_config.yml12345678910111213# Define custom file paths.# Create your custom files in site directory &#96;source&#x2F;_data&#96; and uncomment needed files below.custom_file_path:  #head: source&#x2F;_data&#x2F;head.">
+  <meta name="description" content="基于生产-消费模型的批量导出设计思想">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo添加自定义样式配置&#x2F;主页背景图片设置">
-<meta property="og:url" content="https://handsomeliyao.github.io/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/index.html">
+<meta property="og:title" content="基于生产-消费模型的批量导出">
+<meta property="og:url" content="https://handsomeliyao.github.io/2026/02/06/%E5%9F%BA%E4%BA%8E%E7%94%9F%E4%BA%A7-%E6%B6%88%E8%B4%B9%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%89%B9%E9%87%8F%E5%AF%BC%E5%87%BA/index.html">
 <meta property="og:site_name" content="LI YAO&#39;S BLOG">
-<meta property="og:description" content="修改主题配置文件_config.yml12345678910111213# Define custom file paths.# Create your custom files in site directory &#96;source&#x2F;_data&#96; and uncomment needed files below.custom_file_path:  #head: source&#x2F;_data&#x2F;head.">
+<meta property="og:description" content="基于生产-消费模型的批量导出设计思想">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://handsomeliyao.github.io/blog/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/image-20230324175213736.png">
-<meta property="article:published_time" content="2023-03-24T09:45:20.000Z">
-<meta property="article:modified_time" content="2023-03-24T09:58:22.720Z">
+<meta property="article:published_time" content="2026-02-06T06:12:00.000Z">
+<meta property="article:modified_time" content="2026-02-06T06:16:28.707Z">
 <meta property="article:author" content="LI YAO">
-<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="EasyExcel批量下载">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://handsomeliyao.github.io/blog/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/image-20230324175213736.png">
 
-<link rel="canonical" href="https://handsomeliyao.github.io/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/">
+<link rel="canonical" href="https://handsomeliyao.github.io/2026/02/06/%E5%9F%BA%E4%BA%8E%E7%94%9F%E4%BA%A7-%E6%B6%88%E8%B4%B9%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%89%B9%E9%87%8F%E5%AF%BC%E5%87%BA/">
 
 
 <script id="page-configurations">
@@ -48,7 +46,7 @@
   };
 </script>
 
-  <title>Hexo添加自定义样式配置/主页背景图片设置 | LI YAO'S BLOG</title>
+  <title>基于生产-消费模型的批量导出 | LI YAO'S BLOG</title>
   
 
 
@@ -206,7 +204,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://handsomeliyao.github.io/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/">
+    <link itemprop="mainEntityOfPage" href="https://handsomeliyao.github.io/2026/02/06/%E5%9F%BA%E4%BA%8E%E7%94%9F%E4%BA%A7-%E6%B6%88%E8%B4%B9%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%89%B9%E9%87%8F%E5%AF%BC%E5%87%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/person2.png">
@@ -219,7 +217,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo添加自定义样式配置/主页背景图片设置
+          基于生产-消费模型的批量导出
         </h1>
 
         <div class="post-meta">
@@ -230,7 +228,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-03-24 17:45:20 / 修改时间：17:58:22" itemprop="dateCreated datePublished" datetime="2023-03-24T17:45:20+08:00">2023-03-24</time>
+              <time title="创建时间：2026-02-06 14:12:00 / 修改时间：14:16:28" itemprop="dateCreated datePublished" datetime="2026-02-06T14:12:00+08:00">2026-02-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,7 +236,15 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+                  <a href="/blog/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/SpringBoot/EasyExcel/" itemprop="url" rel="index"><span itemprop="name">EasyExcel</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/SpringBoot/EasyExcel/%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD/" itemprop="url" rel="index"><span itemprop="name">批量下载</span></a>
                 </span>
             </span>
 
@@ -251,8 +257,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/blog/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/blog/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/" itemprop="commentCount"></span>
+    <a title="valine" href="/blog/2026/02/06/%E5%9F%BA%E4%BA%8E%E7%94%9F%E4%BA%A7-%E6%B6%88%E8%B4%B9%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%89%B9%E9%87%8F%E5%AF%BC%E5%87%BA/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/blog/2026/02/06/%E5%9F%BA%E4%BA%8E%E7%94%9F%E4%BA%A7-%E6%B6%88%E8%B4%B9%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%89%B9%E9%87%8F%E5%AF%BC%E5%87%BA/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -262,14 +268,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>376</span>
+              <span>756</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
           
         </div>
@@ -281,22 +287,75 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="修改主题配置文件-config-yml"><a href="#修改主题配置文件-config-yml" class="headerlink" title="修改主题配置文件_config.yml"></a>修改主题配置文件_config.yml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define custom file paths.</span></span><br><span class="line"><span class="comment"># Create your custom files in site directory `source/_data` and uncomment needed files below.</span></span><br><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.swig</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.swig</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.swig</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.swig</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.swig</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.swig</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.swig</span></span><br><span class="line">  <span class="comment">#variable: source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+        <h1 id="基于生产-消费模型的批量导出"><a href="#基于生产-消费模型的批量导出" class="headerlink" title="基于生产-消费模型的批量导出"></a>基于生产-消费模型的批量导出</h1><h2 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h2><ul>
+<li>将“查询数据”和“写入 Excel”解耦，查询端可并发获取数据，写入端保持单线程顺序写入，避免写并发造成的文件损坏风险。</li>
+<li>使用阻塞队列在生产者与消费者之间传递批次数据，平衡数据库读取吞吐与写入吞吐。</li>
+<li>生产者数量依据数据量动态调整，避免小数据集过度并发，避免大数据集单线程瓶颈。</li>
+<li>允许导出不保证顺序，以更高吞吐为目标。</li>
+</ul>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>速度快：多生产者并行批量查询，充分利用数据库和 CPU。</li>
+<li>写入安全：消费者单线程写 Excel，避免线程间写冲突。</li>
+<li>吞吐稳定：队列缓冲削峰填谷，生产&#x2F;消费速度不一致时也能稳定运行。</li>
+<li>可扩展：生产者策略、页大小、队列大小可配置调整。</li>
+</ul>
+<h2 id="与传统批量导出的对比"><a href="#与传统批量导出的对比" class="headerlink" title="与传统批量导出的对比"></a>与传统批量导出的对比</h2><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>传统单线程分页导出</th>
+<th>生产-消费并发导出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查询并发</td>
+<td>单线程顺序查询</td>
+<td>多线程并行查询</td>
+</tr>
+<tr>
+<td>写入方式</td>
+<td>单线程顺序写</td>
+<td>单线程顺序写</td>
+</tr>
+<tr>
+<td>顺序保证</td>
+<td>有</td>
+<td>无（不要求顺序）</td>
+</tr>
+<tr>
+<td>吞吐上限</td>
+<td>受单线程限制</td>
+<td>受数据库与 IO 共同限制</td>
+</tr>
+<tr>
+<td>稳定性</td>
+<td>简单但慢</td>
+<td>稍复杂但更快</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>数据量较小</td>
+<td>数据量较大、追求速度</td>
+</tr>
+</tbody></table>
+<h2 id="代码实现细节"><a href="#代码实现细节" class="headerlink" title="代码实现细节"></a>代码实现细节</h2><h3 id="1-接口层：无参数的快速导出入口"><a href="#1-接口层：无参数的快速导出入口" class="headerlink" title="1) 接口层：无参数的快速导出入口"></a>1) 接口层：无参数的快速导出入口</h3><p><code>/trade/export/fast</code> 不接收参数，直接触发快速导出。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(value = &quot;/export/fast&quot;)</span></span><br><span class="line"><span class="keyword">public</span> ResponseEntity&lt;StreamingResponseBody&gt; <span class="title function_">exportFast</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">ExportConfig</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ExportConfig</span>();</span><br><span class="line">    <span class="type">String</span> <span class="variable">filename</span> <span class="operator">=</span> <span class="string">&quot;trade_fast_&quot;</span> + LocalDateTime.now().format(FILE_TS) + <span class="string">&quot;.xlsx&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">StreamingResponseBody</span> <span class="variable">body</span> <span class="operator">=</span> outputStream -&gt; tradeExportService.exportFast(</span><br><span class="line">            outputStream,</span><br><span class="line">            config</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ResponseEntity.ok()</span><br><span class="line">            .contentType(MediaType.APPLICATION_OCTET_STREAM)</span><br><span class="line">            .header(<span class="string">&quot;Content-Disposition&quot;</span>, <span class="string">&quot;attachment; filename=\&quot;&quot;</span> + filename + <span class="string">&quot;\&quot;&quot;</span>)</span><br><span class="line">            .body(body);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>​	把<code>style</code>属性值打开，这就是我们自定义样式的文件及路径</p>
-<p>​	如果该路径下没有文件需要自行创建</p>
-<h4 id="修改styles-styl文件"><a href="#修改styles-styl文件" class="headerlink" title="修改styles.styl文件"></a>修改styles.styl文件</h4><p>​	在文件中加入以下代码：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">// 添加背景图片</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">      <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">/images/background.png</span>);//自己喜欢的图片地址</span><br><span class="line">      <span class="attribute">background-size</span>: cover;</span><br><span class="line">      <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">      <span class="attribute">background-attachment</span>: fixed;</span><br><span class="line">      <span class="attribute">background-position</span>: <span class="number">50%</span> <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//博客内容透明化</span><br><span class="line">//文章内容的透明度设置</span><br><span class="line"><span class="selector-class">.content-wrap</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.85</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//侧边框的透明度设置</span><br><span class="line"><span class="selector-class">.sidebar</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.85</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//菜单栏的透明度设置</span><br><span class="line"><span class="selector-class">.header-inner</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span>,<span class="number">0.85</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//搜索框（local-search）的透明度设置</span><br><span class="line"><span class="selector-class">.popup</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.85</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="2-服务层：多生产者-单消费者"><a href="#2-服务层：多生产者-单消费者" class="headerlink" title="2) 服务层：多生产者 + 单消费者"></a>2) 服务层：多生产者 + 单消费者</h3><ul>
+<li>先统计总量，计算总页数。</li>
+<li>动态计算生产者数量。</li>
+<li>生产者并发分页查询（基于 offset），把批次数据放入队列。</li>
+<li>消费者单线程从队列中取数据写入 Excel。</li>
+<li>通过“毒丸”标识生产者结束，消费者收齐后退出。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">exportFast</span><span class="params">(OutputStream out, ExportConfig config)</span> &#123;</span><br><span class="line">    <span class="type">long</span> <span class="variable">total</span> <span class="operator">=</span> tradeMapper.countForExport();</span><br><span class="line">    <span class="type">int</span> <span class="variable">pageSize</span> <span class="operator">=</span> config.getPageSize();</span><br><span class="line">    <span class="type">int</span> <span class="variable">totalPages</span> <span class="operator">=</span> (<span class="type">int</span>) ((total + pageSize - <span class="number">1</span>) / pageSize);</span><br><span class="line">    <span class="type">int</span> <span class="variable">resolvedProducers</span> <span class="operator">=</span> resolveProducerCount(totalPages);</span><br><span class="line"></span><br><span class="line">    BlockingQueue&lt;ExportBatch&gt; queue =</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">ArrayBlockingQueue</span>&lt;&gt;(resolvedProducers * <span class="number">2</span>);</span><br><span class="line">    <span class="type">ExecutorService</span> <span class="variable">executor</span> <span class="operator">=</span> Executors.newFixedThreadPool(resolvedProducers);</span><br><span class="line">    <span class="type">AtomicInteger</span> <span class="variable">pageIndex</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AtomicInteger</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生产者</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; resolvedProducers; i++) &#123;</span><br><span class="line">        executor.submit(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">page</span> <span class="operator">=</span> pageIndex.getAndIncrement();</span><br><span class="line">                <span class="keyword">if</span> (page &gt;= totalPages) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="type">long</span> <span class="variable">offset</span> <span class="operator">=</span> (<span class="type">long</span>) page * pageSize;</span><br><span class="line">                List&lt;TradeExportVO&gt; rows = tradeMapper.selectByOffset(offset, pageSize);</span><br><span class="line">                <span class="keyword">if</span> (rows != <span class="literal">null</span> &amp;&amp; !rows.isEmpty()) &#123;</span><br><span class="line">                    queue.put(<span class="keyword">new</span> <span class="title class_">ExportBatch</span>(rows));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            queue.put(ExportBatch.poison());</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 消费者</span></span><br><span class="line">    <span class="type">ExcelWriter</span> <span class="variable">writer</span> <span class="operator">=</span> EasyExcelFactory.write(out, TradeExportVO.class).build();</span><br><span class="line">    <span class="type">int</span> <span class="variable">poisonReceived</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (poisonReceived &lt; resolvedProducers) &#123;</span><br><span class="line">        <span class="type">ExportBatch</span> <span class="variable">batch</span> <span class="operator">=</span> queue.take();</span><br><span class="line">        <span class="keyword">if</span> (batch.poison) &#123;</span><br><span class="line">            poisonReceived++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        writer.write(batch.rows, sheet);</span><br><span class="line">    &#125;</span><br><span class="line">    writer.finish();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>​	注意到这里的图片文件的实际位置是：<code>.../themes/next/source/images/</code></p>
-<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>​	如果部署报一下错误，这需要调整Hexo配置</p>
-<img src="/blog/2023/03/24/Hexo%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E8%AE%BE%E7%BD%AE/image-20230324175213736.png" style="display: inline; border-style: none;">
+<h3 id="3-动态生产者数量策略"><a href="#3-动态生产者数量策略" class="headerlink" title="3) 动态生产者数量策略"></a>3) 动态生产者数量策略</h3><p>以页数为基础，设置阶梯式并发上限，同时受 CPU 核心数限制。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">resolveProducerCount</span><span class="params">(<span class="type">int</span> totalPages)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">cpu</span> <span class="operator">=</span> Runtime.getRuntime().availableProcessors();</span><br><span class="line">    <span class="keyword">if</span> (totalPages &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (totalPages &lt;= <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> Math.min(<span class="number">2</span>, cpu);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (totalPages &lt;= <span class="number">16</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> Math.min(<span class="number">4</span>, cpu);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (totalPages &lt;= <span class="number">64</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> Math.min(<span class="number">8</span>, cpu);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Math.min(<span class="number">16</span>, cpu);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>​	找到<code>...\themes\next\source\css</code>路径下的<code>main.styl</code>文件，修改如下配置</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Custom Layer</span></span><br><span class="line"><span class="comment">// --------------------------------------------------</span></span><br><span class="line"><span class="comment">// for $inject_style in hexo-config(&#x27;injects.style&#x27;)</span></span><br><span class="line"><span class="comment">//  @import $inject_style;</span></span><br><span class="line"><span class="keyword">@import</span> <span class="string">&quot;../_data/styles.styl&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="4-批量查询-SQL（offset-分页）"><a href="#4-批量查询-SQL（offset-分页）" class="headerlink" title="4) 批量查询 SQL（offset 分页）"></a>4) 批量查询 SQL（offset 分页）</h3><p>用于多生产者并发查询。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectByOffset&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.liyao.learning.export.vo.TradeExportVO&quot;</span>&gt;</span></span><br><span class="line">    SELECT</span><br><span class="line">        id,</span><br><span class="line">        trade_date AS tradeDate,</span><br><span class="line">        trade_time AS tradeTime,</span><br><span class="line">        buyer_id AS buyerId,</span><br><span class="line">        amt</span><br><span class="line">    FROM t_trade</span><br><span class="line">    LIMIT #&#123;offset&#125;, #&#123;pageSize&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>​	这里特别要注意<code>styles.styl</code>文件的路径一定要对，是相对于<code>main.style</code>文件的路径！</p>
-<p>​	配置好后，使用<code>hexo g</code>与<code>hexo s</code>命令部署启动查看效果即可</p>
 
     </div>
 
@@ -326,7 +385,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/blog/tags/EasyExcel%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD/" rel="tag"># EasyExcel批量下载</a>
           </div>
 
         
@@ -335,13 +394,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/blog/2023/03/23/Hexo%E5%BC%80%E5%90%AF%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD/" rel="prev" title="Hexo开启本地搜索功能">
-      <i class="fa fa-chevron-left"></i> Hexo开启本地搜索功能
+    <a href="/blog/2026/02/04/%E6%B5%81%E5%BC%8F%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD%20+%20SSE%E5%AE%9E%E6%97%B6%E8%BF%9B%E5%BA%A6%E8%BF%94%E5%9B%9E/" rel="prev" title="流式批量下载 + SSE实时进度返回">
+      <i class="fa fa-chevron-left"></i> 流式批量下载 + SSE实时进度返回
     </a></div>
-      <div class="post-nav-item">
-    <a href="/blog/2023/03/24/Hexo%E7%BE%8E%E5%8C%96%E8%B5%9E%E8%B5%8F%E6%8C%89%E9%92%AE%E6%A0%B7%E5%BC%8F/" rel="next" title="Hexo美化赞赏按钮样式">
-      Hexo美化赞赏按钮样式 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -401,7 +457,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-config-yml"><span class="nav-number">1.</span> <span class="nav-text">修改主题配置文件_config.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9styles-styl%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">修改styles.styl文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%94%9F%E4%BA%A7-%E6%B6%88%E8%B4%B9%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%89%B9%E9%87%8F%E5%AF%BC%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">基于生产-消费模型的批量导出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">设计思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8E%E4%BC%A0%E7%BB%9F%E6%89%B9%E9%87%8F%E5%AF%BC%E5%87%BA%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">1.3.</span> <span class="nav-text">与传统批量导出的对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82"><span class="nav-number">1.4.</span> <span class="nav-text">代码实现细节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%8E%A5%E5%8F%A3%E5%B1%82%EF%BC%9A%E6%97%A0%E5%8F%82%E6%95%B0%E7%9A%84%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%87%BA%E5%85%A5%E5%8F%A3"><span class="nav-number">1.4.1.</span> <span class="nav-text">1) 接口层：无参数的快速导出入口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%9C%8D%E5%8A%A1%E5%B1%82%EF%BC%9A%E5%A4%9A%E7%94%9F%E4%BA%A7%E8%80%85-%E5%8D%95%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-number">1.4.2.</span> <span class="nav-text">2) 服务层：多生产者 + 单消费者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8A%A8%E6%80%81%E7%94%9F%E4%BA%A7%E8%80%85%E6%95%B0%E9%87%8F%E7%AD%96%E7%95%A5"><span class="nav-number">1.4.3.</span> <span class="nav-text">3) 动态生产者数量策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%89%B9%E9%87%8F%E6%9F%A5%E8%AF%A2-SQL%EF%BC%88offset-%E5%88%86%E9%A1%B5%EF%BC%89"><span class="nav-number">1.4.4.</span> <span class="nav-text">4) 批量查询 SQL（offset 分页）</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
