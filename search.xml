@@ -223,21 +223,19 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo美化赞赏按钮样式</title>
-    <url>/blog/2023/03/24/Hexo%E7%BE%8E%E5%8C%96%E8%B5%9E%E8%B5%8F%E6%8C%89%E9%92%AE%E6%A0%B7%E5%BC%8F/</url>
-    <content><![CDATA[<p>​	要对赞赏按钮进行美化，首先需要找到赞赏功能的组件以及组件样式文件，以下是路径：</p>
-<p>​	组件路径：<code>...\themes\next\layout\_partials\post\post-reward.swig</code></p>
-<p>​	组件样式路径：<code>...\themes\next\source\css\_common\components\post\post-reward.styl</code></p>
-<h4 id="修改赞赏组件文件"><a href="#修改赞赏组件文件" class="headerlink" title="修改赞赏组件文件"></a>修改赞赏组件文件</h4><p>​	修改文件中的button按钮</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;reward-container&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; page.reward_settings.comment &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;var qr = document.getElementById(&#x27;qr&#x27;); qr.style.display = (qr.style.display === &#x27;none&#x27;) ? &#x27;block&#x27; : &#x27;none&#x27;;&quot;</span> <span class="attr">style</span>=<span class="string">&quot;cursor:pointer;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fa fa-qrcode fa-2x&quot;</span> <span class="attr">style</span>=<span class="string">&quot;line-height:35px;font:normal normal normal 25px/1 FontAwesome;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;qr&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: none;&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    &#123;%- for name, image in theme.reward %&#125;</span><br><span class="line">      &#123;%- set builtin = [&#x27;wechatpay&#x27;, &#x27;alipay&#x27;, &#x27;paypal&#x27;, &#x27;bitcoin&#x27;] %&#125;</span><br><span class="line">      &#123;%- if builtin.includes(name) %&#125;</span><br><span class="line">        &#123;%- set translation = __(&#x27;reward.&#x27; + name) %&#125;</span><br><span class="line">      &#123;% else %&#125;</span><br><span class="line">        &#123;%- set translation = name %&#125;</span><br><span class="line">      &#123;%- endif %&#125;</span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;&#123;&#123; url_for(image) &#125;&#125;&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&#123;&#123; author &#125;&#125; &#123;&#123; translation &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; translation &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;%- endfor %&#125;</span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+    <title>Hexo添加鼠标点击桃心特效/网站底部添加网站运行时间</title>
+    <url>/blog/2023/03/23/Hexo%E6%B7%BB%E5%8A%A0%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E6%A1%83%E5%BF%83%E7%89%B9%E6%95%88-%E7%BD%91%E7%AB%99%E5%BA%95%E9%83%A8%E6%B7%BB%E5%8A%A0%E7%BD%91%E7%AB%99%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/</url>
+    <content><![CDATA[<h4 id="添加鼠标点击桃心特效"><a href="#添加鼠标点击桃心特效" class="headerlink" title="添加鼠标点击桃心特效"></a>添加鼠标点击桃心特效</h4><p>在主题目录的<code>source</code>目录下新建<code>love.js</code> <code> ...\themes\next\source\love.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">!<span class="keyword">function</span>(<span class="params">e,t,a</span>)&#123;<span class="keyword">function</span> <span class="title function_">n</span>(<span class="params"></span>)&#123;<span class="title function_">c</span>(<span class="string">&quot;.heart&#123;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);&#125;.heart:after,.heart:before&#123;content: &#x27;&#x27;;width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 500%;-moz-border-radius: 50%;position: fixed;&#125;.heart:after&#123;top: -5px;&#125;.heart:before&#123;left: -5px;&#125;&quot;</span>),<span class="title function_">o</span>(),<span class="title function_">r</span>()&#125;<span class="keyword">function</span> <span class="title function_">r</span>(<span class="params"></span>)&#123;<span class="keyword">for</span>(<span class="keyword">var</span> e=<span class="number">0</span>;e&lt;d.<span class="property">length</span>;e++)d[e].<span class="property">alpha</span>&lt;=<span class="number">0</span>?(t.<span class="property">body</span>.<span class="title function_">removeChild</span>(d[e].<span class="property">el</span>),d.<span class="title function_">splice</span>(e,<span class="number">1</span>)):(d[e].<span class="property">y</span>--,d[e].<span class="property">scale</span>+=<span class="number">.004</span>,d[e].<span class="property">alpha</span>-=<span class="number">.013</span>,d[e].<span class="property">el</span>.<span class="property">style</span>.<span class="property">cssText</span>=<span class="string">&quot;left:&quot;</span>+d[e].<span class="property">x</span>+<span class="string">&quot;px;top:&quot;</span>+d[e].<span class="property">y</span>+<span class="string">&quot;px;opacity:&quot;</span>+d[e].<span class="property">alpha</span>+<span class="string">&quot;;transform:scale(&quot;</span>+d[e].<span class="property">scale</span>+<span class="string">&quot;,&quot;</span>+d[e].<span class="property">scale</span>+<span class="string">&quot;) rotate(45deg);background:&quot;</span>+d[e].<span class="property">color</span>+<span class="string">&quot;;z-index:99999&quot;</span>);<span class="title function_">requestAnimationFrame</span>(r)&#125;<span class="keyword">function</span> <span class="title function_">o</span>(<span class="params"></span>)&#123;<span class="keyword">var</span> t=<span class="string">&quot;function&quot;</span>==<span class="keyword">typeof</span> e.<span class="property">onclick</span>&amp;&amp;e.<span class="property">onclick</span>;e.<span class="property">onclick</span>=<span class="keyword">function</span>(<span class="params">e</span>)&#123;t&amp;&amp;<span class="title function_">t</span>(),<span class="title function_">i</span>(e)&#125;&#125;<span class="keyword">function</span> <span class="title function_">i</span>(<span class="params">e</span>)&#123;<span class="keyword">var</span> a=t.<span class="title function_">createElement</span>(<span class="string">&quot;div&quot;</span>);a.<span class="property">className</span>=<span class="string">&quot;heart&quot;</span>,d.<span class="title function_">push</span>(&#123;<span class="attr">el</span>:a,<span class="attr">x</span>:e.<span class="property">clientX</span>-<span class="number">5</span>,<span class="attr">y</span>:e.<span class="property">clientY</span>-<span class="number">5</span>,<span class="attr">scale</span>:<span class="number">1</span>,<span class="attr">alpha</span>:<span class="number">1</span>,<span class="attr">color</span>:<span class="title function_">s</span>()&#125;),t.<span class="property">body</span>.<span class="title function_">appendChild</span>(a)&#125;<span class="keyword">function</span> <span class="title function_">c</span>(<span class="params">e</span>)&#123;<span class="keyword">var</span> a=t.<span class="title function_">createElement</span>(<span class="string">&quot;style&quot;</span>);a.<span class="property">type</span>=<span class="string">&quot;text/css&quot;</span>;<span class="keyword">try</span>&#123;a.<span class="title function_">appendChild</span>(t.<span class="title function_">createTextNode</span>(e))&#125;<span class="keyword">catch</span>(t)&#123;a.<span class="property">styleSheet</span>.<span class="property">cssText</span>=e&#125;t.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;head&quot;</span>)[<span class="number">0</span>].<span class="title function_">appendChild</span>(a)&#125;<span class="keyword">function</span> <span class="title function_">s</span>(<span class="params"></span>)&#123;<span class="keyword">return</span><span class="string">&quot;rgb(&quot;</span>+~~(<span class="number">255</span>*<span class="title class_">Math</span>.<span class="title function_">random</span>())+<span class="string">&quot;,&quot;</span>+~~(<span class="number">255</span>*<span class="title class_">Math</span>.<span class="title function_">random</span>())+<span class="string">&quot;,&quot;</span>+~~(<span class="number">255</span>*<span class="title class_">Math</span>.<span class="title function_">random</span>())+<span class="string">&quot;)&quot;</span>&#125;<span class="keyword">var</span> d=[];e.<span class="property">requestAnimationFrame</span>=<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="keyword">return</span> e.<span class="property">requestAnimationFrame</span>||e.<span class="property">webkitRequestAnimationFrame</span>||e.<span class="property">mozRequestAnimationFrame</span>||e.<span class="property">oRequestAnimationFrame</span>||e.<span class="property">msRequestAnimationFrame</span>||<span class="keyword">function</span>(<span class="params">e</span>)&#123;<span class="built_in">setTimeout</span>(e,<span class="number">1e3</span>/<span class="number">60</span>)&#125;&#125;(),<span class="title function_">n</span>()&#125;(<span class="variable language_">window</span>,<span class="variable language_">document</span>);</span><br></pre></td></tr></table></figure>
 
-<h4 id="修改赞赏组件样式文件"><a href="#修改赞赏组件样式文件" class="headerlink" title="修改赞赏组件样式文件"></a>修改赞赏组件样式文件</h4><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.reward-container</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">20px</span> auto;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">90%</span>;</span><br><span class="line"></span><br><span class="line">  <span class="selector-tag">button</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">60px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#e4303038</span>;</span><br><span class="line">    <span class="attribute">transition</span>: <span class="number">0.2s</span> ease-out;</span><br><span class="line"></span><br><span class="line">    <span class="selector-pseudo">&amp;:hover</span> &#123;</span><br><span class="line">      <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">      <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">      -webkit-<span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">8px</span> <span class="number">16px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.2</span>), <span class="number">0</span> <span class="number">6px</span> <span class="number">20px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.19</span>);</span><br><span class="line">      -moz-<span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">8px</span> <span class="number">16px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.2</span>), <span class="number">0</span> <span class="number">6px</span> <span class="number">20px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.19</span>);</span><br><span class="line">      <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">8px</span> <span class="number">16px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.2</span>), <span class="number">0</span> <span class="number">6px</span> <span class="number">20px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.19</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>修改主题的<code>_layout.swig</code>文件，路径：<code>...\themes\next\layout\_layout.swig</code></p>
+<p>在<code>&lt;head&gt;</code>标签中添加<code>love.js</code></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;/love.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>​	根据自己的需求，可能用到的赞赏配置</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">reward_settings:</span></span><br><span class="line">  <span class="comment"># If true, reward will be displayed in every article by default.</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">animation:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">comment:</span> <span class="string">赞赏一杯咖啡</span></span><br></pre></td></tr></table></figure>
+<h6 id><a href="#" class="headerlink" title></a></h6><h4 id="网站底部添加网站运行时间"><a href="#网站底部添加网站运行时间" class="headerlink" title="网站底部添加网站运行时间"></a>网站底部添加网站运行时间</h4><p>修改主题下<code>...\themes\next\layout\_partials\footer.swig</code>，并添加内容如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 网站运行时间的设置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;timeDate&quot;</span>&gt;</span>载入天数...<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;times&quot;</span>&gt;</span>载入时分秒...<span class="tag">&lt;/<span class="name">span</span>&gt;</span>  Sometimes your whole life boils down to one insame move.</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">createtime</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> grt= <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="string">&quot;01/05/2020 00:00:00&quot;</span>);<span class="comment">//此处修改你的建站时间或者网站上线时间</span></span></span><br><span class="line"><span class="language-javascript">        now.<span class="title function_">setTime</span>(now.<span class="title function_">getTime</span>()+<span class="number">250</span>);</span></span><br><span class="line"><span class="language-javascript">        days = (now - grt ) / <span class="number">1000</span> / <span class="number">60</span> / <span class="number">60</span> / <span class="number">24</span>; dnum = <span class="title class_">Math</span>.<span class="title function_">floor</span>(days);</span></span><br><span class="line"><span class="language-javascript">        hours = (now - grt ) / <span class="number">1000</span> / <span class="number">60</span> / <span class="number">60</span> - (<span class="number">24</span> * dnum); hnum = <span class="title class_">Math</span>.<span class="title function_">floor</span>(hours);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span>(<span class="title class_">String</span>(hnum).<span class="property">length</span> ==<span class="number">1</span> )&#123;hnum = <span class="string">&quot;0&quot;</span> + hnum;&#125; minutes = (now - grt ) / <span class="number">1000</span> /<span class="number">60</span> - (<span class="number">24</span> * <span class="number">60</span> * dnum) - (<span class="number">60</span> * hnum);</span></span><br><span class="line"><span class="language-javascript">        mnum = <span class="title class_">Math</span>.<span class="title function_">floor</span>(minutes); <span class="keyword">if</span>(<span class="title class_">String</span>(mnum).<span class="property">length</span> ==<span class="number">1</span> )&#123;mnum = <span class="string">&quot;0&quot;</span> + mnum;&#125;</span></span><br><span class="line"><span class="language-javascript">        seconds = (now - grt ) / <span class="number">1000</span> - (<span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span> * dnum) - (<span class="number">60</span> * <span class="number">60</span> * hnum) - (<span class="number">60</span> * mnum);</span></span><br><span class="line"><span class="language-javascript">        snum = <span class="title class_">Math</span>.<span class="title function_">round</span>(seconds); <span class="keyword">if</span>(<span class="title class_">String</span>(snum).<span class="property">length</span> ==<span class="number">1</span> )&#123;snum = <span class="string">&quot;0&quot;</span> + snum;&#125;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;timeDate&quot;</span>).<span class="property">innerHTML</span> = <span class="string">&quot;本站已安全运行 &quot;</span>+dnum+<span class="string">&quot; 天 &quot;</span>;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;times&quot;</span>).<span class="property">innerHTML</span> = hnum + <span class="string">&quot; 小时 &quot;</span> + mnum + <span class="string">&quot; 分 &quot;</span> + snum + <span class="string">&quot; 秒&quot;</span>;</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"><span class="built_in">setInterval</span>(<span class="string">&quot;createtime()&quot;</span>,<span class="number">250</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>​	以下是效果图</p>
-<img src="/blog/2023/03/24/Hexo%E7%BE%8E%E5%8C%96%E8%B5%9E%E8%B5%8F%E6%8C%89%E9%92%AE%E6%A0%B7%E5%BC%8F/reward.gif" style="display: inline; border-style: none;">
+<p>配置好后，使用<code>hexo g</code>与<code>hexo s</code>命令部署启动查看效果即可</p>
 ]]></content>
       <categories>
         <category>Hexo</category>
@@ -281,19 +279,21 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo添加鼠标点击桃心特效/网站底部添加网站运行时间</title>
-    <url>/blog/2023/03/23/Hexo%E6%B7%BB%E5%8A%A0%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E6%A1%83%E5%BF%83%E7%89%B9%E6%95%88-%E7%BD%91%E7%AB%99%E5%BA%95%E9%83%A8%E6%B7%BB%E5%8A%A0%E7%BD%91%E7%AB%99%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/</url>
-    <content><![CDATA[<h4 id="添加鼠标点击桃心特效"><a href="#添加鼠标点击桃心特效" class="headerlink" title="添加鼠标点击桃心特效"></a>添加鼠标点击桃心特效</h4><p>在主题目录的<code>source</code>目录下新建<code>love.js</code> <code> ...\themes\next\source\love.js</code></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">!<span class="keyword">function</span>(<span class="params">e,t,a</span>)&#123;<span class="keyword">function</span> <span class="title function_">n</span>(<span class="params"></span>)&#123;<span class="title function_">c</span>(<span class="string">&quot;.heart&#123;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);&#125;.heart:after,.heart:before&#123;content: &#x27;&#x27;;width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 500%;-moz-border-radius: 50%;position: fixed;&#125;.heart:after&#123;top: -5px;&#125;.heart:before&#123;left: -5px;&#125;&quot;</span>),<span class="title function_">o</span>(),<span class="title function_">r</span>()&#125;<span class="keyword">function</span> <span class="title function_">r</span>(<span class="params"></span>)&#123;<span class="keyword">for</span>(<span class="keyword">var</span> e=<span class="number">0</span>;e&lt;d.<span class="property">length</span>;e++)d[e].<span class="property">alpha</span>&lt;=<span class="number">0</span>?(t.<span class="property">body</span>.<span class="title function_">removeChild</span>(d[e].<span class="property">el</span>),d.<span class="title function_">splice</span>(e,<span class="number">1</span>)):(d[e].<span class="property">y</span>--,d[e].<span class="property">scale</span>+=<span class="number">.004</span>,d[e].<span class="property">alpha</span>-=<span class="number">.013</span>,d[e].<span class="property">el</span>.<span class="property">style</span>.<span class="property">cssText</span>=<span class="string">&quot;left:&quot;</span>+d[e].<span class="property">x</span>+<span class="string">&quot;px;top:&quot;</span>+d[e].<span class="property">y</span>+<span class="string">&quot;px;opacity:&quot;</span>+d[e].<span class="property">alpha</span>+<span class="string">&quot;;transform:scale(&quot;</span>+d[e].<span class="property">scale</span>+<span class="string">&quot;,&quot;</span>+d[e].<span class="property">scale</span>+<span class="string">&quot;) rotate(45deg);background:&quot;</span>+d[e].<span class="property">color</span>+<span class="string">&quot;;z-index:99999&quot;</span>);<span class="title function_">requestAnimationFrame</span>(r)&#125;<span class="keyword">function</span> <span class="title function_">o</span>(<span class="params"></span>)&#123;<span class="keyword">var</span> t=<span class="string">&quot;function&quot;</span>==<span class="keyword">typeof</span> e.<span class="property">onclick</span>&amp;&amp;e.<span class="property">onclick</span>;e.<span class="property">onclick</span>=<span class="keyword">function</span>(<span class="params">e</span>)&#123;t&amp;&amp;<span class="title function_">t</span>(),<span class="title function_">i</span>(e)&#125;&#125;<span class="keyword">function</span> <span class="title function_">i</span>(<span class="params">e</span>)&#123;<span class="keyword">var</span> a=t.<span class="title function_">createElement</span>(<span class="string">&quot;div&quot;</span>);a.<span class="property">className</span>=<span class="string">&quot;heart&quot;</span>,d.<span class="title function_">push</span>(&#123;<span class="attr">el</span>:a,<span class="attr">x</span>:e.<span class="property">clientX</span>-<span class="number">5</span>,<span class="attr">y</span>:e.<span class="property">clientY</span>-<span class="number">5</span>,<span class="attr">scale</span>:<span class="number">1</span>,<span class="attr">alpha</span>:<span class="number">1</span>,<span class="attr">color</span>:<span class="title function_">s</span>()&#125;),t.<span class="property">body</span>.<span class="title function_">appendChild</span>(a)&#125;<span class="keyword">function</span> <span class="title function_">c</span>(<span class="params">e</span>)&#123;<span class="keyword">var</span> a=t.<span class="title function_">createElement</span>(<span class="string">&quot;style&quot;</span>);a.<span class="property">type</span>=<span class="string">&quot;text/css&quot;</span>;<span class="keyword">try</span>&#123;a.<span class="title function_">appendChild</span>(t.<span class="title function_">createTextNode</span>(e))&#125;<span class="keyword">catch</span>(t)&#123;a.<span class="property">styleSheet</span>.<span class="property">cssText</span>=e&#125;t.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;head&quot;</span>)[<span class="number">0</span>].<span class="title function_">appendChild</span>(a)&#125;<span class="keyword">function</span> <span class="title function_">s</span>(<span class="params"></span>)&#123;<span class="keyword">return</span><span class="string">&quot;rgb(&quot;</span>+~~(<span class="number">255</span>*<span class="title class_">Math</span>.<span class="title function_">random</span>())+<span class="string">&quot;,&quot;</span>+~~(<span class="number">255</span>*<span class="title class_">Math</span>.<span class="title function_">random</span>())+<span class="string">&quot;,&quot;</span>+~~(<span class="number">255</span>*<span class="title class_">Math</span>.<span class="title function_">random</span>())+<span class="string">&quot;)&quot;</span>&#125;<span class="keyword">var</span> d=[];e.<span class="property">requestAnimationFrame</span>=<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="keyword">return</span> e.<span class="property">requestAnimationFrame</span>||e.<span class="property">webkitRequestAnimationFrame</span>||e.<span class="property">mozRequestAnimationFrame</span>||e.<span class="property">oRequestAnimationFrame</span>||e.<span class="property">msRequestAnimationFrame</span>||<span class="keyword">function</span>(<span class="params">e</span>)&#123;<span class="built_in">setTimeout</span>(e,<span class="number">1e3</span>/<span class="number">60</span>)&#125;&#125;(),<span class="title function_">n</span>()&#125;(<span class="variable language_">window</span>,<span class="variable language_">document</span>);</span><br></pre></td></tr></table></figure>
+    <title>Hexo美化赞赏按钮样式</title>
+    <url>/blog/2023/03/24/Hexo%E7%BE%8E%E5%8C%96%E8%B5%9E%E8%B5%8F%E6%8C%89%E9%92%AE%E6%A0%B7%E5%BC%8F/</url>
+    <content><![CDATA[<p>​	要对赞赏按钮进行美化，首先需要找到赞赏功能的组件以及组件样式文件，以下是路径：</p>
+<p>​	组件路径：<code>...\themes\next\layout\_partials\post\post-reward.swig</code></p>
+<p>​	组件样式路径：<code>...\themes\next\source\css\_common\components\post\post-reward.styl</code></p>
+<h4 id="修改赞赏组件文件"><a href="#修改赞赏组件文件" class="headerlink" title="修改赞赏组件文件"></a>修改赞赏组件文件</h4><p>​	修改文件中的button按钮</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;reward-container&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; page.reward_settings.comment &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;var qr = document.getElementById(&#x27;qr&#x27;); qr.style.display = (qr.style.display === &#x27;none&#x27;) ? &#x27;block&#x27; : &#x27;none&#x27;;&quot;</span> <span class="attr">style</span>=<span class="string">&quot;cursor:pointer;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fa fa-qrcode fa-2x&quot;</span> <span class="attr">style</span>=<span class="string">&quot;line-height:35px;font:normal normal normal 25px/1 FontAwesome;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;qr&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: none;&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    &#123;%- for name, image in theme.reward %&#125;</span><br><span class="line">      &#123;%- set builtin = [&#x27;wechatpay&#x27;, &#x27;alipay&#x27;, &#x27;paypal&#x27;, &#x27;bitcoin&#x27;] %&#125;</span><br><span class="line">      &#123;%- if builtin.includes(name) %&#125;</span><br><span class="line">        &#123;%- set translation = __(&#x27;reward.&#x27; + name) %&#125;</span><br><span class="line">      &#123;% else %&#125;</span><br><span class="line">        &#123;%- set translation = name %&#125;</span><br><span class="line">      &#123;%- endif %&#125;</span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;&#123;&#123; url_for(image) &#125;&#125;&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&#123;&#123; author &#125;&#125; &#123;&#123; translation &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; translation &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;%- endfor %&#125;</span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>修改主题的<code>_layout.swig</code>文件，路径：<code>...\themes\next\layout\_layout.swig</code></p>
-<p>在<code>&lt;head&gt;</code>标签中添加<code>love.js</code></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;/love.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="修改赞赏组件样式文件"><a href="#修改赞赏组件样式文件" class="headerlink" title="修改赞赏组件样式文件"></a>修改赞赏组件样式文件</h4><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.reward-container</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">20px</span> auto;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">90%</span>;</span><br><span class="line"></span><br><span class="line">  <span class="selector-tag">button</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">60px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#e4303038</span>;</span><br><span class="line">    <span class="attribute">transition</span>: <span class="number">0.2s</span> ease-out;</span><br><span class="line"></span><br><span class="line">    <span class="selector-pseudo">&amp;:hover</span> &#123;</span><br><span class="line">      <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">      <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">      -webkit-<span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">8px</span> <span class="number">16px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.2</span>), <span class="number">0</span> <span class="number">6px</span> <span class="number">20px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.19</span>);</span><br><span class="line">      -moz-<span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">8px</span> <span class="number">16px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.2</span>), <span class="number">0</span> <span class="number">6px</span> <span class="number">20px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.19</span>);</span><br><span class="line">      <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">8px</span> <span class="number">16px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.2</span>), <span class="number">0</span> <span class="number">6px</span> <span class="number">20px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.19</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h6 id><a href="#" class="headerlink" title></a></h6><h4 id="网站底部添加网站运行时间"><a href="#网站底部添加网站运行时间" class="headerlink" title="网站底部添加网站运行时间"></a>网站底部添加网站运行时间</h4><p>修改主题下<code>...\themes\next\layout\_partials\footer.swig</code>，并添加内容如下：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 网站运行时间的设置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;timeDate&quot;</span>&gt;</span>载入天数...<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;times&quot;</span>&gt;</span>载入时分秒...<span class="tag">&lt;/<span class="name">span</span>&gt;</span>  Sometimes your whole life boils down to one insame move.</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>();</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">createtime</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> grt= <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="string">&quot;01/05/2020 00:00:00&quot;</span>);<span class="comment">//此处修改你的建站时间或者网站上线时间</span></span></span><br><span class="line"><span class="language-javascript">        now.<span class="title function_">setTime</span>(now.<span class="title function_">getTime</span>()+<span class="number">250</span>);</span></span><br><span class="line"><span class="language-javascript">        days = (now - grt ) / <span class="number">1000</span> / <span class="number">60</span> / <span class="number">60</span> / <span class="number">24</span>; dnum = <span class="title class_">Math</span>.<span class="title function_">floor</span>(days);</span></span><br><span class="line"><span class="language-javascript">        hours = (now - grt ) / <span class="number">1000</span> / <span class="number">60</span> / <span class="number">60</span> - (<span class="number">24</span> * dnum); hnum = <span class="title class_">Math</span>.<span class="title function_">floor</span>(hours);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span>(<span class="title class_">String</span>(hnum).<span class="property">length</span> ==<span class="number">1</span> )&#123;hnum = <span class="string">&quot;0&quot;</span> + hnum;&#125; minutes = (now - grt ) / <span class="number">1000</span> /<span class="number">60</span> - (<span class="number">24</span> * <span class="number">60</span> * dnum) - (<span class="number">60</span> * hnum);</span></span><br><span class="line"><span class="language-javascript">        mnum = <span class="title class_">Math</span>.<span class="title function_">floor</span>(minutes); <span class="keyword">if</span>(<span class="title class_">String</span>(mnum).<span class="property">length</span> ==<span class="number">1</span> )&#123;mnum = <span class="string">&quot;0&quot;</span> + mnum;&#125;</span></span><br><span class="line"><span class="language-javascript">        seconds = (now - grt ) / <span class="number">1000</span> - (<span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span> * dnum) - (<span class="number">60</span> * <span class="number">60</span> * hnum) - (<span class="number">60</span> * mnum);</span></span><br><span class="line"><span class="language-javascript">        snum = <span class="title class_">Math</span>.<span class="title function_">round</span>(seconds); <span class="keyword">if</span>(<span class="title class_">String</span>(snum).<span class="property">length</span> ==<span class="number">1</span> )&#123;snum = <span class="string">&quot;0&quot;</span> + snum;&#125;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;timeDate&quot;</span>).<span class="property">innerHTML</span> = <span class="string">&quot;本站已安全运行 &quot;</span>+dnum+<span class="string">&quot; 天 &quot;</span>;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;times&quot;</span>).<span class="property">innerHTML</span> = hnum + <span class="string">&quot; 小时 &quot;</span> + mnum + <span class="string">&quot; 分 &quot;</span> + snum + <span class="string">&quot; 秒&quot;</span>;</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"><span class="built_in">setInterval</span>(<span class="string">&quot;createtime()&quot;</span>,<span class="number">250</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>​	根据自己的需求，可能用到的赞赏配置</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">reward_settings:</span></span><br><span class="line">  <span class="comment"># If true, reward will be displayed in every article by default.</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">animation:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">comment:</span> <span class="string">赞赏一杯咖啡</span></span><br></pre></td></tr></table></figure>
 
-<p>配置好后，使用<code>hexo g</code>与<code>hexo s</code>命令部署启动查看效果即可</p>
+<p>​	以下是效果图</p>
+<img src="/blog/2023/03/24/Hexo%E7%BE%8E%E5%8C%96%E8%B5%9E%E8%B5%8F%E6%8C%89%E9%92%AE%E6%A0%B7%E5%BC%8F/reward.gif" style="display: inline; border-style: none;">
 ]]></content>
       <categories>
         <category>Hexo</category>
@@ -654,6 +654,38 @@
       </tags>
   </entry>
   <entry>
+    <title>Valine评论丢失问题</title>
+    <url>/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>​	起因是今天发现之前在文章下的评论消失不见了，于是开始思考问题出在哪里</p>
+<p>​	首先打开F12控制台，看下Valine评论调用接口是否正常，如下</p>
+<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328111131681.png" style="display: inline; border-style: none;">
+
+<p>​	可以看到状态是200没问题，但是切换到Response发现并没有数据返回</p>
+<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328111352583.png" style="display: inline; border-style: none;">
+
+<p>​	这就奇怪了，明明之前是有评论数据的，为什么没有返回，于是想着去 <a href="https://console.leancloud.cn/">LeanCloud</a> 控制台看一下</p>
+<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328111743416.png" style="display: inline; border-style: none;">
+
+<p>​	从控制台也可以看出是有评论数据的，带着疑问继续往下探索，我们点开某一条评论的详细信息查看</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;nick&quot;</span><span class="punctuation">:</span> <span class="string">&quot;一尘不染的真心&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;updatedAt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023-03-28T02:33:59.001Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ACL&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;*&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;read&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;objectId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;642252179cc5f14274a130b9&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;mail&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ua&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;insertedAt&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;__type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Date&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;iso&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023-03-28T02:33:58.865Z&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;createdAt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023-03-28T02:33:59.001Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;link&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;comment&quot;</span><span class="punctuation">:</span> <span class="string">&quot;测试评论... :dog:&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/2023/03/21/Hexo添加评论功能/&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;QQAvatar&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>​	从中注意到有一个属性很关键，没错那就是 <code>url</code>，突然想到前几天网站<code>root</code>路径进行了迁移，但是 <a href="https://console.leancloud.cn/">LeanCloud</a> 中的评论路径还是老的</p>
+<p>​	由此可以看出再请求 <a href="https://console.leancloud.cn/">LeanCloud</a> 时是跟文章的 <code>url</code> 有关的（其实从请求参数上也可以看出，只不过被转码了）</p>
+   <img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/1A32B358.gif" style="display: inline; border-style: none;">
+
+<p>​	问题找到了，我们修改一下评论的<code>url</code>再看下，发现问题解决了！</p>
+<p>​	url: <code>/blog/2023/03/21/Hexo添加评论功能/</code></p>
+<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328133653297.png" style="display: inline; border-style: none;">
+]]></content>
+      <categories>
+        <category>Valine</category>
+        <category>问题处理</category>
+      </categories>
+      <tags>
+        <tag>Valine</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于生产-消费模型的批量导出</title>
     <url>/blog/2026/02/06/%E5%9F%BA%E4%BA%8E%E7%94%9F%E4%BA%A7-%E6%B6%88%E8%B4%B9%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%89%B9%E9%87%8F%E5%AF%BC%E5%87%BA/</url>
     <content><![CDATA[<h1 id="基于生产-消费模型的批量导出"><a href="#基于生产-消费模型的批量导出" class="headerlink" title="基于生产-消费模型的批量导出"></a>基于生产-消费模型的批量导出</h1><h2 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h2><ul>
@@ -736,38 +768,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Valine评论丢失问题</title>
-    <url>/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>​	起因是今天发现之前在文章下的评论消失不见了，于是开始思考问题出在哪里</p>
-<p>​	首先打开F12控制台，看下Valine评论调用接口是否正常，如下</p>
-<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328111131681.png" style="display: inline; border-style: none;">
-
-<p>​	可以看到状态是200没问题，但是切换到Response发现并没有数据返回</p>
-<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328111352583.png" style="display: inline; border-style: none;">
-
-<p>​	这就奇怪了，明明之前是有评论数据的，为什么没有返回，于是想着去 <a href="https://console.leancloud.cn/">LeanCloud</a> 控制台看一下</p>
-<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328111743416.png" style="display: inline; border-style: none;">
-
-<p>​	从控制台也可以看出是有评论数据的，带着疑问继续往下探索，我们点开某一条评论的详细信息查看</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;nick&quot;</span><span class="punctuation">:</span> <span class="string">&quot;一尘不染的真心&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;updatedAt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023-03-28T02:33:59.001Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ACL&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;*&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;read&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;objectId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;642252179cc5f14274a130b9&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;mail&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ua&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;insertedAt&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;__type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Date&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;iso&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023-03-28T02:33:58.865Z&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;createdAt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023-03-28T02:33:59.001Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;link&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;comment&quot;</span><span class="punctuation">:</span> <span class="string">&quot;测试评论... :dog:&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/2023/03/21/Hexo添加评论功能/&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;QQAvatar&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>​	从中注意到有一个属性很关键，没错那就是 <code>url</code>，突然想到前几天网站<code>root</code>路径进行了迁移，但是 <a href="https://console.leancloud.cn/">LeanCloud</a> 中的评论路径还是老的</p>
-<p>​	由此可以看出再请求 <a href="https://console.leancloud.cn/">LeanCloud</a> 时是跟文章的 <code>url</code> 有关的（其实从请求参数上也可以看出，只不过被转码了）</p>
-   <img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/1A32B358.gif" style="display: inline; border-style: none;">
-
-<p>​	问题找到了，我们修改一下评论的<code>url</code>再看下，发现问题解决了！</p>
-<p>​	url: <code>/blog/2023/03/21/Hexo添加评论功能/</code></p>
-<img src="/blog/2023/03/28/Valine%E8%AF%84%E8%AE%BA%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98/image-20230328133653297.png" style="display: inline; border-style: none;">
-]]></content>
-      <categories>
-        <category>Valine</category>
-        <category>问题处理</category>
-      </categories>
-      <tags>
-        <tag>Valine</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>流式批量下载 + SSE实时进度返回</title>
     <url>/blog/2026/02/04/%E6%B5%81%E5%BC%8F%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD%20+%20SSE%E5%AE%9E%E6%97%B6%E8%BF%9B%E5%BA%A6%E8%BF%94%E5%9B%9E/</url>
     <content><![CDATA[<h1 id="流式批量下载-SSE实时进度返回"><a href="#流式批量下载-SSE实时进度返回" class="headerlink" title="流式批量下载 + SSE实时进度返回"></a>流式批量下载 + SSE实时进度返回</h1><p>本文档基于当前导出实现，说明“流式批量下载 + SSE 实时进度回传”的能力覆盖、设计说明与核心代码。</p>
@@ -826,6 +826,193 @@
       </categories>
       <tags>
         <tag>EasyExcel批量下载,SSE实时进度返回</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深刻理解 `forward-headers-strategy`</title>
+    <url>/blog/2026/02/11/%E6%B7%B1%E5%88%BB%E7%90%86%E8%A7%A3-forward-headers-strategy/</url>
+    <content><![CDATA[<h1 id="深刻理解-forward-headers-strategy"><a href="#深刻理解-forward-headers-strategy" class="headerlink" title="深刻理解 forward-headers-strategy"></a>深刻理解 <code>forward-headers-strategy</code></h1><blockquote>
+<p>场景复盘（你的案例）：</p>
+<ul>
+<li>你在项目里用了 <strong>Springdoc Open Api</strong> + <strong>Scalar</strong>（接口文档 UI）。</li>
+<li>在 Scalar 的 <strong>Test Request</strong> 功能里发起调用时，页面提示 <strong>failed</strong>。</li>
+<li>打开浏览器控制台&#x2F;Network 看到请求返回 <strong>403</strong>。</li>
+<li>最终通过在 Spring Boot 中增加配置：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">forward-headers-strategy:</span> <span class="string">framework</span></span><br></pre></td></tr></table></figure>
+
+<p>解决问题。</p>
+</blockquote>
+<hr>
+<h2 id="1-它到底解决什么问题？——“反向代理后的真实请求信息”"><a href="#1-它到底解决什么问题？——“反向代理后的真实请求信息”" class="headerlink" title="1. 它到底解决什么问题？——“反向代理后的真实请求信息”"></a>1. 它到底解决什么问题？——“反向代理后的真实请求信息”</h2><p>当你的服务部署在 <strong>反向代理 &#x2F; Ingress &#x2F; Gateway &#x2F; LB</strong> 后面时，客户端看到的地址通常是：</p>
+<ul>
+<li><code>https://api.example.com</code></li>
+</ul>
+<p>但你的 Spring Boot 应用实际收到的连接可能是：</p>
+<ul>
+<li>代理到后端用 <code>http</code></li>
+<li>Host 变成了内网域名&#x2F;服务名</li>
+<li>端口、scheme、client ip 都不等于用户真实访问的</li>
+</ul>
+<p>这会导致一个核心问题：<strong>应用层对“当前请求的绝对地址&#x2F;来源”的判断失真</strong>。</p>
+<p>而绝对地址、来源判断又被大量框架能力依赖，例如：</p>
+<ul>
+<li>OpenAPI &#x2F; Swagger &#x2F; Scalar 生成的 <code>servers.url</code>（以及 UI 里发请求的目标地址）</li>
+<li>Spring Security 对 <code>requiresSecure()</code>、重定向地址、登录回调、某些策略判断</li>
+<li>CORS&#x2F;CSRF&#x2F;Origin&#x2F;Referer 的校验与策略（常见表现之一就是 403）</li>
+<li>生成链接（重定向、分页链接、Location header）</li>
+</ul>
+<h3 id="代理是怎么把“真实信息”告诉后端的？"><a href="#代理是怎么把“真实信息”告诉后端的？" class="headerlink" title="代理是怎么把“真实信息”告诉后端的？"></a>代理是怎么把“真实信息”告诉后端的？</h3><p>常见两套标准：</p>
+<ul>
+<li><strong>RFC 7239</strong>：<code>Forwarded</code> 头<ul>
+<li>例：<code>Forwarded: proto=https;host=api.example.com;for=1.2.3.4</code></li>
+</ul>
+</li>
+<li><strong>事实标准</strong>：<code>X-Forwarded-*</code><ul>
+<li>例：<ul>
+<li><code>X-Forwarded-Proto: https</code></li>
+<li><code>X-Forwarded-Host: api.example.com</code></li>
+<li><code>X-Forwarded-Port: 443</code></li>
+<li><code>X-Forwarded-For: 1.2.3.4</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Spring Boot 是否“信任并使用”这些 header，取决于 **<code>forward-headers-strategy</code>**。</p>
+<hr>
+<h2 id="2-forward-headers-strategy-的三个值：none-x2F-native-x2F-framework"><a href="#2-forward-headers-strategy-的三个值：none-x2F-native-x2F-framework" class="headerlink" title="2. forward-headers-strategy 的三个值：none &#x2F; native &#x2F; framework"></a>2. <code>forward-headers-strategy</code> 的三个值：<code>none</code> &#x2F; <code>native</code> &#x2F; <code>framework</code></h2><p>Spring Boot（2.6+ &#x2F; 3.x）用 <code>server.forward-headers-strategy</code> 来决定：</p>
+<blockquote>
+<p>在什么层面解析并应用 <code>Forwarded</code> &#x2F; <code>X-Forwarded-*</code>，从而修正 <code>HttpServletRequest</code> 里看到的 scheme&#x2F;host&#x2F;port。</p>
+</blockquote>
+<h3 id="2-1-none（默认常见）"><a href="#2-1-none（默认常见）" class="headerlink" title="2.1 none（默认常见）"></a>2.1 <code>none</code>（默认常见）</h3><ul>
+<li><strong>不处理</strong> forwarded headers。</li>
+<li>应用看到的就是“代理到后端的真实连接信息”（往往是 <code>http</code>、内网 host）。</li>
+</ul>
+<p><strong>风险&#x2F;表现：</strong></p>
+<ul>
+<li>文档 UI 可能生成错误地址；</li>
+<li>安全策略、重定向、绝对 URL 生成可能异常；</li>
+<li>在某些组合下会出现 403（看起来像权限问题，实则是“请求被判定为不合法来源&#x2F;不安全”。）</li>
+</ul>
+<h3 id="2-2-native"><a href="#2-2-native" class="headerlink" title="2.2 native"></a>2.2 <code>native</code></h3><ul>
+<li>依赖 <strong>Servlet 容器&#x2F;服务器本身</strong> 来处理 forwarded headers。</li>
+<li>典型：Tomcat 的 <code>RemoteIpValve</code>、Undertow&#x2F;Jetty 的对应机制。</li>
+</ul>
+<p><strong>优点：</strong></p>
+<ul>
+<li>更靠近网络层，处理更早。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>对不同容器表现不一致；</li>
+<li>在一些组合（例如你引入了 Spring Cloud Gateway、或某些 Filter 顺序&#x2F;封装请求）下，未必如你预期。</li>
+</ul>
+<h3 id="2-3-framework（你最终使用的方案）"><a href="#2-3-framework（你最终使用的方案）" class="headerlink" title="2.3 framework（你最终使用的方案）"></a>2.3 <code>framework</code>（你最终使用的方案）</h3><ul>
+<li>由 <strong>Spring Framework</strong> 在应用层统一处理。</li>
+<li>本质是启用&#x2F;等价于 <code>ForwardedHeaderFilter</code>（或同类机制），将 <code>Forwarded</code> &#x2F; <code>X-Forwarded-*</code> 应用到当前请求视图。</li>
+</ul>
+<p><strong>优点：</strong></p>
+<ul>
+<li>行为在 Spring 体系内更一致；</li>
+<li>对 “OpenAPI&#x2F;文档 UI 生成地址” 这类应用层能力更直接；</li>
+<li>对你这个 springdoc + Scalar 的场景，通常是最稳的兜底选项。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>你需要确保：只有在可信代理链路中才会让这些 header 生效（安全问题见下文）。</li>
+</ul>
+<hr>
+<h2 id="3-为什么你的场景会体现为-Scalar-Test-Request-403？（核心机制）"><a href="#3-为什么你的场景会体现为-Scalar-Test-Request-403？（核心机制）" class="headerlink" title="3. 为什么你的场景会体现为 Scalar Test Request 403？（核心机制）"></a>3. 为什么你的场景会体现为 Scalar Test Request 403？（核心机制）</h2><p>Scalar 的 <strong>Test Request</strong> 并不是“随便发个 curl”，它往往依赖 OpenAPI 文档里的 server 信息、当前页面 origin、以及浏览器的同源&#x2F;CORS 约束，来决定请求要打到哪里。</p>
+<p>当 <code>forward-headers-strategy</code> 没开时，Spring Boot 可能把当前请求视为：</p>
+<ul>
+<li><code>http://&lt;internal-host&gt;:&lt;port&gt;</code></li>
+</ul>
+<p>于是 springdoc&#x2F;Scalar 生成或推导出的请求目标地址出现偏差，例如：</p>
+<ul>
+<li>scheme 从 <code>https</code> 变成 <code>http</code></li>
+<li>host 从公网域名变成内网域名</li>
+<li>port 从 443 变成容器端口</li>
+</ul>
+<p>这类“地址失真”会进一步触发：</p>
+<ul>
+<li><strong>浏览器侧</strong>：跨域限制、混合内容（https 页面去请求 http）、预检失败</li>
+<li><strong>服务端侧</strong>：Spring Security 认为请求不满足安全约束&#x2F;来源策略，直接 <strong>403</strong></li>
+</ul>
+<blockquote>
+<p>你看到的“403”经常是结果，不是原因。<br>根因是：应用在代理后没拿到“真实的外部访问视图”，导致文档 UI 发起的请求不符合预期安全策略或路由。</p>
+</blockquote>
+<p>启用 <code>framework</code> 后，Spring 会把 <code>X-Forwarded-Proto=https</code>、<code>X-Forwarded-Host=...</code> 等正确映射回 <code>request.getScheme()/getServerName()/getServerPort()</code>，从而：</p>
+<ul>
+<li>springdoc 生成的 server url 更接近外部真实地址</li>
+<li>Scalar Test Request 命中正确的 https + 正确域名</li>
+<li>安全策略与路由恢复一致，403 消失</li>
+</ul>
+<hr>
+<h2 id="4-推荐配置：在“有代理”的服务上，优先-framework"><a href="#4-推荐配置：在“有代理”的服务上，优先-framework" class="headerlink" title="4. 推荐配置：在“有代理”的服务上，优先 framework"></a>4. 推荐配置：在“有代理”的服务上，优先 <code>framework</code></h2><h3 id="4-1-最小可用（你现在的修复）"><a href="#4-1-最小可用（你现在的修复）" class="headerlink" title="4.1 最小可用（你现在的修复）"></a>4.1 最小可用（你现在的修复）</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">forward-headers-strategy:</span> <span class="string">framework</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-配套建议（强烈建议你核对）"><a href="#4-2-配套建议（强烈建议你核对）" class="headerlink" title="4.2 配套建议（强烈建议你核对）"></a>4.2 配套建议（强烈建议你核对）</h3><ol>
+<li><strong>确保代理正确设置 forwarded headers</strong></li>
+</ol>
+<p>Nginx 示例（仅示意）：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-Host <span class="variable">$host</span>;</span><br><span class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-Port <span class="variable">$server_port</span>;</span><br><span class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br></pre></td></tr></table></figure>
+
+<p>Ingress &#x2F; LB 也要确认是否自动注入 <code>X-Forwarded-*</code> 或 <code>Forwarded</code>。</p>
+<ol start="2">
+<li><strong>只在可信代理链路中使用</strong></li>
+</ol>
+<p>forwarded headers 是可伪造的。如果你的应用直接暴露在公网且未经过可信代理，攻击者可以手工构造：</p>
+<ul>
+<li><code>X-Forwarded-Proto: https</code></li>
+<li><code>X-Forwarded-Host: evil.com</code></li>
+</ul>
+<p>从而影响你生成的链接、重定向、安全判断等。</p>
+<p>因此原则是：</p>
+<ul>
+<li><strong>应用只接受来自可信代理的流量</strong>（网络层限制）</li>
+<li>或在代理层清洗&#x2F;重写这些 header（只保留代理自己注入的）</li>
+</ul>
+<ol start="3">
+<li><strong>别同时“重复处理”</strong></li>
+</ol>
+<p>避免同时开了容器层（native）又开框架层（framework）造成重复修正，出现奇怪的 host&#x2F;port。</p>
+<hr>
+<h2 id="5-排查清单（下次遇到-403-x2F-回调地址异常，可以快速定位）"><a href="#5-排查清单（下次遇到-403-x2F-回调地址异常，可以快速定位）" class="headerlink" title="5. 排查清单（下次遇到 403&#x2F;回调地址异常，可以快速定位）"></a>5. 排查清单（下次遇到 403&#x2F;回调地址异常，可以快速定位）</h2><h3 id="5-1-先看请求在服务端“被认为是什么”"><a href="#5-1-先看请求在服务端“被认为是什么”" class="headerlink" title="5.1 先看请求在服务端“被认为是什么”"></a>5.1 先看请求在服务端“被认为是什么”</h3><p>在某个接口里临时打印（或加一个 debug endpoint）：</p>
+<ul>
+<li><code>request.getScheme()</code></li>
+<li><code>request.getServerName()</code></li>
+<li><code>request.getServerPort()</code></li>
+<li><code>request.getRequestURL()</code></li>
+<li>以及 headers：<code>Forwarded</code>、<code>X-Forwarded-*</code></li>
+</ul>
+<p>如果你从外部用 <code>https://api.example.com</code> 访问，但服务端看到的是 <code>http://10.x.x.x:8080</code>，那 90% 就是 forwarded headers 没生效。</p>
+<h3 id="5-2-再看文档-UI-发请求打到哪里"><a href="#5-2-再看文档-UI-发请求打到哪里" class="headerlink" title="5.2 再看文档 UI 发请求打到哪里"></a>5.2 再看文档 UI 发请求打到哪里</h3><ul>
+<li>浏览器 Network 面板里看请求 URL</li>
+<li>如果 URL 不是你期望的公网 https 域名，而是内网&#x2F;HTTP&#x2F;端口不对，优先修 forwarded headers</li>
+</ul>
+<hr>
+<h2 id="6-结论（给你的落地建议）"><a href="#6-结论（给你的落地建议）" class="headerlink" title="6. 结论（给你的落地建议）"></a>6. 结论（给你的落地建议）</h2><ul>
+<li>你的问题属于典型的“<strong>服务在代理后，但应用没有正确恢复外部请求视图</strong>”，在 springdoc + Scalar 这种强依赖 server&#x2F;origin 的 UI 上，最容易表现为 <strong>Test Request failed + 403</strong>。</li>
+<li>在 Spring Boot 体系里，**<code>server.forward-headers-strategy=framework</code>** 通常是最稳定、最一致的选择。</li>
+<li>同时要确保：<ul>
+<li>代理确实注入了正确的 <code>Forwarded</code>&#x2F;<code>X-Forwarded-*</code></li>
+<li>网络&#x2F;代理层保证这些 header 不会被客户端伪造利用</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="附：这个案例的一句话复盘"><a href="#附：这个案例的一句话复盘" class="headerlink" title="附：这个案例的一句话复盘"></a>附：这个案例的一句话复盘</h2><blockquote>
+<p>线上通过反向代理访问服务，Scalar Test Request 返回 403。根因是应用未启用 forwarded headers 解析，导致 Spring 认为请求 scheme&#x2F;host 为内网 http，从而文档 UI 生成&#x2F;发起的请求地址与安全策略不一致。设置 <code>server.forward-headers-strategy=framework</code> 后，Spring 正确使用 <code>X-Forwarded-*</code> 恢复外部访问视图，问题解决。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>SpringBoot</category>
+        <category>配置</category>
+        <category>forward-headers-strategy</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+        <tag>SpringBoot配置</tag>
       </tags>
   </entry>
 </search>

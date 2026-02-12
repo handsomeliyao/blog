@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"handsomeliyao.github.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="查看当前主题中使用的Font Awesome版本_config.yml配置文件  1234567vendors:  ...  # Internal version: 5.13.0  # fontawesome: &#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;@fortawesome&#x2F;fontawesome-free@5&#x2F;css&#x2F;all.min.css  # fontawesome: &#x2F;&#x2F;cdnj">
+  <meta name="description" content="深刻理解 forward-headers-strategy 场景复盘（你的案例）：  你在项目里用了 Springdoc Open Api + Scalar（接口文档 UI）。 在 Scalar 的 Test Request 功能里发起调用时，页面提示 failed。 打开浏览器控制台&#x2F;Network 看到请求返回 403。 最终通过在 Spring Boot 中增加配置：  12ser">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo升级Font Awesome，以及使用ICON创建自定义菜单">
-<meta property="og:url" content="https://handsomeliyao.github.io/2023/03/21/Hexo%E5%8D%87%E7%BA%A7Font-Awesome%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8ICON%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95/index.html">
+<meta property="og:title" content="深刻理解 &#96;forward-headers-strategy&#96;">
+<meta property="og:url" content="https://handsomeliyao.github.io/2026/02/11/%E6%B7%B1%E5%88%BB%E7%90%86%E8%A7%A3-forward-headers-strategy/index.html">
 <meta property="og:site_name" content="LI YAO&#39;S BLOG">
-<meta property="og:description" content="查看当前主题中使用的Font Awesome版本_config.yml配置文件  1234567vendors:  ...  # Internal version: 5.13.0  # fontawesome: &#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;@fortawesome&#x2F;fontawesome-free@5&#x2F;css&#x2F;all.min.css  # fontawesome: &#x2F;&#x2F;cdnj">
+<meta property="og:description" content="深刻理解 forward-headers-strategy 场景复盘（你的案例）：  你在项目里用了 Springdoc Open Api + Scalar（接口文档 UI）。 在 Scalar 的 Test Request 功能里发起调用时，页面提示 failed。 打开浏览器控制台&#x2F;Network 看到请求返回 403。 最终通过在 Spring Boot 中增加配置：  12ser">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-03-21T05:46:37.000Z">
-<meta property="article:modified_time" content="2023-03-23T08:51:27.787Z">
+<meta property="article:published_time" content="2026-02-11T11:33:24.000Z">
+<meta property="article:modified_time" content="2026-02-12T01:32:08.438Z">
 <meta property="article:author" content="LI YAO">
-<meta property="article:tag" content="Hexo">
-<meta property="article:tag" content="Font Awesome">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="SpringBoot配置">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://handsomeliyao.github.io/2023/03/21/Hexo%E5%8D%87%E7%BA%A7Font-Awesome%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8ICON%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95/">
+<link rel="canonical" href="https://handsomeliyao.github.io/2026/02/11/%E6%B7%B1%E5%88%BB%E7%90%86%E8%A7%A3-forward-headers-strategy/">
 
 
 <script id="page-configurations">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>Hexo升级Font Awesome，以及使用ICON创建自定义菜单 | LI YAO'S BLOG</title>
+  <title>深刻理解 `forward-headers-strategy` | LI YAO'S BLOG</title>
   
 
 
@@ -205,7 +205,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://handsomeliyao.github.io/2023/03/21/Hexo%E5%8D%87%E7%BA%A7Font-Awesome%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8ICON%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95/">
+    <link itemprop="mainEntityOfPage" href="https://handsomeliyao.github.io/2026/02/11/%E6%B7%B1%E5%88%BB%E7%90%86%E8%A7%A3-forward-headers-strategy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/person2.png">
@@ -218,7 +218,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo升级Font Awesome，以及使用ICON创建自定义菜单
+          深刻理解 `forward-headers-strategy`
         </h1>
 
         <div class="post-meta">
@@ -228,14 +228,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-03-21 13:46:37" itemprop="dateCreated datePublished" datetime="2023-03-21T13:46:37+08:00">2023-03-21</time>
+              <time title="创建时间：2026-02-11 19:33:24" itemprop="dateCreated datePublished" datetime="2026-02-11T19:33:24+08:00">2026-02-11</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-23 16:51:27" itemprop="dateModified" datetime="2023-03-23T16:51:27+08:00">2023-03-23</time>
+                <time title="修改时间：2026-02-12 09:32:08" itemprop="dateModified" datetime="2026-02-12T09:32:08+08:00">2026-02-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,7 +243,15 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+                  <a href="/blog/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/SpringBoot/%E9%85%8D%E7%BD%AE/" itemprop="url" rel="index"><span itemprop="name">配置</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/SpringBoot/%E9%85%8D%E7%BD%AE/forward-headers-strategy/" itemprop="url" rel="index"><span itemprop="name">forward-headers-strategy</span></a>
                 </span>
             </span>
 
@@ -256,8 +264,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/blog/2023/03/21/Hexo%E5%8D%87%E7%BA%A7Font-Awesome%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8ICON%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/blog/2023/03/21/Hexo%E5%8D%87%E7%BA%A7Font-Awesome%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8ICON%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95/" itemprop="commentCount"></span>
+    <a title="valine" href="/blog/2026/02/11/%E6%B7%B1%E5%88%BB%E7%90%86%E8%A7%A3-forward-headers-strategy/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/blog/2026/02/11/%E6%B7%B1%E5%88%BB%E7%90%86%E8%A7%A3-forward-headers-strategy/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -267,14 +275,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>281</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>6 分钟</span>
             </span>
           
         </div>
@@ -286,30 +294,179 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <ol>
-<li><strong>查看当前主题中使用的Font Awesome版本<code>_config.yml</code>配置文件</strong></li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">vendors:</span></span><br><span class="line">  <span class="string">...</span></span><br><span class="line">  <span class="comment"># Internal version: 5.13.0</span></span><br><span class="line">  <span class="comment"># fontawesome: //cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css</span></span><br><span class="line">  <span class="comment"># fontawesome: //cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css</span></span><br><span class="line">  <span class="attr">fontawesome:</span></span><br><span class="line">  <span class="string">...</span></span><br></pre></td></tr></table></figure>
+        <h1 id="深刻理解-forward-headers-strategy"><a href="#深刻理解-forward-headers-strategy" class="headerlink" title="深刻理解 forward-headers-strategy"></a>深刻理解 <code>forward-headers-strategy</code></h1><blockquote>
+<p>场景复盘（你的案例）：</p>
+<ul>
+<li>你在项目里用了 <strong>Springdoc Open Api</strong> + <strong>Scalar</strong>（接口文档 UI）。</li>
+<li>在 Scalar 的 <strong>Test Request</strong> 功能里发起调用时，页面提示 <strong>failed</strong>。</li>
+<li>打开浏览器控制台&#x2F;Network 看到请求返回 <strong>403</strong>。</li>
+<li>最终通过在 Spring Boot 中增加配置：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">forward-headers-strategy:</span> <span class="string">framework</span></span><br></pre></td></tr></table></figure>
 
-<p> 可以看出目前使用的版本是<code>5.13.0</code>，我们去Font Awesome官网下载最新<code>6.3</code>版本（For The Web）</p>
-<p><a target="_blank" rel="noopener" href="https://fontawesome.com/download">Font Awesome Download</a> </p>
-<p>下载完成后将压缩包解压到主题目录下 <code>\themes\next\source\lib\font-awesome</code>覆盖更新，这样就升级成功了。</p>
+<p>解决问题。</p>
+</blockquote>
+<hr>
+<h2 id="1-它到底解决什么问题？——“反向代理后的真实请求信息”"><a href="#1-它到底解决什么问题？——“反向代理后的真实请求信息”" class="headerlink" title="1. 它到底解决什么问题？——“反向代理后的真实请求信息”"></a>1. 它到底解决什么问题？——“反向代理后的真实请求信息”</h2><p>当你的服务部署在 <strong>反向代理 &#x2F; Ingress &#x2F; Gateway &#x2F; LB</strong> 后面时，客户端看到的地址通常是：</p>
+<ul>
+<li><code>https://api.example.com</code></li>
+</ul>
+<p>但你的 Spring Boot 应用实际收到的连接可能是：</p>
+<ul>
+<li>代理到后端用 <code>http</code></li>
+<li>Host 变成了内网域名&#x2F;服务名</li>
+<li>端口、scheme、client ip 都不等于用户真实访问的</li>
+</ul>
+<p>这会导致一个核心问题：<strong>应用层对“当前请求的绝对地址&#x2F;来源”的判断失真</strong>。</p>
+<p>而绝对地址、来源判断又被大量框架能力依赖，例如：</p>
+<ul>
+<li>OpenAPI &#x2F; Swagger &#x2F; Scalar 生成的 <code>servers.url</code>（以及 UI 里发请求的目标地址）</li>
+<li>Spring Security 对 <code>requiresSecure()</code>、重定向地址、登录回调、某些策略判断</li>
+<li>CORS&#x2F;CSRF&#x2F;Origin&#x2F;Referer 的校验与策略（常见表现之一就是 403）</li>
+<li>生成链接（重定向、分页链接、Location header）</li>
+</ul>
+<h3 id="代理是怎么把“真实信息”告诉后端的？"><a href="#代理是怎么把“真实信息”告诉后端的？" class="headerlink" title="代理是怎么把“真实信息”告诉后端的？"></a>代理是怎么把“真实信息”告诉后端的？</h3><p>常见两套标准：</p>
+<ul>
+<li><strong>RFC 7239</strong>：<code>Forwarded</code> 头<ul>
+<li>例：<code>Forwarded: proto=https;host=api.example.com;for=1.2.3.4</code></li>
+</ul>
+</li>
+<li><strong>事实标准</strong>：<code>X-Forwarded-*</code><ul>
+<li>例：<ul>
+<li><code>X-Forwarded-Proto: https</code></li>
+<li><code>X-Forwarded-Host: api.example.com</code></li>
+<li><code>X-Forwarded-Port: 443</code></li>
+<li><code>X-Forwarded-For: 1.2.3.4</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Spring Boot 是否“信任并使用”这些 header，取决于 **<code>forward-headers-strategy</code>**。</p>
+<hr>
+<h2 id="2-forward-headers-strategy-的三个值：none-x2F-native-x2F-framework"><a href="#2-forward-headers-strategy-的三个值：none-x2F-native-x2F-framework" class="headerlink" title="2. forward-headers-strategy 的三个值：none &#x2F; native &#x2F; framework"></a>2. <code>forward-headers-strategy</code> 的三个值：<code>none</code> &#x2F; <code>native</code> &#x2F; <code>framework</code></h2><p>Spring Boot（2.6+ &#x2F; 3.x）用 <code>server.forward-headers-strategy</code> 来决定：</p>
+<blockquote>
+<p>在什么层面解析并应用 <code>Forwarded</code> &#x2F; <code>X-Forwarded-*</code>，从而修正 <code>HttpServletRequest</code> 里看到的 scheme&#x2F;host&#x2F;port。</p>
+</blockquote>
+<h3 id="2-1-none（默认常见）"><a href="#2-1-none（默认常见）" class="headerlink" title="2.1 none（默认常见）"></a>2.1 <code>none</code>（默认常见）</h3><ul>
+<li><strong>不处理</strong> forwarded headers。</li>
+<li>应用看到的就是“代理到后端的真实连接信息”（往往是 <code>http</code>、内网 host）。</li>
+</ul>
+<p><strong>风险&#x2F;表现：</strong></p>
+<ul>
+<li>文档 UI 可能生成错误地址；</li>
+<li>安全策略、重定向、绝对 URL 生成可能异常；</li>
+<li>在某些组合下会出现 403（看起来像权限问题，实则是“请求被判定为不合法来源&#x2F;不安全”。）</li>
+</ul>
+<h3 id="2-2-native"><a href="#2-2-native" class="headerlink" title="2.2 native"></a>2.2 <code>native</code></h3><ul>
+<li>依赖 <strong>Servlet 容器&#x2F;服务器本身</strong> 来处理 forwarded headers。</li>
+<li>典型：Tomcat 的 <code>RemoteIpValve</code>、Undertow&#x2F;Jetty 的对应机制。</li>
+</ul>
+<p><strong>优点：</strong></p>
+<ul>
+<li>更靠近网络层，处理更早。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>对不同容器表现不一致；</li>
+<li>在一些组合（例如你引入了 Spring Cloud Gateway、或某些 Filter 顺序&#x2F;封装请求）下，未必如你预期。</li>
+</ul>
+<h3 id="2-3-framework（你最终使用的方案）"><a href="#2-3-framework（你最终使用的方案）" class="headerlink" title="2.3 framework（你最终使用的方案）"></a>2.3 <code>framework</code>（你最终使用的方案）</h3><ul>
+<li>由 <strong>Spring Framework</strong> 在应用层统一处理。</li>
+<li>本质是启用&#x2F;等价于 <code>ForwardedHeaderFilter</code>（或同类机制），将 <code>Forwarded</code> &#x2F; <code>X-Forwarded-*</code> 应用到当前请求视图。</li>
+</ul>
+<p><strong>优点：</strong></p>
+<ul>
+<li>行为在 Spring 体系内更一致；</li>
+<li>对 “OpenAPI&#x2F;文档 UI 生成地址” 这类应用层能力更直接；</li>
+<li>对你这个 springdoc + Scalar 的场景，通常是最稳的兜底选项。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>你需要确保：只有在可信代理链路中才会让这些 header 生效（安全问题见下文）。</li>
+</ul>
+<hr>
+<h2 id="3-为什么你的场景会体现为-Scalar-Test-Request-403？（核心机制）"><a href="#3-为什么你的场景会体现为-Scalar-Test-Request-403？（核心机制）" class="headerlink" title="3. 为什么你的场景会体现为 Scalar Test Request 403？（核心机制）"></a>3. 为什么你的场景会体现为 Scalar Test Request 403？（核心机制）</h2><p>Scalar 的 <strong>Test Request</strong> 并不是“随便发个 curl”，它往往依赖 OpenAPI 文档里的 server 信息、当前页面 origin、以及浏览器的同源&#x2F;CORS 约束，来决定请求要打到哪里。</p>
+<p>当 <code>forward-headers-strategy</code> 没开时，Spring Boot 可能把当前请求视为：</p>
+<ul>
+<li><code>http://&lt;internal-host&gt;:&lt;port&gt;</code></li>
+</ul>
+<p>于是 springdoc&#x2F;Scalar 生成或推导出的请求目标地址出现偏差，例如：</p>
+<ul>
+<li>scheme 从 <code>https</code> 变成 <code>http</code></li>
+<li>host 从公网域名变成内网域名</li>
+<li>port 从 443 变成容器端口</li>
+</ul>
+<p>这类“地址失真”会进一步触发：</p>
+<ul>
+<li><strong>浏览器侧</strong>：跨域限制、混合内容（https 页面去请求 http）、预检失败</li>
+<li><strong>服务端侧</strong>：Spring Security 认为请求不满足安全约束&#x2F;来源策略，直接 <strong>403</strong></li>
+</ul>
+<blockquote>
+<p>你看到的“403”经常是结果，不是原因。<br>根因是：应用在代理后没拿到“真实的外部访问视图”，导致文档 UI 发起的请求不符合预期安全策略或路由。</p>
+</blockquote>
+<p>启用 <code>framework</code> 后，Spring 会把 <code>X-Forwarded-Proto=https</code>、<code>X-Forwarded-Host=...</code> 等正确映射回 <code>request.getScheme()/getServerName()/getServerPort()</code>，从而：</p>
+<ul>
+<li>springdoc 生成的 server url 更接近外部真实地址</li>
+<li>Scalar Test Request 命中正确的 https + 正确域名</li>
+<li>安全策略与路由恢复一致，403 消失</li>
+</ul>
+<hr>
+<h2 id="4-推荐配置：在“有代理”的服务上，优先-framework"><a href="#4-推荐配置：在“有代理”的服务上，优先-framework" class="headerlink" title="4. 推荐配置：在“有代理”的服务上，优先 framework"></a>4. 推荐配置：在“有代理”的服务上，优先 <code>framework</code></h2><h3 id="4-1-最小可用（你现在的修复）"><a href="#4-1-最小可用（你现在的修复）" class="headerlink" title="4.1 最小可用（你现在的修复）"></a>4.1 最小可用（你现在的修复）</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">forward-headers-strategy:</span> <span class="string">framework</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-配套建议（强烈建议你核对）"><a href="#4-2-配套建议（强烈建议你核对）" class="headerlink" title="4.2 配套建议（强烈建议你核对）"></a>4.2 配套建议（强烈建议你核对）</h3><ol>
+<li><strong>确保代理正确设置 forwarded headers</strong></li>
+</ol>
+<p>Nginx 示例（仅示意）：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-Host <span class="variable">$host</span>;</span><br><span class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-Port <span class="variable">$server_port</span>;</span><br><span class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br></pre></td></tr></table></figure>
+
+<p>Ingress &#x2F; LB 也要确认是否自动注入 <code>X-Forwarded-*</code> 或 <code>Forwarded</code>。</p>
 <ol start="2">
-<li><strong>使用ICON创建自定义菜单</strong></li>
+<li><strong>只在可信代理链路中使用</strong></li>
 </ol>
-<p>&lt;1&gt;. 首先需要使用Hexo新建我们的菜单页面, 代码如下：</p>
-<p><code>hexo new page &quot;life&quot;</code>  &#x2F;&#x2F; 新建名为“life”的菜单</p>
-<p>创建成功后得到路径：</p>
-<p><code>Created: ...\source\life\index.md</code></p>
-<p>&lt;2&gt;. 在主题<code>_config.yml</code>配置文件中<code>menu</code>节点下新增菜单<code>life</code></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="attr">copywriter:</span> <span class="string">/copywriter/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-mug-hot</span></span><br><span class="line">  <span class="string">...</span></span><br><span class="line">  <span class="attr">life:</span> <span class="string">/life/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-camera</span></span><br></pre></td></tr></table></figure>
-
-<p>其中key为菜单code，value为 <code>路径/ || ICON图标名称</code></p>
-<p>&lt;3&gt;. 主题语言配置文件中映射菜单Code与中文的关系</p>
-<p><code>...\themes\next\languages\zh-CN.yml</code></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">首页</span></span><br><span class="line">  <span class="attr">copywriter:</span> <span class="string">文案</span></span><br><span class="line">  <span class="string">...</span></span><br><span class="line">  <span class="attr">life:</span> <span class="string">生活</span></span><br></pre></td></tr></table></figure>
-
-<p>配置好后，使用<code>hexo g</code>与<code>hexo s</code>命令部署启动查看效果即可</p>
+<p>forwarded headers 是可伪造的。如果你的应用直接暴露在公网且未经过可信代理，攻击者可以手工构造：</p>
+<ul>
+<li><code>X-Forwarded-Proto: https</code></li>
+<li><code>X-Forwarded-Host: evil.com</code></li>
+</ul>
+<p>从而影响你生成的链接、重定向、安全判断等。</p>
+<p>因此原则是：</p>
+<ul>
+<li><strong>应用只接受来自可信代理的流量</strong>（网络层限制）</li>
+<li>或在代理层清洗&#x2F;重写这些 header（只保留代理自己注入的）</li>
+</ul>
+<ol start="3">
+<li><strong>别同时“重复处理”</strong></li>
+</ol>
+<p>避免同时开了容器层（native）又开框架层（framework）造成重复修正，出现奇怪的 host&#x2F;port。</p>
+<hr>
+<h2 id="5-排查清单（下次遇到-403-x2F-回调地址异常，可以快速定位）"><a href="#5-排查清单（下次遇到-403-x2F-回调地址异常，可以快速定位）" class="headerlink" title="5. 排查清单（下次遇到 403&#x2F;回调地址异常，可以快速定位）"></a>5. 排查清单（下次遇到 403&#x2F;回调地址异常，可以快速定位）</h2><h3 id="5-1-先看请求在服务端“被认为是什么”"><a href="#5-1-先看请求在服务端“被认为是什么”" class="headerlink" title="5.1 先看请求在服务端“被认为是什么”"></a>5.1 先看请求在服务端“被认为是什么”</h3><p>在某个接口里临时打印（或加一个 debug endpoint）：</p>
+<ul>
+<li><code>request.getScheme()</code></li>
+<li><code>request.getServerName()</code></li>
+<li><code>request.getServerPort()</code></li>
+<li><code>request.getRequestURL()</code></li>
+<li>以及 headers：<code>Forwarded</code>、<code>X-Forwarded-*</code></li>
+</ul>
+<p>如果你从外部用 <code>https://api.example.com</code> 访问，但服务端看到的是 <code>http://10.x.x.x:8080</code>，那 90% 就是 forwarded headers 没生效。</p>
+<h3 id="5-2-再看文档-UI-发请求打到哪里"><a href="#5-2-再看文档-UI-发请求打到哪里" class="headerlink" title="5.2 再看文档 UI 发请求打到哪里"></a>5.2 再看文档 UI 发请求打到哪里</h3><ul>
+<li>浏览器 Network 面板里看请求 URL</li>
+<li>如果 URL 不是你期望的公网 https 域名，而是内网&#x2F;HTTP&#x2F;端口不对，优先修 forwarded headers</li>
+</ul>
+<hr>
+<h2 id="6-结论（给你的落地建议）"><a href="#6-结论（给你的落地建议）" class="headerlink" title="6. 结论（给你的落地建议）"></a>6. 结论（给你的落地建议）</h2><ul>
+<li>你的问题属于典型的“<strong>服务在代理后，但应用没有正确恢复外部请求视图</strong>”，在 springdoc + Scalar 这种强依赖 server&#x2F;origin 的 UI 上，最容易表现为 <strong>Test Request failed + 403</strong>。</li>
+<li>在 Spring Boot 体系里，**<code>server.forward-headers-strategy=framework</code>** 通常是最稳定、最一致的选择。</li>
+<li>同时要确保：<ul>
+<li>代理确实注入了正确的 <code>Forwarded</code>&#x2F;<code>X-Forwarded-*</code></li>
+<li>网络&#x2F;代理层保证这些 header 不会被客户端伪造利用</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="附：这个案例的一句话复盘"><a href="#附：这个案例的一句话复盘" class="headerlink" title="附：这个案例的一句话复盘"></a>附：这个案例的一句话复盘</h2><blockquote>
+<p>线上通过反向代理访问服务，Scalar Test Request 返回 403。根因是应用未启用 forwarded headers 解析，导致 Spring 认为请求 scheme&#x2F;host 为内网 http，从而文档 UI 生成&#x2F;发起的请求地址与安全策略不一致。设置 <code>server.forward-headers-strategy=framework</code> 后，Spring 正确使用 <code>X-Forwarded-*</code> 恢复外部访问视图，问题解决。</p>
+</blockquote>
 
     </div>
 
@@ -339,8 +496,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/Hexo/" rel="tag"># Hexo</a>
-              <a href="/blog/tags/Font-Awesome/" rel="tag"># Font Awesome</a>
+              <a href="/blog/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+              <a href="/blog/tags/SpringBoot%E9%85%8D%E7%BD%AE/" rel="tag"># SpringBoot配置</a>
           </div>
 
         
@@ -348,11 +505,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/blog/2023/03/21/Hexo%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD/" rel="next" title="Hexo文章添加字数统计功能">
-      Hexo文章添加字数统计功能 <i class="fa fa-chevron-right"></i>
+    <a href="/blog/2026/02/06/%E5%9F%BA%E4%BA%8E%E7%94%9F%E4%BA%A7-%E6%B6%88%E8%B4%B9%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%89%B9%E9%87%8F%E5%AF%BC%E5%87%BA/" rel="prev" title="基于生产-消费模型的批量导出">
+      <i class="fa fa-chevron-left"></i> 基于生产-消费模型的批量导出
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -412,6 +569,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%88%BB%E7%90%86%E8%A7%A3-forward-headers-strategy"><span class="nav-number">1.</span> <span class="nav-text">深刻理解 forward-headers-strategy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%83%E5%88%B0%E5%BA%95%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F%E2%80%94%E2%80%94%E2%80%9C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%90%8E%E7%9A%84%E7%9C%9F%E5%AE%9E%E8%AF%B7%E6%B1%82%E4%BF%A1%E6%81%AF%E2%80%9D"><span class="nav-number">1.1.</span> <span class="nav-text">1. 它到底解决什么问题？——“反向代理后的真实请求信息”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E6%98%AF%E6%80%8E%E4%B9%88%E6%8A%8A%E2%80%9C%E7%9C%9F%E5%AE%9E%E4%BF%A1%E6%81%AF%E2%80%9D%E5%91%8A%E8%AF%89%E5%90%8E%E7%AB%AF%E7%9A%84%EF%BC%9F"><span class="nav-number">1.1.1.</span> <span class="nav-text">代理是怎么把“真实信息”告诉后端的？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-forward-headers-strategy-%E7%9A%84%E4%B8%89%E4%B8%AA%E5%80%BC%EF%BC%9Anone-x2F-native-x2F-framework"><span class="nav-number">1.2.</span> <span class="nav-text">2. forward-headers-strategy 的三个值：none &#x2F; native &#x2F; framework</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-none%EF%BC%88%E9%BB%98%E8%AE%A4%E5%B8%B8%E8%A7%81%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 none（默认常见）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-native"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 native</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-framework%EF%BC%88%E4%BD%A0%E6%9C%80%E7%BB%88%E4%BD%BF%E7%94%A8%E7%9A%84%E6%96%B9%E6%A1%88%EF%BC%89"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 framework（你最终使用的方案）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%A0%E7%9A%84%E5%9C%BA%E6%99%AF%E4%BC%9A%E4%BD%93%E7%8E%B0%E4%B8%BA-Scalar-Test-Request-403%EF%BC%9F%EF%BC%88%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">3. 为什么你的场景会体现为 Scalar Test Request 403？（核心机制）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%8E%A8%E8%8D%90%E9%85%8D%E7%BD%AE%EF%BC%9A%E5%9C%A8%E2%80%9C%E6%9C%89%E4%BB%A3%E7%90%86%E2%80%9D%E7%9A%84%E6%9C%8D%E5%8A%A1%E4%B8%8A%EF%BC%8C%E4%BC%98%E5%85%88-framework"><span class="nav-number">1.4.</span> <span class="nav-text">4. 推荐配置：在“有代理”的服务上，优先 framework</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%9C%80%E5%B0%8F%E5%8F%AF%E7%94%A8%EF%BC%88%E4%BD%A0%E7%8E%B0%E5%9C%A8%E7%9A%84%E4%BF%AE%E5%A4%8D%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 最小可用（你现在的修复）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E9%85%8D%E5%A5%97%E5%BB%BA%E8%AE%AE%EF%BC%88%E5%BC%BA%E7%83%88%E5%BB%BA%E8%AE%AE%E4%BD%A0%E6%A0%B8%E5%AF%B9%EF%BC%89"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 配套建议（强烈建议你核对）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%8E%92%E6%9F%A5%E6%B8%85%E5%8D%95%EF%BC%88%E4%B8%8B%E6%AC%A1%E9%81%87%E5%88%B0-403-x2F-%E5%9B%9E%E8%B0%83%E5%9C%B0%E5%9D%80%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8D%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">5. 排查清单（下次遇到 403&#x2F;回调地址异常，可以快速定位）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E5%85%88%E7%9C%8B%E8%AF%B7%E6%B1%82%E5%9C%A8%E6%9C%8D%E5%8A%A1%E7%AB%AF%E2%80%9C%E8%A2%AB%E8%AE%A4%E4%B8%BA%E6%98%AF%E4%BB%80%E4%B9%88%E2%80%9D"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 先看请求在服务端“被认为是什么”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E5%86%8D%E7%9C%8B%E6%96%87%E6%A1%A3-UI-%E5%8F%91%E8%AF%B7%E6%B1%82%E6%89%93%E5%88%B0%E5%93%AA%E9%87%8C"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2 再看文档 UI 发请求打到哪里</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E7%BB%93%E8%AE%BA%EF%BC%88%E7%BB%99%E4%BD%A0%E7%9A%84%E8%90%BD%E5%9C%B0%E5%BB%BA%E8%AE%AE%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">6. 结论（给你的落地建议）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%EF%BC%9A%E8%BF%99%E4%B8%AA%E6%A1%88%E4%BE%8B%E7%9A%84%E4%B8%80%E5%8F%A5%E8%AF%9D%E5%A4%8D%E7%9B%98"><span class="nav-number">1.7.</span> <span class="nav-text">附：这个案例的一句话复盘</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
