@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"handsomeliyao.github.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="多线程批量插入如何保证事务一致性问题背景">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程批量插入如何保证事务一致性">
+<meta property="og:url" content="https://handsomeliyao.github.io/2026/03/03/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%BA%8B%E5%8A%A1%E4%B8%80%E8%87%B4%E6%80%A7/index.html">
+<meta property="og:site_name" content="LI YAO&#39;S BLOG">
+<meta property="og:description" content="多线程批量插入如何保证事务一致性问题背景">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-03T07:00:00.000Z">
+<meta property="article:modified_time" content="2026-03-03T07:30:28.299Z">
+<meta property="article:author" content="LI YAO">
+<meta property="article:tag" content="多线程事务">
+<meta property="article:tag" content="批量插入">
+<meta property="article:tag" content="MyBatis">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://handsomeliyao.github.io/2026/03/03/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%BA%8B%E5%8A%A1%E4%B8%80%E8%87%B4%E6%80%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>多线程批量插入如何保证事务一致性 | LI YAO'S BLOG</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <a target="_blank" rel="noopener" href="https://github.com/handsomeliyao" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LI YAO'S BLOG</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">有趣的人生, 一半家长里短, 一半山川胡海</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-life">
+
+    <a href="/blog/life/" rel="section"><i class="fa fa-camera fa-fw"></i>生活</a>
+
+  </li>
+        <li class="menu-item menu-item-copywriter">
+
+    <a href="/blog/copywriter/" rel="section"><i class="fa fa-mug-hot fa-fw"></i>文案</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/me" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">25</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://handsomeliyao.github.io/2026/03/03/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%BA%8B%E5%8A%A1%E4%B8%80%E8%87%B4%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/person2.png">
+      <meta itemprop="name" content="LI YAO">
+      <meta itemprop="description" content="伸手摘星, 即使一无所获, 也不至于满手污泥">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LI YAO'S BLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          多线程批量插入如何保证事务一致性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-03-03 15:00:00 / 修改时间：15:30:28" itemprop="dateCreated datePublished" datetime="2026-03-03T15:00:00+08:00">2026-03-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/SpringBoot/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">并发编程</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/SpringBoot/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/%E4%BA%8B%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">事务</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/blog/2026/03/03/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%BA%8B%E5%8A%A1%E4%B8%80%E8%87%B4%E6%80%A7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/blog/2026/03/03/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%BA%8B%E5%8A%A1%E4%B8%80%E8%87%B4%E6%80%A7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="多线程批量插入如何保证事务一致性"><a href="#多线程批量插入如何保证事务一致性" class="headerlink" title="多线程批量插入如何保证事务一致性"></a>多线程批量插入如何保证事务一致性</h1><h2 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h2><p>在实际业务中经常遇到这样的场景：有一批业务数据需要批量插入数据库，为了提高性能开了多个线程并发写入。但随之而来一个关键问题——<strong>如何保证事务的正确性，要么全部成功，要么全部失败？</strong></p>
+<h2 id="为什么多线程事务这么难？"><a href="#为什么多线程事务这么难？" class="headerlink" title="为什么多线程事务这么难？"></a>为什么多线程事务这么难？</h2><p>Spring 的 <code>@Transactional</code> 基于 <strong>ThreadLocal</strong> 实现，每个线程拥有独立的数据库连接和事务上下文，天然无法跨线程协调。</p>
+<h3 id="常见的”错误方案”：CountDownLatch-协调多线程提交"><a href="#常见的”错误方案”：CountDownLatch-协调多线程提交" class="headerlink" title="常见的”错误方案”：CountDownLatch 协调多线程提交"></a>常见的”错误方案”：CountDownLatch 协调多线程提交</h3><p>网上流传最广的方案是用两个 <code>CountDownLatch</code> 协调多线程事务：所有子线程执行完后等待主线程信号，主线程检查结果后统一通知提交或回滚。</p>
+<p><strong>这个方案有致命缺陷——commit 阶段不是原子的：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">T1: conn1.commit()  →  成功 ✓  (已持久化，不可撤回)</span><br><span class="line">T2: conn2.commit()  →  成功 ✓  (已持久化，不可撤回)</span><br><span class="line">T3: conn3.commit()  →  网络断开 / 死锁 / 磁盘满  ✗</span><br></pre></td></tr></table></figure>
+
+<p>T1 和 T2 已经落盘，无法回滚。哪怕让所有子线程在同一时刻接到 commit 信号，也无法做到数据库层面的原子提交。commit 失败的原因（死锁、连接异常、存储错误、主库切换等）在提交瞬间才发生，无法预判。</p>
+<p><strong>核心矛盾</strong>：每个线程持有独立的数据库连接，每个 <code>commit()</code> 是一次独立的网络调用，多个独立 commit 的成功&#x2F;失败不可能原子化。</p>
+<hr>
+<h2 id="方案总览"><a href="#方案总览" class="headerlink" title="方案总览"></a>方案总览</h2><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>原子性</th>
+<th>性能</th>
+<th>适用数据量</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>方案一：单事务 BATCH 模式</td>
+<td><strong>强一致</strong></td>
+<td>高</td>
+<td>1万内最佳，10万也可</td>
+<td>低</td>
+</tr>
+<tr>
+<td>方案二：多线程准备 + 单线程提交</td>
+<td><strong>强一致</strong></td>
+<td>更高（CPU密集场景）</td>
+<td>同上</td>
+<td>中</td>
+</tr>
+<tr>
+<td>方案三：Staging 伪 2PC</td>
+<td><strong>强一致</strong>（业务表层面）</td>
+<td>高</td>
+<td>中等</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>方案四：分批提交 + 补偿机制</td>
+<td>最终一致</td>
+<td>最高</td>
+<td>百万级</td>
+<td>高</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="方案一：单事务-BATCH-模式（推荐）"><a href="#方案一：单事务-BATCH-模式（推荐）" class="headerlink" title="方案一：单事务 + BATCH 模式（推荐）"></a>方案一：单事务 + BATCH 模式（推荐）</h2><h3 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h3><p>不用多线程提交，在 <strong>单个事务内</strong> 使用 MyBatis 的 <code>ExecutorType.BATCH</code> 模式优化插入性能。配合 MySQL 驱动的 <code>rewriteBatchedStatements=true</code>，单线程插入 1 万条数据通常在 1 秒以内。</p>
+<h3 id="为什么够快？"><a href="#为什么够快？" class="headerlink" title="为什么够快？"></a>为什么够快？</h3><table>
+<thead>
+<tr>
+<th>优化手段</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ExecutorType.BATCH</code></td>
+<td>MyBatis 攒 SQL 批量发送，减少网络往返</td>
+</tr>
+<tr>
+<td><code>rewriteBatchedStatements=true</code></td>
+<td>MySQL 驱动合并多条 INSERT 为一条多 VALUES</td>
+</tr>
+<tr>
+<td>单连接单事务</td>
+<td>没有线程协调开销，没有连接争用</td>
+</tr>
+</tbody></table>
+<p><code>rewriteBatchedStatements=true</code> 开启后，底层会把：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">VALUES</span> (<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>合并成：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>), (<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>), (<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SingleTxBatchService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SqlSessionFactory sqlSessionFactory;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">batchInsert</span><span class="params">(List&lt;OrderItem&gt; dataList)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">SqlSession</span> <span class="variable">session</span> <span class="operator">=</span> sqlSessionFactory.openSession(ExecutorType.BATCH)) &#123;</span><br><span class="line">            <span class="type">OrderItemMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> session.getMapper(OrderItemMapper.class);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; dataList.size(); i++) &#123;</span><br><span class="line">                mapper.insert(dataList.get(i));</span><br><span class="line">                <span class="keyword">if</span> ((i + <span class="number">1</span>) % <span class="number">1000</span> == <span class="number">0</span>) &#123;</span><br><span class="line">                    session.flushStatements();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            session.flushStatements();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><ul>
+<li><strong>优点</strong>：代码简单，事务由数据库保证，真正的 ACID 原子性</li>
+<li><strong>缺点</strong>：单线程执行，CPU 密集的数据预处理无法并行</li>
+<li><strong>适用</strong>：绝大多数业务场景，数据量 10 万以内</li>
+</ul>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li>**必须开启 <code>rewriteBatchedStatements=true</code>**：这是性能的关键开关，不开的话 BATCH 模式只是减少了 MyBatis 层的开销，SQL 仍然逐条发送，实测差距可达 10 倍以上</li>
+<li><strong><code>flushStatements()</code> 的间隔不宜过大</strong>：建议每 500~2000 条 flush 一次，过大会导致内存中积压大量 Statement 对象，有 OOM 风险</li>
+<li><strong>长事务风险</strong>：单事务插入 10 万条以上时，事务持续时间可能超过几十秒，会导致 undo log 膨胀、锁持有时间过长、主从延迟加剧。如果出现这种情况建议切换到方案四</li>
+<li><strong>BATCH 模式下无法获取自增 ID 返回值</strong>：<code>ExecutorType.BATCH</code> 模式下 <code>insert()</code> 返回值不可靠（始终为 <code>-2147482646</code>），如果需要获取插入后的自增 ID，需要在 flush 后额外查询</li>
+<li><strong>不要在 BATCH session 中混用查询</strong>：BATCH 模式的 SqlSession 中执行 SELECT 会触发隐式 flush，破坏批量攒 SQL 的效果</li>
+</ol>
+<hr>
+<h2 id="方案二：多线程准备-单线程提交"><a href="#方案二：多线程准备-单线程提交" class="headerlink" title="方案二：多线程准备 + 单线程提交"></a>方案二：多线程准备 + 单线程提交</h2><h3 id="核心思路-1"><a href="#核心思路-1" class="headerlink" title="核心思路"></a>核心思路</h3><p>如果数据需要复杂的校验、转换（CPU 密集型操作），可以 <strong>并行处理数据，串行入库</strong>。利用多线程加速数据准备阶段，最终仍然在单事务内完成插入。</p>
+<h3 id="示例代码-1"><a href="#示例代码-1" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ParallelPrepareBatchService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SqlSessionFactory sqlSessionFactory;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ThreadPoolExecutor executor;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">batchInsert</span><span class="params">(List&lt;OrderItem&gt; rawList)</span> &#123;</span><br><span class="line">        <span class="comment">// 阶段一：多线程并行做数据校验、转换、计算</span></span><br><span class="line">        List&lt;List&lt;OrderItem&gt;&gt; partitions = ListUtil.partition(rawList, <span class="number">500</span>);</span><br><span class="line">        List&lt;CompletableFuture&lt;List&lt;OrderItem&gt;&gt;&gt; futures = partitions.stream()</span><br><span class="line">                .map(chunk -&gt; CompletableFuture.supplyAsync(</span><br><span class="line">                        () -&gt; chunk.stream()</span><br><span class="line">                                .map(<span class="built_in">this</span>::validateAndEnrich)</span><br><span class="line">                                .toList(),</span><br><span class="line">                        executor))</span><br><span class="line">                .toList();</span><br><span class="line"></span><br><span class="line">        List&lt;OrderItem&gt; allEntities = futures.stream()</span><br><span class="line">                .map(CompletableFuture::join)</span><br><span class="line">                .flatMap(List::stream)</span><br><span class="line">                .toList();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 阶段二：单事务批量插入</span></span><br><span class="line">        <span class="keyword">try</span> (<span class="type">SqlSession</span> <span class="variable">session</span> <span class="operator">=</span> sqlSessionFactory.openSession(ExecutorType.BATCH)) &#123;</span><br><span class="line">            <span class="type">OrderItemMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> session.getMapper(OrderItemMapper.class);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; allEntities.size(); i++) &#123;</span><br><span class="line">                mapper.insert(allEntities.get(i));</span><br><span class="line">                <span class="keyword">if</span> ((i + <span class="number">1</span>) % <span class="number">1000</span> == <span class="number">0</span>) &#123;</span><br><span class="line">                    session.flushStatements();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            session.flushStatements();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> OrderItem <span class="title function_">validateAndEnrich</span><span class="params">(OrderItem item)</span> &#123;</span><br><span class="line">        <span class="comment">// 模拟 CPU 密集的数据校验和转换逻辑</span></span><br><span class="line">        item.setTotalPrice(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));</span><br><span class="line">        <span class="keyword">return</span> item;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h3><ul>
+<li><strong>优点</strong>：数据准备阶段充分利用多核 CPU，插入阶段仍保持强一致事务</li>
+<li><strong>缺点</strong>：如果瓶颈在数据库 IO 而非 CPU，多线程准备意义不大</li>
+<li><strong>适用</strong>：数据校验&#x2F;转换逻辑复杂、CPU 密集的场景</li>
+</ul>
+<h3 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li><strong>线程池要用自定义的有界线程池</strong>：绝对不要用 <code>Executors.newFixedThreadPool()</code> 等无界队列线程池，防止数据量暴涨时任务堆积导致 OOM。建议用 <code>ThreadPoolExecutor</code> 显式指定队列容量和拒绝策略</li>
+<li><strong><code>CompletableFuture.join()</code> 会吞掉异常</strong>：如果子线程抛出异常，<code>join()</code> 会包装成 <code>CompletionException</code> 抛出，但如果你用了 <code>thenApply</code> 链式调用而没有正确传播异常，可能会导致”静默失败”。建议在 join 之后显式检查结果</li>
+<li><strong>数据准备阶段不要有数据库操作</strong>：多线程准备阶段应该是纯 CPU 计算（校验、转换、计算），一旦涉及数据库查询就会引入连接争用，反而可能比单线程更慢</li>
+<li><strong>内存占用翻倍</strong>：原始数据 + 处理后的数据同时存在于内存中，数据量大时注意 JVM 堆内存是否够用</li>
+<li><strong>事务超时设置</strong>：如果数据准备耗时较长，<code>@Transactional</code> 的默认超时可能不够。准备阶段虽然不涉及数据库，但事务已经开启，时间会被计入事务超时。可以考虑把事务注解只加在实际插入的方法上</li>
+</ol>
+<hr>
+<h2 id="方案三：Staging-表伪-2PC"><a href="#方案三：Staging-表伪-2PC" class="headerlink" title="方案三：Staging 表伪 2PC"></a>方案三：Staging 表伪 2PC</h2><h3 id="核心思路-2"><a href="#核心思路-2" class="headerlink" title="核心思路"></a>核心思路</h3><p>先让多线程并发写入 staging（临时表），各自独立事务提交。全部完成后，协调者在 <strong>一个最终事务</strong> 里执行 <code>INSERT INTO target SELECT FROM staging</code>，对业务表而言仍然是原子的。</p>
+<p>把问题拆成两层：</p>
+<ul>
+<li><strong>并发层</strong>：多线程写 staging，各自独立事务，互不干扰</li>
+<li><strong>原子层</strong>：最终一个事务做数据搬运，真正的数据库级原子性</li>
+</ul>
+<h3 id="示例代码-2"><a href="#示例代码-2" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StagingTwoPhaseService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> StagingOrderItemMapper stagingMapper;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> OrderItemMapper orderItemMapper;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> BatchRecordMapper batchRecordMapper;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ThreadPoolExecutor executor;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> PlatformTransactionManager transactionManager;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">batchInsert</span><span class="params">(List&lt;OrderItem&gt; dataList)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">batchId</span> <span class="operator">=</span> IdUtil.fastSimpleUUID();</span><br><span class="line">        <span class="type">int</span> <span class="variable">expectedCount</span> <span class="operator">=</span> dataList.size();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 记录批次</span></span><br><span class="line">        batchRecordMapper.insert(<span class="keyword">new</span> <span class="title class_">BatchRecord</span>(batchId, expectedCount, <span class="string">&quot;STAGING&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 阶段一：多线程并发写 staging 表</span></span><br><span class="line">        List&lt;List&lt;OrderItem&gt;&gt; partitions = ListUtil.partition(dataList, <span class="number">500</span>);</span><br><span class="line">        <span class="type">AtomicBoolean</span> <span class="variable">hasFailed</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AtomicBoolean</span>(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        List&lt;CompletableFuture&lt;Void&gt;&gt; futures = partitions.stream()</span><br><span class="line">                .map(chunk -&gt; CompletableFuture.runAsync(() -&gt; &#123;</span><br><span class="line">                    <span class="type">TransactionStatus</span> <span class="variable">status</span> <span class="operator">=</span> transactionManager.getTransaction(</span><br><span class="line">                            <span class="keyword">new</span> <span class="title class_">DefaultTransactionDefinition</span>());</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">for</span> (OrderItem item : chunk) &#123;</span><br><span class="line">                            <span class="type">StagingOrderItem</span> <span class="variable">staging</span> <span class="operator">=</span> toStaging(item, batchId);</span><br><span class="line">                            stagingMapper.insert(staging);</span><br><span class="line">                        &#125;</span><br><span class="line">                        transactionManager.commit(status);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        hasFailed.set(<span class="literal">true</span>);</span><br><span class="line">                        transactionManager.rollback(status);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, executor))</span><br><span class="line">                .toList();</span><br><span class="line"></span><br><span class="line">        CompletableFuture.allOf(futures.toArray(<span class="keyword">new</span> <span class="title class_">CompletableFuture</span>[<span class="number">0</span>])).join();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 检查是否有失败</span></span><br><span class="line">        <span class="keyword">if</span> (hasFailed.get()) &#123;</span><br><span class="line">            stagingMapper.deleteByBatchId(batchId);</span><br><span class="line">            batchRecordMapper.updateStatus(batchId, <span class="string">&quot;FAILED&quot;</span>);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BusinessException</span>(<span class="string">&quot;Staging 阶段有线程失败，已清理&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 校验数据完整性</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">actualCount</span> <span class="operator">=</span> stagingMapper.countByBatchId(batchId);</span><br><span class="line">        <span class="keyword">if</span> (actualCount != expectedCount) &#123;</span><br><span class="line">            stagingMapper.deleteByBatchId(batchId);</span><br><span class="line">            batchRecordMapper.updateStatus(batchId, <span class="string">&quot;FAILED&quot;</span>);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BusinessException</span>(<span class="string">&quot;数据完整性校验失败&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 阶段二：单事务搬运到目标表（原子操作）</span></span><br><span class="line">        batchRecordMapper.updateStatus(batchId, <span class="string">&quot;COMMITTING&quot;</span>);</span><br><span class="line">        orderItemMapper.insertFromStaging(batchId);</span><br><span class="line">        stagingMapper.deleteByBatchId(batchId);</span><br><span class="line">        batchRecordMapper.updateStatus(batchId, <span class="string">&quot;DONE&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="优缺点-2"><a href="#优缺点-2" class="headerlink" title="优缺点"></a>优缺点</h3><ul>
+<li><strong>优点</strong>：并发写入能力强，最终业务表仍满足原子性</li>
+<li><strong>缺点</strong>：需要 staging 表、批次状态表、清理机制；多一步数据搬运</li>
+<li><strong>适用</strong>：并发必须保留，但原子性必须严格保证在最终业务表</li>
+</ul>
+<h3 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li><strong>staging 表不要加业务约束</strong>：staging 表不应有唯一索引、外键等约束，让并发写入尽量无冲突。所有业务校验应该在协调者校验阶段完成，而不是依赖数据库约束</li>
+<li><strong>数据库连接池要够大</strong>：多线程并发写入时，每个线程占用一个数据库连接。如果线程数 &gt; 连接池 <code>max-active</code>，会出现等待甚至死锁。确保 <code>Druid.max-active ≥ 并发线程数 + 主线程预留</code></li>
+<li><strong>协调者崩溃的数据残留</strong>：如果协调者在 staging 写入完成后、搬运之前崩溃，staging 中会残留”孤儿数据”。<strong>必须配合定时任务</strong>扫描 <code>batch_record</code> 中长时间处于 <code>STAGING</code>&#x2F;<code>COMMITTING</code> 状态的批次，执行超时清理</li>
+<li><strong><code>INSERT INTO ... SELECT</code> 的锁行为</strong>：在 InnoDB 中 <code>INSERT INTO target SELECT FROM staging WHERE ...</code> 会对 staging 表加共享锁（在 RR 隔离级别下还会加 gap lock）。如果此时恰好有其他批次也在写 staging，可能出现锁等待。建议 staging 表使用 <code>READ COMMITTED</code> 隔离级别或按 batch_id 做表分区</li>
+<li><strong>大数据量的搬运瓶颈</strong>：<code>INSERT ... SELECT</code> 虽然是数据库内部搬运，但如果数据量很大（比如 50 万行），这一步本身也是一个大事务，和方案一面临一样的长事务风险</li>
+<li><strong>事务传播要注意</strong>：<code>commitToTarget()</code> 方法上的 <code>@Transactional</code> 要确保是 <code>REQUIRES_NEW</code> 或者由顶层方法统一管理，避免嵌套事务导致提交时机不符预期</li>
+</ol>
+<hr>
+<h2 id="方案四：分批提交-补偿机制"><a href="#方案四：分批提交-补偿机制" class="headerlink" title="方案四：分批提交 + 补偿机制"></a>方案四：分批提交 + 补偿机制</h2><h3 id="核心思路-3"><a href="#核心思路-3" class="headerlink" title="核心思路"></a>核心思路</h3><p>当数据量大到单事务不现实时（长事务锁资源、undo log 膨胀、主从延迟），放弃强原子性，转向 <strong>最终一致性</strong>。每批独立事务提交，失败时根据 <code>batch_id</code> 做补偿回滚。</p>
+<h3 id="示例代码-3"><a href="#示例代码-3" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CompensateBatchService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SqlSessionFactory sqlSessionFactory;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> OrderItemMapper orderItemMapper;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> BatchRecordMapper batchRecordMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insertChunk</span><span class="params">(String batchId, <span class="type">int</span> chunkIndex, List&lt;OrderItem&gt; chunk)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">SqlSession</span> <span class="variable">session</span> <span class="operator">=</span> sqlSessionFactory.openSession(ExecutorType.BATCH)) &#123;</span><br><span class="line">            <span class="type">OrderItemMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> session.getMapper(OrderItemMapper.class);</span><br><span class="line">            <span class="keyword">for</span> (OrderItem item : chunk) &#123;</span><br><span class="line">                item.setBatchId(batchId);</span><br><span class="line">                mapper.insert(item);</span><br><span class="line">            &#125;</span><br><span class="line">            session.flushStatements();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">batchInsert</span><span class="params">(List&lt;OrderItem&gt; dataList)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">batchId</span> <span class="operator">=</span> IdUtil.fastSimpleUUID();</span><br><span class="line">        List&lt;List&lt;OrderItem&gt;&gt; chunks = ListUtil.partition(dataList, <span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">        batchRecordMapper.insert(<span class="keyword">new</span> <span class="title class_">BatchRecord</span>(batchId, dataList.size(), <span class="string">&quot;PROCESSING&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; chunks.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                insertChunk(batchId, i, chunks.get(i));</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                <span class="comment">// 触发补偿：回滚已成功的 chunk</span></span><br><span class="line">                compensate(batchId);</span><br><span class="line">                batchRecordMapper.updateStatus(batchId, <span class="string">&quot;ROLLED_BACK&quot;</span>);</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BusinessException</span>(<span class="string">&quot;批量插入失败，已触发补偿回滚: &quot;</span> + e.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        batchRecordMapper.updateStatus(batchId, <span class="string">&quot;COMPLETED&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">compensate</span><span class="params">(String batchId)</span> &#123;</span><br><span class="line">        orderItemMapper.deleteByBatchId(batchId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="优缺点-3"><a href="#优缺点-3" class="headerlink" title="优缺点"></a>优缺点</h3><ul>
+<li><strong>优点</strong>：无长事务风险，适合超大数据量，性能最高</li>
+<li><strong>缺点</strong>：补偿回滚前有短暂中间状态，设计复杂度高</li>
+<li><strong>适用</strong>：百万级数据量，可接受最终一致性</li>
+</ul>
+<h3 id="注意事项-3"><a href="#注意事项-3" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li><strong>补偿操作本身也可能失败</strong>：<code>DELETE FROM order_item WHERE batch_id = ?</code> 如果因为网络抖动、数据库宕机等原因失败，就会出现”既没全写完，也没全删干净”的状态。<strong>补偿逻辑必须支持重试</strong>，建议配合定时任务扫描 <code>ROLLED_BACK</code> 状态的批次，确认数据确实已清理</li>
+<li><strong>补偿窗口期的脏读</strong>：在第 3 批失败、触发补偿删除第 1~2 批数据的这个窗口期内，其他业务如果查询了 order_item 表，会读到”不完整的数据”。解决方案：业务查询加上 <code>status = &#39;COMPLETED&#39;</code> 的批次过滤，或者在数据上增加一个 <code>visible</code> 标志位，最后一步统一设为可见</li>
+<li><strong>batch_id 字段必须加索引</strong>：补偿删除 <code>DELETE WHERE batch_id = ?</code> 如果没有索引，会全表扫描加锁，在数据量大时可能导致严重的锁冲突。<code>init.sql</code> 中已为此字段建立了索引</li>
+<li><strong>分批大小的选择</strong>：每批太小（如 100 条）会导致事务次数过多、频繁提交的开销大于批量的收益；每批太大（如 10 万条）又回到了长事务的问题。建议根据实际压测调整，一般 1000~5000 条为宜</li>
+<li><strong>幂等性设计</strong>：如果补偿后需要重试整个批次，要确保插入操作是幂等的。可以用 <code>INSERT IGNORE</code> 或 <code>ON DUPLICATE KEY UPDATE</code>，或者每次重试生成新的 batch_id</li>
+<li><strong>并发场景可结合多线程</strong>：方案四本身是串行分批，但也可以改成多线程并发分批插入（每个线程处理若干 chunk），补偿逻辑不变。代价是补偿时需要处理更复杂的并发状态</li>
+</ol>
+<hr>
+<h2 id="关于-Seata-分布式事务"><a href="#关于-Seata-分布式事务" class="headerlink" title="关于 Seata 分布式事务"></a>关于 Seata 分布式事务</h2><p>如果业务场景是 <strong>跨库&#x2F;跨服务</strong>，需要考虑 Seata 等分布式事务框架：</p>
+<h3 id="AT-模式-vs-XA-模式"><a href="#AT-模式-vs-XA-模式" class="headerlink" title="AT 模式 vs XA 模式"></a>AT 模式 vs XA 模式</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>AT 模式</th>
+<th>XA 模式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>一致性级别</td>
+<td>最终一致（有短暂中间状态）</td>
+<td>强一致</td>
+</tr>
+<tr>
+<td>隔离性</td>
+<td>分支事务提交后可被读到</td>
+<td>prepare 阶段数据对外不可见</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>高（立即释放锁）</td>
+<td>低（prepare 到 commit 一直持锁）</td>
+</tr>
+<tr>
+<td>回滚机制</td>
+<td>反向 SQL 补偿（undo_log）</td>
+<td>数据库原生 XA ROLLBACK</td>
+</tr>
+<tr>
+<td>部署要求</td>
+<td>需要 Seata Server + undo_log 表</td>
+<td>需要 Seata Server + 数据库支持 XA</td>
+</tr>
+</tbody></table>
+<h3 id="什么时候该用-Seata？"><a href="#什么时候该用-Seata？" class="headerlink" title="什么时候该用 Seata？"></a>什么时候该用 Seata？</h3><ul>
+<li><strong>单库批量插入</strong> → 不需要，本文方案就够</li>
+<li><strong>跨库&#x2F;跨服务的写入必须原子</strong> → Seata 是正解</li>
+<li><strong>多线程写同一库同一表</strong> → 本质上不需要分布式事务</li>
+</ul>
+<hr>
+<h2 id="如何选择？"><a href="#如何选择？" class="headerlink" title="如何选择？"></a>如何选择？</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">数据量 &lt; 10万，单库单表？</span><br><span class="line">    └─ YES → 方案一（单事务 BATCH）直接搞定</span><br><span class="line">    └─ NO ↓</span><br><span class="line"></span><br><span class="line">数据准备阶段 CPU 密集？</span><br><span class="line">    └─ YES → 方案二（多线程准备 + 单线程提交）</span><br><span class="line">    └─ NO ↓</span><br><span class="line"></span><br><span class="line">必须并发写入，且要求业务表强原子？</span><br><span class="line">    └─ YES → 方案三（Staging 伪 2PC）</span><br><span class="line">    └─ NO ↓</span><br><span class="line"></span><br><span class="line">数据量百万级，可接受最终一致？</span><br><span class="line">    └─ YES → 方案四（分批 + 补偿）</span><br><span class="line"></span><br><span class="line">跨库/跨服务？</span><br><span class="line">    └─ Seata AT/XA 模式</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>实战建议</strong>：90% 的场景方案一就够用。在没有性能压测数据证明单事务是瓶颈之前，不要过早引入复杂方案。</p>
+</blockquote>
+<hr>
+<h2 id="完整示例项目"><a href="#完整示例项目" class="headerlink" title="完整示例项目"></a>完整示例项目</h2><p>本文所有方案的完整可运行代码已集成到 Spring Boot 示例项目中，提供了统一的 REST API 接口方便测试对比。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /api/batch/single-tx          # 方案一：单事务 BATCH</span><br><span class="line">POST /api/batch/parallel-prepare   # 方案二：多线程准备 + 单线程提交</span><br><span class="line">POST /api/batch/staging-2pc        # 方案三：Staging 伪 2PC</span><br><span class="line">POST /api/batch/compensate         # 方案四：分批 + 补偿</span><br><span class="line">DELETE /api/batch/clean             # 清理所有测试数据</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>赞赏一杯咖啡</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';" style="cursor:pointer;">
+    <i class="fa fa-qrcode fa-2x" style="line-height:35px;font:normal normal normal 25px/1 FontAwesome;"></i>
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/blog/images/wechatpay.jpg" alt="LI YAO 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/blog/images/alipay.jpg" alt="LI YAO 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%8B%E5%8A%A1/" rel="tag"># 多线程事务</a>
+              <a href="/blog/tags/%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/" rel="tag"># 批量插入</a>
+              <a href="/blog/tags/MyBatis/" rel="tag"># MyBatis</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2026/03/03/openclaw-whatsapp-telegram-integration/" rel="prev" title="OpenClaw 整合 WhatsApp 和 Telegram 完整教程">
+      <i class="fa fa-chevron-left"></i> OpenClaw 整合 WhatsApp 和 Telegram 完整教程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%BA%8B%E5%8A%A1%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">多线程批量插入如何保证事务一致性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">问题背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%8B%E5%8A%A1%E8%BF%99%E4%B9%88%E9%9A%BE%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">为什么多线程事务这么难？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E2%80%9D%E9%94%99%E8%AF%AF%E6%96%B9%E6%A1%88%E2%80%9D%EF%BC%9ACountDownLatch-%E5%8D%8F%E8%B0%83%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8F%90%E4%BA%A4"><span class="nav-number">1.2.1.</span> <span class="nav-text">常见的”错误方案”：CountDownLatch 协调多线程提交</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E6%80%BB%E8%A7%88"><span class="nav-number">1.3.</span> <span class="nav-text">方案总览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9A%E5%8D%95%E4%BA%8B%E5%8A%A1-BATCH-%E6%A8%A1%E5%BC%8F%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">方案一：单事务 + BATCH 模式（推荐）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF"><span class="nav-number">1.4.1.</span> <span class="nav-text">核心思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%9F%E5%BF%AB%EF%BC%9F"><span class="nav-number">1.4.2.</span> <span class="nav-text">为什么够快？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.3.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">1.4.4.</span> <span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.4.5.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%87%86%E5%A4%87-%E5%8D%95%E7%BA%BF%E7%A8%8B%E6%8F%90%E4%BA%A4"><span class="nav-number">1.5.</span> <span class="nav-text">方案二：多线程准备 + 单线程提交</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-1"><span class="nav-number">1.5.1.</span> <span class="nav-text">核心思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-1"><span class="nav-number">1.5.2.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9-1"><span class="nav-number">1.5.3.</span> <span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9-1"><span class="nav-number">1.5.4.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%89%EF%BC%9AStaging-%E8%A1%A8%E4%BC%AA-2PC"><span class="nav-number">1.6.</span> <span class="nav-text">方案三：Staging 表伪 2PC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-2"><span class="nav-number">1.6.1.</span> <span class="nav-text">核心思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-2"><span class="nav-number">1.6.2.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9-2"><span class="nav-number">1.6.3.</span> <span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9-2"><span class="nav-number">1.6.4.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E5%9B%9B%EF%BC%9A%E5%88%86%E6%89%B9%E6%8F%90%E4%BA%A4-%E8%A1%A5%E5%81%BF%E6%9C%BA%E5%88%B6"><span class="nav-number">1.7.</span> <span class="nav-text">方案四：分批提交 + 补偿机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF-3"><span class="nav-number">1.7.1.</span> <span class="nav-text">核心思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-3"><span class="nav-number">1.7.2.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9-3"><span class="nav-number">1.7.3.</span> <span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9-3"><span class="nav-number">1.7.4.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-Seata-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.8.</span> <span class="nav-text">关于 Seata 分布式事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AT-%E6%A8%A1%E5%BC%8F-vs-XA-%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.8.1.</span> <span class="nav-text">AT 模式 vs XA 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%AF%A5%E7%94%A8-Seata%EF%BC%9F"><span class="nav-number">1.8.2.</span> <span class="nav-text">什么时候该用 Seata？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F"><span class="nav-number">1.9.</span> <span class="nav-text">如何选择？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.10.</span> <span class="nav-text">完整示例项目</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <canvas id="canvas" style="width:60%;margin:10px;"></canvas>
+  <script>
+    (function(){
+
+       var digit=
+        [
+            [
+                [0,0,1,1,1,0,0],
+                [0,1,1,0,1,1,0],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,0,1,1,0],
+                [0,0,1,1,1,0,0]
+            ],//0
+            [
+                [0,0,0,1,1,0,0],
+                [0,1,1,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [1,1,1,1,1,1,1]
+            ],//1
+            [
+                [0,1,1,1,1,1,0],
+                [1,1,0,0,0,1,1],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,1,1,0],
+                [0,0,0,1,1,0,0],
+                [0,0,1,1,0,0,0],
+                [0,1,1,0,0,0,0],
+                [1,1,0,0,0,0,0],
+                [1,1,0,0,0,1,1],
+                [1,1,1,1,1,1,1]
+            ],//2
+            [
+                [1,1,1,1,1,1,1],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,1,1,0],
+                [0,0,0,1,1,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,0,0,1,1,0],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,1,1,1,0]
+            ],//3
+            [
+                [0,0,0,0,1,1,0],
+                [0,0,0,1,1,1,0],
+                [0,0,1,1,1,1,0],
+                [0,1,1,0,1,1,0],
+                [1,1,0,0,1,1,0],
+                [1,1,1,1,1,1,1],
+                [0,0,0,0,1,1,0],
+                [0,0,0,0,1,1,0],
+                [0,0,0,0,1,1,0],
+                [0,0,0,1,1,1,1]
+            ],//4
+            [
+                [1,1,1,1,1,1,1],
+                [1,1,0,0,0,0,0],
+                [1,1,0,0,0,0,0],
+                [1,1,1,1,1,1,0],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,1,1,1,0]
+            ],//5
+            [
+                [0,0,0,0,1,1,0],
+                [0,0,1,1,0,0,0],
+                [0,1,1,0,0,0,0],
+                [1,1,0,0,0,0,0],
+                [1,1,0,1,1,1,0],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,1,1,1,0]
+            ],//6
+            [
+                [1,1,1,1,1,1,1],
+                [1,1,0,0,0,1,1],
+                [0,0,0,0,1,1,0],
+                [0,0,0,0,1,1,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,1,1,0,0,0],
+                [0,0,1,1,0,0,0],
+                [0,0,1,1,0,0,0],
+                [0,0,1,1,0,0,0]
+            ],//7
+            [
+                [0,1,1,1,1,1,0],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,1,1,1,0],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,1,1,1,0]
+            ],//8
+            [
+                [0,1,1,1,1,1,0],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,1,0,1,1],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,1,1,0],
+                [0,0,0,1,1,0,0],
+                [0,1,1,0,0,0,0]
+            ],//9
+            [
+                [0,0,0,0,0,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,0,0,0,0,0]
+            ]//:
+        ];
+
+    var canvas = document.getElementById('canvas');
+
+    if(canvas.getContext){
+        var cxt = canvas.getContext('2d');
+        //声明canvas的宽高
+        var H = 100,W = 700;
+        canvas.height = H;
+        canvas.width = W;
+        cxt.fillStyle = '#f00';
+        cxt.fillRect(10,10,50,50);
+
+        //存储时间数据
+        var data = [];
+        //存储运动的小球
+        var balls = [];
+        //设置粒子半径
+        var R = canvas.height/20-1;
+        (function(){
+            var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+            //存储时间数字，由十位小时、个位小时、冒号、十位分钟、个位分钟、冒号、十位秒钟、个位秒钟这7个数字组成
+            data.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+        })();
+
+        /*生成点阵数字*/
+        function renderDigit(index,num){
+            for(var i = 0; i < digit[num].length; i++){
+                for(var j = 0; j < digit[num][i].length; j++){
+                    if(digit[num][i][j] == 1){
+                        cxt.beginPath();
+                        cxt.arc(14*(R+2)*index + j*2*(R+1)+(R+1),i*2*(R+1)+(R+1),R,0,2*Math.PI);
+                        cxt.closePath();
+                        cxt.fill();
+                    }
+                }
+            }
+        }
+
+        /*更新时钟*/
+        function updateDigitTime(){
+            var changeNumArray = [];
+            var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+            var NewData = [];
+            NewData.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+            for(var i = data.length-1; i >=0 ; i--){
+                //时间发生变化
+                if(NewData[i] !== data[i]){
+                    //将变化的数字值和在data数组中的索引存储在changeNumArray数组中
+                    changeNumArray.push(i+'_'+(Number(data[i])+1)%10);
+                }
+            }
+            //增加小球
+            for(var i = 0; i< changeNumArray.length; i++){
+                addBalls.apply(this,changeNumArray[i].split('_'));
+            }
+            data = NewData.concat();
+        }
+
+        /*更新小球状态*/
+        function updateBalls(){
+            for(var i = 0; i < balls.length; i++){
+                balls[i].stepY += balls[i].disY;
+                balls[i].x += balls[i].stepX;
+                balls[i].y += balls[i].stepY;
+                if(balls[i].x > W + R || balls[i].y > H + R){
+                    balls.splice(i,1);
+                    i--;
+                }
+            }
+        }
+
+        /*增加要运动的小球*/
+        function addBalls(index,num){
+            var numArray = [1,2,3];
+            var colorArray =  ["#3BE","#09C","#A6C","#93C","#9C0","#690","#FB3","#F80","#F44","#C00"];
+            for(var i = 0; i < digit[num].length; i++){
+                for(var j = 0; j < digit[num][i].length; j++){
+                    if(digit[num][i][j] == 1){
+                        var ball = {
+                            x:14*(R+2)*index + j*2*(R+1)+(R+1),
+                            y:i*2*(R+1)+(R+1),
+                            stepX:Math.floor(Math.random() * 4 -2),
+                            stepY:-2*numArray[Math.floor(Math.random()*numArray.length)],
+                            color:colorArray[Math.floor(Math.random()*colorArray.length)],
+                            disY:1
+                        };
+                        balls.push(ball);
+                    }
+                }
+            }
+        }
+
+        /*渲染*/
+        function render(){
+            //重置画布宽度，达到清空画布的效果
+            canvas.height = 100;
+            //渲染时钟
+            for(var i = 0; i < data.length; i++){
+                renderDigit(i,data[i]);
+            }
+            //渲染小球
+            for(var i = 0; i < balls.length; i++){
+                cxt.beginPath();
+                cxt.arc(balls[i].x,balls[i].y,R,0,2*Math.PI);
+                cxt.fillStyle = balls[i].color;
+                cxt.closePath();
+                cxt.fill();
+            }
+        }
+
+        clearInterval(oTimer);
+        var oTimer = setInterval(function(){
+            //更新时钟
+            updateDigitTime();
+            //更新小球状态
+            updateBalls();
+            //渲染
+            render();
+        },50);
+    }
+
+    })();
+  </script>
+    <img class="site-author-image" itemprop="image" alt="LI YAO"
+      src="/blog/images/person2.png">
+  <p class="site-author-name" itemprop="name">LI YAO</p>
+  <div class="site-description" itemprop="description">伸手摘星, 即使一无所获, 也不至于满手污泥</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/handsomeliyao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;handsomeliyao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:talent_liyao@163.com" title="E-Mail → mailto:talent_liyao@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LI YAO</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">20k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:11</span>
+  <span class="post-meta-divider">|</span>
+  <span class=“post-count”>共22k字</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+<!-- 网站运行时间的设置 -->
+<br>
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("03/01/2023 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+<script src="/blog/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 't4ThrZRx82oOYRpon1mO6hI1-gzGzoHsz',
+      appKey     : 'ccBvr06mKTNJ3hZwKVWWz2Yz',
+      placeholder: "ヾﾉ≧∀≦)o 来呀！吐槽一番吧！",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  
+     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+     <script type="text/javascript" src="/blog/js/fireworks.min.js"></script>
+  
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/blog/live2dw/assets/nipsilon.model.json"},"display":{"position":"right","width":168,"height":240,"hOffset":50,"vOffset":20},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
