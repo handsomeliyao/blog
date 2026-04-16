@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"handsomeliyao.github.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="在 Amazon Linux 2 &#x2F; Amazon Linux 2023 云服务器上安装 Claude Code，并通过本地 VS Code + Remote SSH 远程使用的完整步骤。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Amazon Linux 上通过 VS Code Remote SSH 远程使用 Claude Code 完整指南">
+<meta property="og:url" content="https://handsomeliyao.github.io/2026/04/16/hexo_claude_code_amazon_linux_remote_ssh/index.html">
+<meta property="og:site_name" content="LI YAO&#39;S BLOG">
+<meta property="og:description" content="在 Amazon Linux 2 &#x2F; Amazon Linux 2023 云服务器上安装 Claude Code，并通过本地 VS Code + Remote SSH 远程使用的完整步骤。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-04-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-16T01:14:39.949Z">
+<meta property="article:author" content="LI YAO">
+<meta property="article:tag" content="Claude Code">
+<meta property="article:tag" content="VS Code">
+<meta property="article:tag" content="Remote SSH">
+<meta property="article:tag" content="Amazon Linux">
+<meta property="article:tag" content="EC2">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://handsomeliyao.github.io/2026/04/16/hexo_claude_code_amazon_linux_remote_ssh/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Amazon Linux 上通过 VS Code Remote SSH 远程使用 Claude Code 完整指南 | LI YAO'S BLOG</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <a target="_blank" rel="noopener" href="https://github.com/handsomeliyao" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LI YAO'S BLOG</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">有趣的人生, 一半家长里短, 一半山川胡海</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-life">
+
+    <a href="/blog/life/" rel="section"><i class="fa fa-camera fa-fw"></i>生活</a>
+
+  </li>
+        <li class="menu-item menu-item-copywriter">
+
+    <a href="/blog/copywriter/" rel="section"><i class="fa fa-mug-hot fa-fw"></i>文案</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/me" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">36</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">25</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://handsomeliyao.github.io/2026/04/16/hexo_claude_code_amazon_linux_remote_ssh/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/person2.png">
+      <meta itemprop="name" content="LI YAO">
+      <meta itemprop="description" content="伸手摘星, 即使一无所获, 也不至于满手污泥">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LI YAO'S BLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Amazon Linux 上通过 VS Code Remote SSH 远程使用 Claude Code 完整指南
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-16 00:00:00 / 修改时间：09:14:39" itemprop="dateCreated datePublished" datetime="2026-04-16T00:00:00+08:00">2026-04-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" itemprop="url" rel="index"><span itemprop="name">开发环境</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">云服务器</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/blog/2026/04/16/hexo_claude_code_amazon_linux_remote_ssh/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/blog/2026/04/16/hexo_claude_code_amazon_linux_remote_ssh/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+            <div class="post-description">在 Amazon Linux 2 / Amazon Linux 2023 云服务器上安装 Claude Code，并通过本地 VS Code + Remote SSH 远程使用的完整步骤。</div>
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Amazon-Linux-上通过-VS-Code-Remote-SSH-远程使用-Claude-Code-完整指南"><a href="#Amazon-Linux-上通过-VS-Code-Remote-SSH-远程使用-Claude-Code-完整指南" class="headerlink" title="Amazon Linux 上通过 VS Code Remote SSH 远程使用 Claude Code 完整指南"></a>Amazon Linux 上通过 VS Code Remote SSH 远程使用 Claude Code 完整指南</h1><p>很多人第一次接触 Claude Code 时，会下意识地想：能不能把它部署在 VPS 上，然后本地电脑像访问一个网页服务一样去使用？</p>
+<p>对于这个需求，更合适、也更稳的实现方式并不是把 Claude Code 做成一个公网 Web 服务，而是：</p>
+<ul>
+<li>Claude Code 安装在 Amazon Linux 云服务器上</li>
+<li>项目代码放在云服务器上</li>
+<li>本地电脑通过 VS Code 的 Remote SSH 连接远程主机</li>
+<li>在本地 VS Code 中直接打开远程项目目录</li>
+<li>Claude Code 实际运行在远程服务器环境中</li>
+</ul>
+<p>这种方式更符合 Claude Code 的使用形态，也更适合长期开发、调试和部署。</p>
+<p>Anthropic 官方文档说明，Claude Code 提供了 VS Code 原生扩展，这是在 VS Code 中使用 Claude Code 的推荐方式；扩展还包含 CLI，可直接在 VS Code 集成终端中使用。citeturn150083search0</p>
+<hr>
+<h2 id="一、为什么推荐这种方案"><a href="#一、为什么推荐这种方案" class="headerlink" title="一、为什么推荐这种方案"></a>一、为什么推荐这种方案</h2><p>这个方案的核心价值在于：<strong>开发入口在本地，执行环境在远端</strong>。</p>
+<p>也就是说：</p>
+<ul>
+<li>你本地看到的是 VS Code 图形界面</li>
+<li>你编辑的是服务器上的真实项目文件</li>
+<li>Claude Code 读取、修改、执行命令的环境也是服务器</li>
+<li>不需要额外给 Claude Code 暴露公网端口</li>
+</ul>
+<p>这样做有几个明显好处：</p>
+<h3 id="1-环境统一"><a href="#1-环境统一" class="headerlink" title="1. 环境统一"></a>1. 环境统一</h3><p>很多项目都有“本地能跑、服务器不能跑”的问题。把代码、依赖、运行环境都放在 Amazon Linux 服务器上后，Claude Code 处理的就是最终真实环境。</p>
+<h3 id="2-更适合远程开发"><a href="#2-更适合远程开发" class="headerlink" title="2. 更适合远程开发"></a>2. 更适合远程开发</h3><p>如果你的项目本来就部署在 EC2、VPS 或远程 Linux 主机上，这种方式几乎就是最自然的工作流。</p>
+<h3 id="3-本地电脑压力更小"><a href="#3-本地电脑压力更小" class="headerlink" title="3. 本地电脑压力更小"></a>3. 本地电脑压力更小</h3><p>依赖安装、命令执行、日志分析都在远程服务器进行，本地主要承担编辑器界面的角色。</p>
+<h3 id="4-安全性更高"><a href="#4-安全性更高" class="headerlink" title="4. 安全性更高"></a>4. 安全性更高</h3><p>Claude Code 本身并不是一个典型的公网服务程序。通过 SSH 或 VS Code Remote SSH 使用，比额外套一层网页服务更稳妥。</p>
+<hr>
+<h2 id="二、先决条件"><a href="#二、先决条件" class="headerlink" title="二、先决条件"></a>二、先决条件</h2><p>在开始之前，先确认你具备以下条件。</p>
+<h3 id="本地电脑需要准备"><a href="#本地电脑需要准备" class="headerlink" title="本地电脑需要准备"></a>本地电脑需要准备</h3><ul>
+<li>已安装 VS Code</li>
+<li>本地网络可以稳定连接服务器</li>
+<li>能正常使用 SSH</li>
+<li>有浏览器可用于 Claude Code 首次登录授权</li>
+</ul>
+<h3 id="云服务器需要准备"><a href="#云服务器需要准备" class="headerlink" title="云服务器需要准备"></a>云服务器需要准备</h3><ul>
+<li>Amazon Linux 2 或 Amazon Linux 2023</li>
+<li>可 SSH 登录</li>
+<li>有普通用户账号</li>
+<li>可以正常联网访问 Claude 登录和相关服务</li>
+<li>已经准备好项目目录，或者计划把项目放到服务器上</li>
+</ul>
+<h3 id="Claude-Code-账号要求"><a href="#Claude-Code-账号要求" class="headerlink" title="Claude Code 账号要求"></a>Claude Code 账号要求</h3><p>Claude Code 需要可用的 Anthropic 账号计划。首次打开扩展或首次运行 CLI 时需要登录。citeturn150083search0turn150083search1</p>
+<hr>
+<h2 id="三、先确认-Amazon-Linux-版本"><a href="#三、先确认-Amazon-Linux-版本" class="headerlink" title="三、先确认 Amazon Linux 版本"></a>三、先确认 Amazon Linux 版本</h2><p>先登录服务器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh ec2-user@你的服务器IP</span><br></pre></td></tr></table></figure>
+
+<p>查看系统版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/os-release</span><br></pre></td></tr></table></figure>
+
+<p>如果输出里看到：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VERSION=<span class="string">&quot;2023&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>说明你是 <strong>Amazon Linux 2023</strong>。</p>
+<p>如果输出里看到：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VERSION=<span class="string">&quot;2&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>说明你是 <strong>Amazon Linux 2</strong>。</p>
+<p>这一步很重要，因为两者默认使用的包管理器不同：</p>
+<ul>
+<li>Amazon Linux 2023 使用 <code>dnf</code></li>
+<li>Amazon Linux 2 使用 <code>yum</code> citeturn150083search2turn150083search6</li>
+</ul>
+<hr>
+<h2 id="四、安装基础环境"><a href="#四、安装基础环境" class="headerlink" title="四、安装基础环境"></a>四、安装基础环境</h2><hr>
+<h3 id="1-Amazon-Linux-2023"><a href="#1-Amazon-Linux-2023" class="headerlink" title="1. Amazon Linux 2023"></a>1. Amazon Linux 2023</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf update -y</span><br><span class="line">sudo dnf install -y git curl tar gzip unzip <span class="built_in">which</span> procps-ng findutils</span><br></pre></td></tr></table></figure>
+
+<p>如果你希望远程断线后 Claude 会话不丢失，建议顺手安装 <code>tmux</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf install -y tmux</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-Amazon-Linux-2"><a href="#2-Amazon-Linux-2" class="headerlink" title="2. Amazon Linux 2"></a>2. Amazon Linux 2</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update -y</span><br><span class="line">sudo yum install -y git curl tar gzip unzip <span class="built_in">which</span> procps-ng findutils</span><br></pre></td></tr></table></figure>
+
+<p>同样建议安装 <code>tmux</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y tmux</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="五、检查服务器架构"><a href="#五、检查服务器架构" class="headerlink" title="五、检查服务器架构"></a>五、检查服务器架构</h2><p>在安装 Claude Code 之前，建议先确认机器架构：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">uname</span> -m</span><br></pre></td></tr></table></figure>
+
+<p>常见结果有：</p>
+<ul>
+<li><code>x86_64</code></li>
+<li><code>aarch64</code></li>
+</ul>
+<p>如果后续安装或运行 Claude Code 时出现 <code>Illegal instruction</code> 等异常，首先应该怀疑架构或依赖问题。Anthropic 官方故障排查文档也明确建议先检查 Linux 主机架构。citeturn150083search1</p>
+<hr>
+<h2 id="六、安装-Claude-Code"><a href="#六、安装-Claude-Code" class="headerlink" title="六、安装 Claude Code"></a>六、安装 Claude Code</h2><p>Anthropic 官方 Linux 安装命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://claude.ai/install.sh | bash</span><br></pre></td></tr></table></figure>
+
+<p>执行完成后，检查是否安装成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">claude --version</span><br></pre></td></tr></table></figure>
+
+<p>如果可以正常输出版本号，说明 Claude Code 已安装完成。</p>
+<p>如果提示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">claude: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
+
+<p>可以先执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">which</span> claude</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<p>常见原因通常有这几类：</p>
+<ol>
+<li>当前终端还没有重新加载 PATH</li>
+<li>安装脚本把可执行文件装到了当前用户目录，但当前 shell 没有读取对应配置</li>
+<li>安装过程没有完整结束</li>
+</ol>
+<p>这时可以重新登录 SSH，再次检查。必要时把安装路径补进 <code>~/.bashrc</code>、<code>~/.bash_profile</code> 或 <code>~/.zshrc</code>。</p>
+<hr>
+<h2 id="七、首次登录-Claude-Code"><a href="#七、首次登录-Claude-Code" class="headerlink" title="七、首次登录 Claude Code"></a>七、首次登录 Claude Code</h2><p>安装完成后，在服务器终端执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">claude</span><br></pre></td></tr></table></figure>
+
+<p>首次运行通常会触发登录授权。</p>
+<p>这里有一个很关键的问题：如果你是在 SSH 远程终端里执行 <code>claude</code>，浏览器自动打开的动作可能会尝试发生在服务器，而不是你本地电脑。Anthropic 官方的建议是：<strong>直接复制终端里给出的登录 URL，到你本地浏览器手动打开完成授权。</strong> citeturn150083search1</p>
+<p>完成登录后，再次执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">claude</span><br></pre></td></tr></table></figure>
+
+<p>如果能正常进入 Claude Code 交互界面，就说明服务器侧认证已经成功。</p>
+<hr>
+<h2 id="八、本地-VS-Code-需要安装哪些东西"><a href="#八、本地-VS-Code-需要安装哪些东西" class="headerlink" title="八、本地 VS Code 需要安装哪些东西"></a>八、本地 VS Code 需要安装哪些东西</h2><p>你本地电脑的 VS Code 至少需要准备两个扩展：</p>
+<h3 id="1-Remote-SSH"><a href="#1-Remote-SSH" class="headerlink" title="1. Remote - SSH"></a>1. Remote - SSH</h3><p>用于让本地 VS Code 连接 Amazon Linux 服务器，并直接打开远程目录。</p>
+<h3 id="2-Claude-Code"><a href="#2-Claude-Code" class="headerlink" title="2. Claude Code"></a>2. Claude Code</h3><p>Anthropic 官方说明，Claude Code 的 VS Code 原生扩展是推荐使用方式。该扩展要求 VS Code 版本不低于 1.98.0，并且扩展中包含 CLI，可在集成终端中直接调用。citeturn150083search0</p>
+<hr>
+<h2 id="九、配置-VS-Code-Remote-SSH"><a href="#九、配置-VS-Code-Remote-SSH" class="headerlink" title="九、配置 VS Code Remote SSH"></a>九、配置 VS Code Remote SSH</h2><h3 id="1-生成本地-SSH-密钥"><a href="#1-生成本地-SSH-密钥" class="headerlink" title="1. 生成本地 SSH 密钥"></a>1. 生成本地 SSH 密钥</h3><p>如果你本地还没有 SSH 密钥，可以执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519</span><br></pre></td></tr></table></figure>
+
+<p>一路回车即可。</p>
+<p>如果已经有现成密钥，可以跳过。</p>
+<h3 id="2-把公钥上传到服务器"><a href="#2-把公钥上传到服务器" class="headerlink" title="2. 把公钥上传到服务器"></a>2. 把公钥上传到服务器</h3><p>如果服务器还没有配置免密登录，可以执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id ec2-user@你的服务器IP</span><br></pre></td></tr></table></figure>
+
+<p>如果你本地没有 <code>ssh-copy-id</code>，也可以手动把本地公钥内容追加到服务器的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-配置本地-SSH-Config"><a href="#3-配置本地-SSH-Config" class="headerlink" title="3. 配置本地 SSH Config"></a>3. 配置本地 SSH Config</h3><p>编辑你本地的 SSH 配置文件：</p>
+<ul>
+<li>Windows: <code>C:\Users\你的用户名\.ssh\config</code></li>
+<li>macOS &#x2F; Linux: <code>~/.ssh/config</code></li>
+</ul>
+<p>加入下面配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Host my-amazon-linux</span><br><span class="line">    HostName 你的服务器IP</span><br><span class="line">    User ec2-user</span><br><span class="line">    IdentityFile ~/.ssh/id_ed25519</span><br><span class="line">    ServerAliveInterval 60</span><br><span class="line">    ServerAliveCountMax 120</span><br></pre></td></tr></table></figure>
+
+<p>如果你的远程用户名不是 <code>ec2-user</code>，记得改成你自己的用户名。</p>
+<h3 id="4-在-VS-Code-中连接远程主机"><a href="#4-在-VS-Code-中连接远程主机" class="headerlink" title="4. 在 VS Code 中连接远程主机"></a>4. 在 VS Code 中连接远程主机</h3><p>打开 VS Code：</p>
+<ol>
+<li>按 <code>F1</code></li>
+<li>输入 <code>Remote-SSH: Connect to Host</code></li>
+<li>选择 <code>my-amazon-linux</code></li>
+</ol>
+<p>首次连接时，VS Code 会自动在远程主机上安装自己的 Server 组件，等待完成即可。</p>
+<hr>
+<h2 id="十、在-VS-Code-中打开远程项目"><a href="#十、在-VS-Code-中打开远程项目" class="headerlink" title="十、在 VS Code 中打开远程项目"></a>十、在 VS Code 中打开远程项目</h2><p>连接成功后：</p>
+<ol>
+<li>点击 <code>File</code></li>
+<li>选择 <code>Open Folder</code></li>
+<li>打开远程项目目录，比如：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/ec2-user/project</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/your-project</span><br></pre></td></tr></table></figure>
+
+<p>这时你虽然是在本地电脑上操作 VS Code，但文件实际都位于 Amazon Linux 服务器上。</p>
+<hr>
+<h2 id="十一、如何在-Remote-SSH-环境里使用-Claude-Code"><a href="#十一、如何在-Remote-SSH-环境里使用-Claude-Code" class="headerlink" title="十一、如何在 Remote SSH 环境里使用 Claude Code"></a>十一、如何在 Remote SSH 环境里使用 Claude Code</h2><p>在这个阶段，主要有两种使用方式。</p>
+<hr>
+<h3 id="方式一：直接使用-Claude-Code-扩展"><a href="#方式一：直接使用-Claude-Code-扩展" class="headerlink" title="方式一：直接使用 Claude Code 扩展"></a>方式一：直接使用 Claude Code 扩展</h3><p>这是 Anthropic 官方推荐的 VS Code 集成方式。扩展可以提供：</p>
+<ul>
+<li>图形化面板</li>
+<li>对话入口</li>
+<li>和当前项目上下文联动</li>
+<li>和编辑器联动</li>
+<li>CLI 能力</li>
+</ul>
+<p>使用步骤通常是：</p>
+<ol>
+<li>确保当前窗口已经通过 Remote SSH 连接到远程服务器</li>
+<li>确保你打开的是远程项目目录</li>
+<li>启用 Claude Code 扩展</li>
+<li>根据提示完成登录</li>
+<li>开始在 VS Code 中直接使用 Claude Code</li>
+</ol>
+<p>如果你发现扩展“本地可见，但远程窗口不可用”，要重点检查扩展是否安装或启用在 <strong>SSH 远程主机环境</strong> 中，而不是只安装在本地窗口中。</p>
+<hr>
+<h3 id="方式二：在-VS-Code-集成终端中运行-claude"><a href="#方式二：在-VS-Code-集成终端中运行-claude" class="headerlink" title="方式二：在 VS Code 集成终端中运行 claude"></a>方式二：在 VS Code 集成终端中运行 <code>claude</code></h3><p>这也是很实用的方案。</p>
+<p>在 VS Code 中：</p>
+<ol>
+<li>打开终端</li>
+<li>确认这是远程主机终端</li>
+<li>进入项目目录</li>
+<li>执行：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">claude</span><br></pre></td></tr></table></figure>
+
+<p>这样 Claude Code 就会在远程项目上下文中直接运行。Anthropic 官方文档也说明，VS Code 扩展包含 CLI，可以在集成终端中直接使用。citeturn150083search0</p>
+<hr>
+<h2 id="十二、推荐的日常使用流程"><a href="#十二、推荐的日常使用流程" class="headerlink" title="十二、推荐的日常使用流程"></a>十二、推荐的日常使用流程</h2><p>如果你想长期稳定使用，推荐采用下面这套流程：</p>
+<ol>
+<li>本地打开 VS Code</li>
+<li>使用 Remote SSH 连接 Amazon Linux</li>
+<li>打开远程项目目录</li>
+<li>打开 VS Code 集成终端</li>
+<li>进入项目目录</li>
+<li>执行：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">claude</span><br></pre></td></tr></table></figure>
+
+<p>然后让 Claude Code 在远程环境中直接：</p>
+<ul>
+<li>查看代码</li>
+<li>修改代码</li>
+<li>跑测试</li>
+<li>执行构建</li>
+<li>分析日志</li>
+<li>辅助排查问题</li>
+</ul>
+<p>这套方式特别适合：</p>
+<ul>
+<li>Java &#x2F; Spring Boot 项目</li>
+<li>Node.js &#x2F; Next.js 项目</li>
+<li>Python 项目</li>
+<li>依赖远程环境的项目</li>
+</ul>
+<hr>
+<h2 id="十三、建议配合-tmux-使用"><a href="#十三、建议配合-tmux-使用" class="headerlink" title="十三、建议配合 tmux 使用"></a>十三、建议配合 tmux 使用</h2><p>如果 SSH 连接容易断，或者你希望 Claude Code 会话持续存在，建议在服务器上使用 <code>tmux</code>。</p>
+<p>创建一个会话：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux new -s claude</span><br></pre></td></tr></table></figure>
+
+<p>然后在这个会话里进入项目目录并运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /你的项目目录</span><br><span class="line">claude</span><br></pre></td></tr></table></figure>
+
+<p>想暂时退出但不终止会话，可以按：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+b 然后按 d</span><br></pre></td></tr></table></figure>
+
+<p>下次重新连接时执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux attach -t claude</span><br></pre></td></tr></table></figure>
+
+<p>Anthropic 的发布说明中提到，他们修复过 Claude Code 在 <code>tmux</code> &#x2F; <code>screen</code> 环境下与 IDE 自动连接的相关问题，这也说明这种用法是官方覆盖到的典型场景。citeturn150083search3</p>
+<hr>
+<h2 id="十四、建议的服务器目录结构"><a href="#十四、建议的服务器目录结构" class="headerlink" title="十四、建议的服务器目录结构"></a>十四、建议的服务器目录结构</h2><p>为了后续维护更清晰，建议整理一下服务器目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/home/ec2-user/</span><br><span class="line">├── projects/</span><br><span class="line">│   ├── backend/</span><br><span class="line">│   ├── frontend/</span><br><span class="line">│   └── scripts/</span><br><span class="line">├── .ssh/</span><br><span class="line">├── .claude/</span><br><span class="line">└── logs/</span><br></pre></td></tr></table></figure>
+
+<p>或者也可以使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/opt/</span><br><span class="line">├── app-backend/</span><br><span class="line">├── app-frontend/</span><br><span class="line">└── tools/</span><br></pre></td></tr></table></figure>
+
+<p>这样做的好处是：</p>
+<ul>
+<li>VS Code Remote SSH 打开目录更清晰</li>
+<li>Claude Code 工作目录更明确</li>
+<li>权限更容易控制</li>
+</ul>
+<hr>
+<h2 id="十五、安全建议"><a href="#十五、安全建议" class="headerlink" title="十五、安全建议"></a>十五、安全建议</h2><p>这里要特别强调一点：<strong>不要把 Claude Code 当成一个直接对公网开放的 Web 服务去部署。</strong></p>
+<p>更稳妥的做法始终是：</p>
+<ul>
+<li>只通过 SSH 或 VS Code Remote SSH 进入</li>
+<li>不额外开放 Claude Code 公网端口</li>
+<li>尽量使用普通用户而不是长期 root</li>
+<li>对项目目录做合理权限控制</li>
+<li>对敏感仓库检查 Claude Code 权限配置</li>
+</ul>
+<p>Anthropic 官方安全文档也建议对敏感仓库使用更严格的权限控制，并可通过 <code>/permissions</code> 检查相关设置。citeturn150083search4</p>
+<hr>
+<h2 id="十六、常见问题排查"><a href="#十六、常见问题排查" class="headerlink" title="十六、常见问题排查"></a>十六、常见问题排查</h2><h3 id="1-claude-command-not-found"><a href="#1-claude-command-not-found" class="headerlink" title="1. claude: command not found"></a>1. <code>claude: command not found</code></h3><p>先执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">which</span> claude</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<p>再重点检查：</p>
+<ul>
+<li>是否刚安装完但没重新登录</li>
+<li>VS Code Remote SSH 终端是否加载了用户 shell 配置</li>
+<li>安装路径是否被加入 PATH</li>
+</ul>
+<hr>
+<h3 id="2-登录页面没有在本地浏览器弹出"><a href="#2-登录页面没有在本地浏览器弹出" class="headerlink" title="2. 登录页面没有在本地浏览器弹出"></a>2. 登录页面没有在本地浏览器弹出</h3><p>这是很常见的情况，原因通常是你在远程 SSH 终端里执行了 <code>claude</code>，浏览器打开动作发生在远程服务器而不是本地电脑。</p>
+<p>处理方式很简单：</p>
+<ul>
+<li>复制终端给出的登录 URL</li>
+<li>手动粘贴到本地浏览器打开</li>
+<li>完成授权即可</li>
+</ul>
+<hr>
+<h3 id="3-VS-Code-里看得到扩展，但远程窗口用不了"><a href="#3-VS-Code-里看得到扩展，但远程窗口用不了" class="headerlink" title="3. VS Code 里看得到扩展，但远程窗口用不了"></a>3. VS Code 里看得到扩展，但远程窗口用不了</h3><p>优先检查：</p>
+<ul>
+<li>当前窗口是不是 Remote SSH 窗口</li>
+<li>Claude Code 扩展是否安装在“远程 SSH 主机环境”</li>
+<li>是否只是装在本地环境</li>
+</ul>
+<hr>
+<h3 id="4-报架构错误或非法指令"><a href="#4-报架构错误或非法指令" class="headerlink" title="4. 报架构错误或非法指令"></a>4. 报架构错误或非法指令</h3><p>先检查：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">uname</span> -m</span><br></pre></td></tr></table></figure>
+
+<p>如果是 ARM 机器，要确认安装脚本、依赖和实际架构是否匹配。citeturn150083search1</p>
+<hr>
+<h3 id="5-VS-Code-集成终端可用，但普通-SSH-不可用"><a href="#5-VS-Code-集成终端可用，但普通-SSH-不可用" class="headerlink" title="5. VS Code 集成终端可用，但普通 SSH 不可用"></a>5. VS Code 集成终端可用，但普通 SSH 不可用</h3><p>通常是 shell 环境变量不一致导致的。</p>
+<p>可以分别执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$SHELL</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<p>对比：</p>
+<ul>
+<li>普通 SSH 登录环境</li>
+<li>VS Code Remote SSH 集成终端环境</li>
+</ul>
+<p>必要时把 PATH 统一写进：</p>
+<ul>
+<li><code>~/.bashrc</code></li>
+<li><code>~/.bash_profile</code></li>
+<li><code>~/.zshrc</code></li>
+</ul>
+<hr>
+<h3 id="6-SSH-连接容易断开"><a href="#6-SSH-连接容易断开" class="headerlink" title="6. SSH 连接容易断开"></a>6. SSH 连接容易断开</h3><p>可以在本地 SSH Config 中加入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ServerAliveInterval 60</span><br><span class="line">ServerAliveCountMax 120</span><br></pre></td></tr></table></figure>
+
+<p>这样通常能明显改善连接稳定性。</p>
+<hr>
+<h2 id="十七、一套可直接照抄的初始化命令"><a href="#十七、一套可直接照抄的初始化命令" class="headerlink" title="十七、一套可直接照抄的初始化命令"></a>十七、一套可直接照抄的初始化命令</h2><h3 id="Amazon-Linux-2023"><a href="#Amazon-Linux-2023" class="headerlink" title="Amazon Linux 2023"></a>Amazon Linux 2023</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf update -y</span><br><span class="line">sudo dnf install -y git curl tar gzip unzip <span class="built_in">which</span> procps-ng findutils tmux</span><br><span class="line"><span class="built_in">uname</span> -m</span><br><span class="line">curl -fsSL https://claude.ai/install.sh | bash</span><br><span class="line"><span class="built_in">which</span> claude</span><br><span class="line">claude --version</span><br><span class="line"><span class="built_in">mkdir</span> -p ~/projects</span><br><span class="line"><span class="built_in">cd</span> ~/projects</span><br><span class="line">tmux new -s claude</span><br></pre></td></tr></table></figure>
+
+<p>进入 tmux 后执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">claude</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Amazon-Linux-2"><a href="#Amazon-Linux-2" class="headerlink" title="Amazon Linux 2"></a>Amazon Linux 2</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update -y</span><br><span class="line">sudo yum install -y git curl tar gzip unzip <span class="built_in">which</span> procps-ng findutils tmux</span><br><span class="line"><span class="built_in">uname</span> -m</span><br><span class="line">curl -fsSL https://claude.ai/install.sh | bash</span><br><span class="line"><span class="built_in">which</span> claude</span><br><span class="line">claude --version</span><br><span class="line"><span class="built_in">mkdir</span> -p ~/projects</span><br><span class="line"><span class="built_in">cd</span> ~/projects</span><br><span class="line">tmux new -s claude</span><br></pre></td></tr></table></figure>
+
+<p>进入 tmux 后执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">claude</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="十八、总结"><a href="#十八、总结" class="headerlink" title="十八、总结"></a>十八、总结</h2><p>对于“我想把 Claude Code 放在 Amazon Linux 服务器上，然后本地通过 VS Code 使用它”这个需求，最合理的实现方式就是：</p>
+<p><strong>Claude Code 安装在服务器，本地通过 VS Code Remote SSH 打开远程项目，然后使用 Claude Code 扩展或在远程终端运行 <code>claude</code>。</strong></p>
+<p>它的本质不是公网部署，而是：</p>
+<ul>
+<li>远程服务器承担运行环境</li>
+<li>本地 VS Code 承担操作入口</li>
+<li>代码、依赖、命令执行全部都在服务器端完成</li>
+</ul>
+<p>这种方式更稳定，也更接近 Claude Code 官方推荐的使用路径。citeturn150083search0turn150083search1turn150083search3</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>赞赏一杯咖啡</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';" style="cursor:pointer;">
+    <i class="fa fa-qrcode fa-2x" style="line-height:35px;font:normal normal normal 25px/1 FontAwesome;"></i>
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/blog/images/wechatpay.jpg" alt="LI YAO 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/blog/images/alipay.jpg" alt="LI YAO 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/Claude-Code/" rel="tag"># Claude Code</a>
+              <a href="/blog/tags/VS-Code/" rel="tag"># VS Code</a>
+              <a href="/blog/tags/Remote-SSH/" rel="tag"># Remote SSH</a>
+              <a href="/blog/tags/Amazon-Linux/" rel="tag"># Amazon Linux</a>
+              <a href="/blog/tags/EC2/" rel="tag"># EC2</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2026/03/06/openclaw-weather-skill-development/" rel="prev" title="OpenClaw 天气查询技能开发实录">
+      <i class="fa fa-chevron-left"></i> OpenClaw 天气查询技能开发实录
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Amazon-Linux-%E4%B8%8A%E9%80%9A%E8%BF%87-VS-Code-Remote-SSH-%E8%BF%9C%E7%A8%8B%E4%BD%BF%E7%94%A8-Claude-Code-%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97"><span class="nav-number">1.</span> <span class="nav-text">Amazon Linux 上通过 VS Code Remote SSH 远程使用 Claude Code 完整指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8E%A8%E8%8D%90%E8%BF%99%E7%A7%8D%E6%96%B9%E6%A1%88"><span class="nav-number">1.1.</span> <span class="nav-text">一、为什么推荐这种方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E7%BB%9F%E4%B8%80"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 环境统一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%9B%B4%E9%80%82%E5%90%88%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 更适合远程开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9C%AC%E5%9C%B0%E7%94%B5%E8%84%91%E5%8E%8B%E5%8A%9B%E6%9B%B4%E5%B0%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 本地电脑压力更小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%AE%89%E5%85%A8%E6%80%A7%E6%9B%B4%E9%AB%98"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 安全性更高</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%85%88%E5%86%B3%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">二、先决条件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E7%94%B5%E8%84%91%E9%9C%80%E8%A6%81%E5%87%86%E5%A4%87"><span class="nav-number">1.2.1.</span> <span class="nav-text">本地电脑需要准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9C%80%E8%A6%81%E5%87%86%E5%A4%87"><span class="nav-number">1.2.2.</span> <span class="nav-text">云服务器需要准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Claude-Code-%E8%B4%A6%E5%8F%B7%E8%A6%81%E6%B1%82"><span class="nav-number">1.2.3.</span> <span class="nav-text">Claude Code 账号要求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%85%88%E7%A1%AE%E8%AE%A4-Amazon-Linux-%E7%89%88%E6%9C%AC"><span class="nav-number">1.3.</span> <span class="nav-text">三、先确认 Amazon Linux 版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%89%E8%A3%85%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83"><span class="nav-number">1.4.</span> <span class="nav-text">四、安装基础环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Amazon-Linux-2023"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. Amazon Linux 2023</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Amazon-Linux-2"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. Amazon Linux 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%A3%80%E6%9F%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E6%9E%84"><span class="nav-number">1.5.</span> <span class="nav-text">五、检查服务器架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%AE%89%E8%A3%85-Claude-Code"><span class="nav-number">1.6.</span> <span class="nav-text">六、安装 Claude Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E9%A6%96%E6%AC%A1%E7%99%BB%E5%BD%95-Claude-Code"><span class="nav-number">1.7.</span> <span class="nav-text">七、首次登录 Claude Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E6%9C%AC%E5%9C%B0-VS-Code-%E9%9C%80%E8%A6%81%E5%AE%89%E8%A3%85%E5%93%AA%E4%BA%9B%E4%B8%9C%E8%A5%BF"><span class="nav-number">1.8.</span> <span class="nav-text">八、本地 VS Code 需要安装哪些东西</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Remote-SSH"><span class="nav-number">1.8.1.</span> <span class="nav-text">1. Remote - SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Claude-Code"><span class="nav-number">1.8.2.</span> <span class="nav-text">2. Claude Code</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E9%85%8D%E7%BD%AE-VS-Code-Remote-SSH"><span class="nav-number">1.9.</span> <span class="nav-text">九、配置 VS Code Remote SSH</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%94%9F%E6%88%90%E6%9C%AC%E5%9C%B0-SSH-%E5%AF%86%E9%92%A5"><span class="nav-number">1.9.1.</span> <span class="nav-text">1. 生成本地 SSH 密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%8A%8A%E5%85%AC%E9%92%A5%E4%B8%8A%E4%BC%A0%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.9.2.</span> <span class="nav-text">2. 把公钥上传到服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0-SSH-Config"><span class="nav-number">1.9.3.</span> <span class="nav-text">3. 配置本地 SSH Config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%9C%A8-VS-Code-%E4%B8%AD%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA"><span class="nav-number">1.9.4.</span> <span class="nav-text">4. 在 VS Code 中连接远程主机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E5%9C%A8-VS-Code-%E4%B8%AD%E6%89%93%E5%BC%80%E8%BF%9C%E7%A8%8B%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.10.</span> <span class="nav-text">十、在 VS Code 中打开远程项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E5%A6%82%E4%BD%95%E5%9C%A8-Remote-SSH-%E7%8E%AF%E5%A2%83%E9%87%8C%E4%BD%BF%E7%94%A8-Claude-Code"><span class="nav-number">1.11.</span> <span class="nav-text">十一、如何在 Remote SSH 环境里使用 Claude Code</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8-Claude-Code-%E6%89%A9%E5%B1%95"><span class="nav-number">1.11.1.</span> <span class="nav-text">方式一：直接使用 Claude Code 扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E5%9C%A8-VS-Code-%E9%9B%86%E6%88%90%E7%BB%88%E7%AB%AF%E4%B8%AD%E8%BF%90%E8%A1%8C-claude"><span class="nav-number">1.11.2.</span> <span class="nav-text">方式二：在 VS Code 集成终端中运行 claude</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E6%8E%A8%E8%8D%90%E7%9A%84%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.12.</span> <span class="nav-text">十二、推荐的日常使用流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E5%BB%BA%E8%AE%AE%E9%85%8D%E5%90%88-tmux-%E4%BD%BF%E7%94%A8"><span class="nav-number">1.13.</span> <span class="nav-text">十三、建议配合 tmux 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81%E5%BB%BA%E8%AE%AE%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">1.14.</span> <span class="nav-text">十四、建议的服务器目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%BA%94%E3%80%81%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.15.</span> <span class="nav-text">十五、安全建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E5%85%AD%E3%80%81%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5"><span class="nav-number">1.16.</span> <span class="nav-text">十六、常见问题排查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-claude-command-not-found"><span class="nav-number">1.16.1.</span> <span class="nav-text">1. claude: command not found</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E6%B2%A1%E6%9C%89%E5%9C%A8%E6%9C%AC%E5%9C%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%B9%E5%87%BA"><span class="nav-number">1.16.2.</span> <span class="nav-text">2. 登录页面没有在本地浏览器弹出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-VS-Code-%E9%87%8C%E7%9C%8B%E5%BE%97%E5%88%B0%E6%89%A9%E5%B1%95%EF%BC%8C%E4%BD%86%E8%BF%9C%E7%A8%8B%E7%AA%97%E5%8F%A3%E7%94%A8%E4%B8%8D%E4%BA%86"><span class="nav-number">1.16.3.</span> <span class="nav-text">3. VS Code 里看得到扩展，但远程窗口用不了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%8A%A5%E6%9E%B6%E6%9E%84%E9%94%99%E8%AF%AF%E6%88%96%E9%9D%9E%E6%B3%95%E6%8C%87%E4%BB%A4"><span class="nav-number">1.16.4.</span> <span class="nav-text">4. 报架构错误或非法指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-VS-Code-%E9%9B%86%E6%88%90%E7%BB%88%E7%AB%AF%E5%8F%AF%E7%94%A8%EF%BC%8C%E4%BD%86%E6%99%AE%E9%80%9A-SSH-%E4%B8%8D%E5%8F%AF%E7%94%A8"><span class="nav-number">1.16.5.</span> <span class="nav-text">5. VS Code 集成终端可用，但普通 SSH 不可用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-SSH-%E8%BF%9E%E6%8E%A5%E5%AE%B9%E6%98%93%E6%96%AD%E5%BC%80"><span class="nav-number">1.16.6.</span> <span class="nav-text">6. SSH 连接容易断开</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%83%E3%80%81%E4%B8%80%E5%A5%97%E5%8F%AF%E7%9B%B4%E6%8E%A5%E7%85%A7%E6%8A%84%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E5%91%BD%E4%BB%A4"><span class="nav-number">1.17.</span> <span class="nav-text">十七、一套可直接照抄的初始化命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Amazon-Linux-2023"><span class="nav-number">1.17.1.</span> <span class="nav-text">Amazon Linux 2023</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Amazon-Linux-2"><span class="nav-number">1.17.2.</span> <span class="nav-text">Amazon Linux 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E5%85%AB%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">1.18.</span> <span class="nav-text">十八、总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <canvas id="canvas" style="width:60%;margin:10px;"></canvas>
+  <script>
+    (function(){
+
+       var digit=
+        [
+            [
+                [0,0,1,1,1,0,0],
+                [0,1,1,0,1,1,0],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,0,1,1,0],
+                [0,0,1,1,1,0,0]
+            ],//0
+            [
+                [0,0,0,1,1,0,0],
+                [0,1,1,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [1,1,1,1,1,1,1]
+            ],//1
+            [
+                [0,1,1,1,1,1,0],
+                [1,1,0,0,0,1,1],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,1,1,0],
+                [0,0,0,1,1,0,0],
+                [0,0,1,1,0,0,0],
+                [0,1,1,0,0,0,0],
+                [1,1,0,0,0,0,0],
+                [1,1,0,0,0,1,1],
+                [1,1,1,1,1,1,1]
+            ],//2
+            [
+                [1,1,1,1,1,1,1],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,1,1,0],
+                [0,0,0,1,1,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,0,0,1,1,0],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,1,1,1,0]
+            ],//3
+            [
+                [0,0,0,0,1,1,0],
+                [0,0,0,1,1,1,0],
+                [0,0,1,1,1,1,0],
+                [0,1,1,0,1,1,0],
+                [1,1,0,0,1,1,0],
+                [1,1,1,1,1,1,1],
+                [0,0,0,0,1,1,0],
+                [0,0,0,0,1,1,0],
+                [0,0,0,0,1,1,0],
+                [0,0,0,1,1,1,1]
+            ],//4
+            [
+                [1,1,1,1,1,1,1],
+                [1,1,0,0,0,0,0],
+                [1,1,0,0,0,0,0],
+                [1,1,1,1,1,1,0],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,1,1,1,0]
+            ],//5
+            [
+                [0,0,0,0,1,1,0],
+                [0,0,1,1,0,0,0],
+                [0,1,1,0,0,0,0],
+                [1,1,0,0,0,0,0],
+                [1,1,0,1,1,1,0],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,1,1,1,0]
+            ],//6
+            [
+                [1,1,1,1,1,1,1],
+                [1,1,0,0,0,1,1],
+                [0,0,0,0,1,1,0],
+                [0,0,0,0,1,1,0],
+                [0,0,0,1,1,0,0],
+                [0,0,0,1,1,0,0],
+                [0,0,1,1,0,0,0],
+                [0,0,1,1,0,0,0],
+                [0,0,1,1,0,0,0],
+                [0,0,1,1,0,0,0]
+            ],//7
+            [
+                [0,1,1,1,1,1,0],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,1,1,1,0],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,1,1,1,0]
+            ],//8
+            [
+                [0,1,1,1,1,1,0],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [1,1,0,0,0,1,1],
+                [0,1,1,1,0,1,1],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,0,1,1],
+                [0,0,0,0,1,1,0],
+                [0,0,0,1,1,0,0],
+                [0,1,1,0,0,0,0]
+            ],//9
+            [
+                [0,0,0,0,0,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,1,1,1,0,0],
+                [0,0,0,0,0,0,0]
+            ]//:
+        ];
+
+    var canvas = document.getElementById('canvas');
+
+    if(canvas.getContext){
+        var cxt = canvas.getContext('2d');
+        //声明canvas的宽高
+        var H = 100,W = 700;
+        canvas.height = H;
+        canvas.width = W;
+        cxt.fillStyle = '#f00';
+        cxt.fillRect(10,10,50,50);
+
+        //存储时间数据
+        var data = [];
+        //存储运动的小球
+        var balls = [];
+        //设置粒子半径
+        var R = canvas.height/20-1;
+        (function(){
+            var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+            //存储时间数字，由十位小时、个位小时、冒号、十位分钟、个位分钟、冒号、十位秒钟、个位秒钟这7个数字组成
+            data.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+        })();
+
+        /*生成点阵数字*/
+        function renderDigit(index,num){
+            for(var i = 0; i < digit[num].length; i++){
+                for(var j = 0; j < digit[num][i].length; j++){
+                    if(digit[num][i][j] == 1){
+                        cxt.beginPath();
+                        cxt.arc(14*(R+2)*index + j*2*(R+1)+(R+1),i*2*(R+1)+(R+1),R,0,2*Math.PI);
+                        cxt.closePath();
+                        cxt.fill();
+                    }
+                }
+            }
+        }
+
+        /*更新时钟*/
+        function updateDigitTime(){
+            var changeNumArray = [];
+            var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+            var NewData = [];
+            NewData.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+            for(var i = data.length-1; i >=0 ; i--){
+                //时间发生变化
+                if(NewData[i] !== data[i]){
+                    //将变化的数字值和在data数组中的索引存储在changeNumArray数组中
+                    changeNumArray.push(i+'_'+(Number(data[i])+1)%10);
+                }
+            }
+            //增加小球
+            for(var i = 0; i< changeNumArray.length; i++){
+                addBalls.apply(this,changeNumArray[i].split('_'));
+            }
+            data = NewData.concat();
+        }
+
+        /*更新小球状态*/
+        function updateBalls(){
+            for(var i = 0; i < balls.length; i++){
+                balls[i].stepY += balls[i].disY;
+                balls[i].x += balls[i].stepX;
+                balls[i].y += balls[i].stepY;
+                if(balls[i].x > W + R || balls[i].y > H + R){
+                    balls.splice(i,1);
+                    i--;
+                }
+            }
+        }
+
+        /*增加要运动的小球*/
+        function addBalls(index,num){
+            var numArray = [1,2,3];
+            var colorArray =  ["#3BE","#09C","#A6C","#93C","#9C0","#690","#FB3","#F80","#F44","#C00"];
+            for(var i = 0; i < digit[num].length; i++){
+                for(var j = 0; j < digit[num][i].length; j++){
+                    if(digit[num][i][j] == 1){
+                        var ball = {
+                            x:14*(R+2)*index + j*2*(R+1)+(R+1),
+                            y:i*2*(R+1)+(R+1),
+                            stepX:Math.floor(Math.random() * 4 -2),
+                            stepY:-2*numArray[Math.floor(Math.random()*numArray.length)],
+                            color:colorArray[Math.floor(Math.random()*colorArray.length)],
+                            disY:1
+                        };
+                        balls.push(ball);
+                    }
+                }
+            }
+        }
+
+        /*渲染*/
+        function render(){
+            //重置画布宽度，达到清空画布的效果
+            canvas.height = 100;
+            //渲染时钟
+            for(var i = 0; i < data.length; i++){
+                renderDigit(i,data[i]);
+            }
+            //渲染小球
+            for(var i = 0; i < balls.length; i++){
+                cxt.beginPath();
+                cxt.arc(balls[i].x,balls[i].y,R,0,2*Math.PI);
+                cxt.fillStyle = balls[i].color;
+                cxt.closePath();
+                cxt.fill();
+            }
+        }
+
+        clearInterval(oTimer);
+        var oTimer = setInterval(function(){
+            //更新时钟
+            updateDigitTime();
+            //更新小球状态
+            updateBalls();
+            //渲染
+            render();
+        },50);
+    }
+
+    })();
+  </script>
+    <img class="site-author-image" itemprop="image" alt="LI YAO"
+      src="/blog/images/person2.png">
+  <p class="site-author-name" itemprop="name">LI YAO</p>
+  <div class="site-description" itemprop="description">伸手摘星, 即使一无所获, 也不至于满手污泥</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/handsomeliyao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;handsomeliyao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:talent_liyao@163.com" title="E-Mail → mailto:talent_liyao@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LI YAO</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">25k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:31</span>
+  <span class="post-meta-divider">|</span>
+  <span class=“post-count”>共27.6k字</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+<!-- 网站运行时间的设置 -->
+<br>
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("03/01/2023 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+<script src="/blog/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 't4ThrZRx82oOYRpon1mO6hI1-gzGzoHsz',
+      appKey     : 'ccBvr06mKTNJ3hZwKVWWz2Yz',
+      placeholder: "ヾﾉ≧∀≦)o 来呀！吐槽一番吧！",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  
+     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+     <script type="text/javascript" src="/blog/js/fireworks.min.js"></script>
+  
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/blog/live2dw/assets/nipsilon.model.json"},"display":{"position":"right","width":168,"height":240,"hOffset":50,"vOffset":20},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
